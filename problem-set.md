@@ -424,7 +424,7 @@ Each pattern has one **Easy**, one **Medium**, and one **Hard** problem. Every p
 
 **Example:** `words = ["wrt","wrf","er","ett","rftt"]` -> `"wertf"`
 
-**Idea:** Compare adjacent words; the first differing characters give an edge `c1 -> c2`. Watch for the invalid case where a longer word is a prefix-preceded by a shorter one (`["abc","ab"]`). Topologically sort all distinct letters; a cycle means invalid.
+**Idea:** Compare adjacent words; the first differing characters give an edge `c1 -> c2`. Watch for the invalid case where a longer word comes before its own prefix (`["abc","ab"]`). Topologically sort all distinct letters; a cycle means invalid.
 
 **Complexity:** Time `O(C)` total characters, Space `O(U + E)` where `U` is unique letters
 
