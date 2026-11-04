@@ -1,8 +1,9 @@
 # Data Structure Problem Set
 
-Each problem lists a statement, example, the data structure idea, and complexity. See [data-structure-problem-solving-ideas.md](data-structure-problem-solving-ideas.md) for when to choose each structure.
+Implement each function from its statement and constraints. The listed examples and test cases specify input/output behavior; values after an in-place operation are ignored unless explicitly requested.
 
 ## Table of Contents
+
 1. [Arrays](#1-arrays)
 2. [Strings](#2-strings)
 3. [Linked Lists](#3-linked-lists)
@@ -18,308 +19,576 @@ Each problem lists a statement, example, the data structure idea, and complexity
 
 ## 1) Arrays
 
-### Easy: Remove Duplicates from Sorted Array
-**Problem:** Remove duplicates in place from a sorted array and return the new length `k`; the first `k` elements hold the unique values.
+### 1.1 Remove Duplicates from Sorted Array (Easy)
 
-**Example:** `[0,0,1,1,1,2,2,3,3,4]` -> `k = 5`, `[0,1,2,3,4,...]`
+Given a non-decreasing integer array `nums`, remove duplicates in place so each distinct value occurs once. Return `k`, the number of distinct values; the first `k` positions must contain those values in their original sorted order. Values after position `k-1` are ignored.
 
-**Idea:** Slow/fast pointers. `fast` scans; when `nums[fast] != nums[slow]`, increment `slow` and copy.
+**Function:** `removeDuplicates(nums: integer[]) -> integer`
 
-**Complexity:** Time `O(n)`, Space `O(1)`
+**Examples:** `[1,1,2] -> k = 2, nums prefix = [1,2]`; `[0,0,1,1,1,2,2,3,3,4] -> k = 5, prefix = [0,1,2,3,4]`.
 
-### Medium: Product of Array Except Self
-**Problem:** Return `answer` where `answer[i]` is the product of all elements except `nums[i]`, without using division, in `O(n)`.
+**Constraints:** `1 <= nums.length <= 3 * 10^4`; `-100 <= nums[i] <= 100`; `nums` is sorted.
 
-**Example:** `[1,2,3,4]` -> `[24,12,8,6]`
+| Input | Expected Output | Coverage note |
+|---|---|---|
+| `{"nums":[1]}` | `{"k":1,"prefix":[1]}` | One value |
+| `{"nums":[1,1]}` | `{"k":1,"prefix":[1]}` | All equal |
+| `{"nums":[1,1,2]}` | `{"k":2,"prefix":[1,2]}` | Example |
+| `{"nums":[0,0,1,1,1,2,2,3,3,4]}` | `{"k":5,"prefix":[0,1,2,3,4]}` | Several duplicates |
+| `{"nums":[-3,-3,-1,0,0,4]}` | `{"k":4,"prefix":[-3,-1,0,4]}` | Negative values |
+| `{"nums":[-100,-100,100]}` | `{"k":2,"prefix":[-100,100]}` | Value boundaries |
 
-**Idea:** Left pass stores the product of everything to the left. Right pass multiplies by a running product of everything to the right.
+### 1.2 Product of Array Except Self (Medium)
 
-**Complexity:** Time `O(n)`, Space `O(1)` extra
+Given an integer array `nums`, return an array `answer` where `answer[i]` is the product of every element of `nums` except `nums[i]`. Do not use division. Products fit in a signed 32-bit integer.
 
-### Hard: First Missing Positive
-**Problem:** Find the smallest missing positive integer in `O(n)` time and `O(1)` extra space.
+**Function:** `productExceptSelf(nums: integer[]) -> integer[]`
 
-**Example:** `[3,4,-1,1]` -> `2`
+**Examples:** `[1,2,3,4] -> [24,12,8,6]`; `[-1,1,0,-3,3] -> [0,0,9,0,0]`.
 
-**Idea:** Use the array as a hash: place each value `v` in `1..n` at index `v - 1` by swapping (cyclic sort). The first index `i` where `nums[i] != i + 1` gives answer `i + 1`; otherwise `n + 1`.
+**Constraints:** `2 <= nums.length <= 10^5`; `-30 <= nums[i] <= 30`; products fit 32-bit signed integer.
 
-**Complexity:** Time `O(n)`, Space `O(1)`
+| Input | Expected Output | Coverage note |
+|---|---|---|
+| `{"nums":[1,2]}` | `[2,1]` | Minimum length |
+| `{"nums":[1,2,3,4]}` | `[24,12,8,6]` | Positive values |
+| `{"nums":[-1,1,0,-3,3]}` | `[0,0,9,0,0]` | One zero and negatives |
+| `{"nums":[0,0,2]}` | `[0,0,0]` | Multiple zeros |
+| `{"nums":[-2,-3,-4]}` | `[12,8,6]` | Negative products |
+| `{"nums":[1,1,1,1]}` | `[1,1,1,1]` | All ones |
 
----
+### 1.3 First Missing Positive (Hard)
+
+Given an unsorted integer array `nums`, return the smallest positive integer that does not occur in `nums`. Your solution must run in `O(n)` time and use `O(1)` additional space.
+
+**Function:** `firstMissingPositive(nums: integer[]) -> integer`
+
+**Examples:** `[1,2,0] -> 3`; `[3,4,-1,1] -> 2`.
+
+**Constraints:** `1 <= nums.length <= 10^5`; `-2^31 <= nums[i] <= 2^31-1`.
+
+| Input | Expected Output | Coverage note |
+|---|---:|---|
+| `{"nums":[1]}` | `2` | Smallest array |
+| `{"nums":[1,2,0]}` | `3` | Consecutive positives |
+| `{"nums":[3,4,-1,1]}` | `2` | Negative and misplaced values |
+| `{"nums":[7,8,9,11,12]}` | `1` | Missing first positive |
+| `{"nums":[1,1]}` | `2` | Duplicate |
+| `{"nums":[2,2,2,2]}` | `1` | No one present |
+| `{"nums":[-3,-2,0]}` | `1` | No positive values |
 
 ## 2) Strings
 
-### Easy: Valid Palindrome
-**Problem:** After lowercasing and removing non-alphanumerics, is the string a palindrome?
+### 2.1 Valid Palindrome (Easy)
 
-**Example:** `"A man, a plan, a canal: Panama"` -> `true`
+Return `true` if `s` is a palindrome after converting uppercase English letters to lowercase and removing every character that is not an English letter or digit. The empty normalized string is a palindrome.
 
-**Idea:** Two pointers from both ends, skipping non-alphanumerics.
+**Function:** `isPalindrome(s: string) -> boolean`
 
-**Complexity:** Time `O(n)`, Space `O(1)`
+**Examples:** `"A man, a plan, a canal: Panama" -> true`; `"race a car" -> false`.
 
-### Medium: Longest Palindromic Substring
-**Problem:** Return the longest palindromic substring.
+**Constraints:** `1 <= s.length <= 2 * 10^5`; `s` contains printable ASCII characters.
 
-**Example:** `"babad"` -> `"bab"` (or `"aba"`)
+| Input | Expected Output | Coverage note |
+|---|---:|---|
+| `{"s":"A"}` | `true` | Single character |
+| `{"s":"A man, a plan, a canal: Panama"}` | `true` | Ignore punctuation and case |
+| `{"s":"race a car"}` | `false` | Not a palindrome |
+| `{"s":" "}` | `true` | Normalizes to empty |
+| `{"s":"0P"}` | `false` | Digits are retained |
+| `{"s":".,!"}` | `true` | Only punctuation |
 
-**Idea:** Expand around each center (both odd and even centers) and track the longest. (Manacher's algorithm gives `O(n)`.)
+### 2.2 Longest Palindromic Substring (Medium)
 
-**Complexity:** Time `O(n^2)`, Space `O(1)`
+Given a string `s`, return its longest contiguous substring that is a palindrome. If multiple answers have the same maximum length, return the leftmost one.
 
-### Hard: Regular Expression Matching
-**Problem:** Implement matching with `.` (any single char) and `*` (zero or more of the preceding element) over the entire string.
+**Function:** `longestPalindrome(s: string) -> string`
 
-**Example:** `s = "aab", p = "c*a*b"` -> `true`
+**Examples:** `"babad" -> "bab"`; `"cbbd" -> "bb"`.
 
-**Idea:** DP with `dp[i][j]` = first `i` chars of `s` match first `j` chars of `p`. If `p[j-1] == '*'`: either skip `x*` (`dp[i][j-2]`) or consume one char when `p[j-2]` matches `s[i-1]` (`dp[i-1][j]`). Otherwise match the single character or `.` with `dp[i-1][j-1]`.
+**Constraints:** `1 <= s.length <= 1000`; `s` consists of English letters and digits.
 
-**Complexity:** Time `O(m * n)`, Space `O(m * n)`
+| Input | Expected Output | Coverage note |
+|---|---|---|
+| `{"s":"a"}` | `"a"` | Single character |
+| `{"s":"babad"}` | `"bab"` | Equal-length ties, leftmost |
+| `{"s":"cbbd"}` | `"bb"` | Even-length palindrome |
+| `{"s":"aaaa"}` | `"aaaa"` | Entire string is a palindrome |
+| `{"s":"abc"}` | `"a"` | No longer palindrome |
+| `{"s":"forgeeksskeegfor"}` | `"geeksskeeg"` | Palindrome inside string |
 
----
+### 2.3 Regular Expression Matching (Hard)
+
+Implement full-string matching for text `s` and pattern `p`. `.` matches any single character. `*` matches zero or more occurrences of the immediately preceding pattern element. The pattern is valid and `*` never appears first or consecutively. Return whether the entire text matches.
+
+**Function:** `isMatch(s: string, p: string) -> boolean`
+
+**Examples:** `{"s":"aa","p":"a"} -> false`; `{"s":"aa","p":"a*"} -> true`; `{"s":"ab","p":".*"} -> true`.
+
+**Constraints:** `0 <= s.length <= 20`; `1 <= p.length <= 30`; `s` contains lowercase letters; `p` contains lowercase letters, `.` and `*`; pattern is valid.
+
+| Input | Expected Output | Coverage note |
+|---|---:|---|
+| `{"s":"","p":"a*"}` | `true` | Star matches zero |
+| `{"s":"aa","p":"a"}` | `false` | Pattern too short |
+| `{"s":"aa","p":"a*"}` | `true` | Repeated preceding element |
+| `{"s":"ab","p":".*"}` | `true` | Wildcard repeated |
+| `{"s":"aab","p":"c*a*b"}` | `true` | Multiple zero/repeat choices |
+| `{"s":"mississippi","p":"mis*is*p*."}` | `false` | Near match fails |
+| `{"s":"ab","p":" .*"}` | `false` | Space is a literal character |
 
 ## 3) Linked Lists
 
-### Easy: Reverse Linked List
-**Problem:** Reverse a singly linked list.
+For these problems, a linked list is represented by an integer array in head-to-tail order. Return the resulting list as an array.
 
-**Example:** `1->2->3->4->5` -> `5->4->3->2->1`
+### 3.1 Reverse Linked List (Easy)
 
-**Idea:** Iterate with `prev`, `curr`, `next`; point `curr.next = prev` and advance.
+Given the array representation of a singly linked list, reverse its node order.
 
-**Complexity:** Time `O(n)`, Space `O(1)`
+**Function:** `reverseList(values: integer[]) -> integer[]`
 
-### Medium: Add Two Numbers
-**Problem:** Two non-empty lists store non-negative integers in reverse digit order. Return their sum as a list.
+**Examples:** `[1,2,3,4,5] -> [5,4,3,2,1]`; `[1,2] -> [2,1]`.
 
-**Example:** `2->4->3` + `5->6->4` -> `7->0->8`
+**Constraints:** `0 <= values.length <= 5000`; `-5000 <= values[i] <= 5000`.
 
-**Idea:** Walk both lists with a `carry`, using a dummy head. Continue while either list or the carry remains.
+| Input | Expected Output | Coverage note |
+|---|---|---|
+| `{"values":[]}` | `[]` | Empty list |
+| `{"values":[1]}` | `[1]` | Single node |
+| `{"values":[1,2]}` | `[2,1]` | Two nodes |
+| `{"values":[1,2,3,4,5]}` | `[5,4,3,2,1]` | Odd-length list |
+| `{"values":[-3,0,3,9]}` | `[9,3,0,-3]` | Negative and zero |
 
-**Complexity:** Time `O(max(m, n))`, Space `O(max(m, n))`
+### 3.2 Add Two Numbers (Medium)
 
-### Hard: Reverse Nodes in k-Group
-**Problem:** Reverse the nodes of a list `k` at a time; leftover nodes (fewer than `k`) stay as they are.
+Two non-empty linked lists represent non-negative integers. Digits are stored in reverse order, and each node contains one digit. Add the represented numbers and return the sum in the same reverse-order representation. Inputs have no leading zero except the number zero.
 
-**Example:** `1->2->3->4->5, k = 2` -> `2->1->4->3->5`
+**Function:** `addTwoNumbers(a: integer[], b: integer[]) -> integer[]`
 
-**Idea:** For each group, first check that `k` nodes remain. Reverse that segment in place, then reconnect the previous group's tail to the new head and the new tail to the next group. A dummy head simplifies the first group.
+**Examples:** `[2,4,3] + [5,6,4] -> [7,0,8]`; `[0] + [0] -> [0]`.
 
-**Complexity:** Time `O(n)`, Space `O(1)`
+**Constraints:** `1 <= a.length,b.length <= 100`; each digit is in `0..9`; each list represents a valid number without leading zero.
 
----
+| Input | Expected Output | Coverage note |
+|---|---|---|
+| `{"a":[0],"b":[0]}` | `[0]` | Zero plus zero |
+| `{"a":[2,4,3],"b":[5,6,4]}` | `[7,0,8]` | Carry across digits |
+| `{"a":[9,9,9],"b":[1]}` | `[0,0,0,1]` | Final carry adds a node |
+| `{"a":[1],"b":[9,9]}` | `[0,0,1]` | Different list lengths |
+| `{"a":[5],"b":[5]}` | `[0,1]` | Single-digit carry |
+
+### 3.3 Reverse Nodes in k-Group (Hard)
+
+Given a linked list and positive integer `k`, reverse nodes in consecutive groups of size `k`. Any final group containing fewer than `k` nodes must remain in its original order.
+
+**Function:** `reverseKGroup(values: integer[], k: integer) -> integer[]`
+
+**Examples:** `[1,2,3,4,5], k=2 -> [2,1,4,3,5]`; `[1,2,3,4,5], k=3 -> [3,2,1,4,5]`.
+
+**Constraints:** `0 <= values.length <= 5000`; `1 <= k <= 5000`; `-1000 <= values[i] <= 1000`.
+
+| Input | Expected Output | Coverage note |
+|---|---|---|
+| `{"values":[],"k":1}` | `[]` | Empty list |
+| `{"values":[1],"k":1}` | `[1]` | Group size one |
+| `{"values":[1,2],"k":2}` | `[2,1]` | Exact group |
+| `{"values":[1,2,3,4,5],"k":2}` | `[2,1,4,3,5]` | Leftover node |
+| `{"values":[1,2,3,4,5],"k":3}` | `[3,2,1,4,5]` | Incomplete group unchanged |
+| `{"values":[1,2,3],"k":4}` | `[1,2,3]` | k exceeds length |
 
 ## 4) Stacks / Queues
 
-### Easy: Valid Parentheses
-**Problem:** Check whether a string of `()[]{}` is validly nested.
+### 4.1 Valid Parentheses (Easy)
 
-**Example:** `"([]){}"` -> `true`; `"(]"` -> `false`
+Given a string containing only `(`, `)`, `{`, `}`, `[` and `]`, determine whether every opening bracket is closed by the same type of bracket and in the correct order.
 
-**Idea:** Push opening brackets; on a closing bracket, the stack top must be its match. The stack must be empty at the end.
+**Function:** `isValid(s: string) -> boolean`
 
-**Complexity:** Time `O(n)`, Space `O(n)`
+**Examples:** `"()" -> true`; `"()[]{}" -> true`; `"(]" -> false`.
 
-### Medium: Implement Queue using Stacks
-**Problem:** Implement `push`, `pop`, `peek`, `empty` for a FIFO queue using only stacks.
+**Constraints:** `1 <= s.length <= 10^4`; `s` contains only bracket characters.
 
-**Example:** `push(1), push(2), peek() -> 1, pop() -> 1, empty() -> false`
+| Input | Expected Output | Coverage note |
+|---|---:|---|
+| `{"s":"()"}` | `true` | One pair |
+| `{"s":"()[]{}"}` | `true` | Multiple types |
+| `{"s":"(]"}` | `false` | Mismatched type |
+| `{"s":"([])"}` | `true` | Proper nesting |
+| `{"s":"([)]"}` | `false` | Wrong order |
+| `{"s":"(((("}` | `false` | Unclosed brackets |
+| `{"s":")("}` | `false` | Closing bracket first |
 
-**Idea:** Use an `in` stack and an `out` stack. On `pop`/`peek`, if `out` is empty, move everything from `in` to `out` (reversing order).
+### 4.2 Implement Queue Using Stacks (Medium)
 
-**Complexity:** Amortised `O(1)` per operation, Space `O(n)`
+Implement a FIFO queue using only stack operations (`push`, `pop`, `top`, `empty`). Support `push(x)`, `pop()`, `peek()`, and `empty()`. Inputs guarantee `pop` and `peek` are called only when non-empty. Return one output for each operation: inserted values for `push`, removed/front values for `pop`/`peek`, and booleans for `empty`.
 
-### Hard: Largest Rectangle in Histogram
-**Problem:** Find the largest rectangle area in a histogram.
+**Function:** `queueWithStacks(operations: string[], arguments: integer[][]) -> value[]`
 
-**Example:** `[2,1,5,6,2,3]` -> `10`
+**Examples:** operations `["push","push","peek","pop","empty"]`, arguments `[[1],[2],[],[],[]]` -> `[null,null,1,1,false]`.
 
-**Idea:** Increasing stack of indices; on a shorter bar, pop and compute the area with the popped height and the width between neighbouring stack entries. A sentinel `0` flushes the stack.
+**Constraints:** `1 <= operations.length <= 100`; values are in `[-100,100]`; operations are valid.
 
-**Complexity:** Time `O(n)`, Space `O(n)`
+| Input | Expected Output | Coverage note |
+|---|---|---|
+| `{"operations":["push","pop"],"arguments":[[1],[]]}` | `[null,1]` | One item |
+| `{"operations":["push","push","peek","pop","empty"],"arguments":[[1],[2],[],[],[]]}` | `[null,null,1,1,false]` | FIFO behavior |
+| `{"operations":["empty"],"arguments":[[]]}` | `[true]` | Initially empty |
+| `{"operations":["push","push","pop","push","pop","pop"],"arguments":[[1],[2],[],[3],[],[]]}` | `[null,null,1,null,2,3]` | Refill after pop |
+| `{"operations":["push","push","push","pop","peek"],"arguments":[[-1],[0],[5],[],[]]}` | `[null,null,null,-1,0]` | Negative and zero |
 
----
+### 4.3 Largest Rectangle in Histogram (Hard)
+
+Given non-negative histogram bar heights, where each bar has width one, return the area of the largest rectangle contained in the histogram.
+
+**Function:** `largestRectangleArea(heights: integer[]) -> integer`
+
+**Examples:** `[2,1,5,6,2,3] -> 10`; `[2,4] -> 4`.
+
+**Constraints:** `1 <= heights.length <= 10^5`; `0 <= heights[i] <= 10^4`.
+
+| Input | Expected Output | Coverage note |
+|---|---:|---|
+| `{"heights":[0]}` | `0` | Zero height |
+| `{"heights":[2,4]}` | `4` | Two bars |
+| `{"heights":[2,1,5,6,2,3]}` | `10` | Maximum spans two bars |
+| `{"heights":[2,2,2,2]}` | `8` | Equal bars |
+| `{"heights":[1,2,3,4]}` | `6` | Increasing heights |
+| `{"heights":[4,3,2,1]}` | `6` | Decreasing heights |
 
 ## 5) Hash Tables
 
-### Easy: Two Sum
-**Problem:** Return indices of two numbers adding up to `target`.
+### 5.1 Two Sum (Easy)
 
-**Example:** `[2,7,11,15], target = 9` -> `[0,1]`
+Given an integer array `nums` and an integer `target`, return the two distinct indices whose values sum to `target`. Exactly one solution exists. Return the indices in increasing order.
 
-**Idea:** Map value -> index; for each number check whether `target - num` is already in the map.
+**Function:** `twoSum(nums: integer[], target: integer) -> integer[2]`
 
-**Complexity:** Time `O(n)`, Space `O(n)`
+**Examples:** `[2,7,11,15], target=9 -> [0,1]`; `[3,2,4], target=6 -> [1,2]`.
 
-### Medium: LRU Cache
-**Problem:** Design a cache with `get(key)` and `put(key, value)` in `O(1)` that evicts the least recently used key when over capacity.
+**Constraints:** `2 <= nums.length <= 10^4`; `-10^9 <= nums[i], target <= 10^9`; exactly one solution; an element cannot be reused.
 
-**Example:** capacity 2: `put(1,1), put(2,2), get(1) -> 1, put(3,3)` evicts key 2.
+| Input | Expected Output | Coverage note |
+|---|---|---|
+| `{"nums":[2,7],"target":9}` | `[0,1]` | Minimum length |
+| `{"nums":[2,7,11,15],"target":9}` | `[0,1]` | Example |
+| `{"nums":[3,2,4],"target":6}` | `[1,2]` | Pair not adjacent |
+| `{"nums":[3,3],"target":6}` | `[0,1]` | Duplicate values, separate indices |
+| `{"nums":[-3,4,3,90],"target":0}` | `[0,2]` | Negative value |
+| `{"nums":[-1000000000,1000000000],"target":0}` | `[0,1]` | Value boundaries |
 
-**Idea:** Hash map from key -> node of a doubly linked list. Move a node to the front on every access; evict from the tail. Use dummy head/tail nodes.
+### 5.2 LRU Cache (Medium)
 
-**Complexity:** `O(1)` per operation, Space `O(capacity)`
+Design a least-recently-used cache with positive capacity. `get(key)` returns its value or `-1` if absent. `put(key,value)` inserts or updates a key. When insertion makes the cache exceed capacity, evict the least recently used key. A successful `get` and every `put` make that key most recently used. Return `null` for each `put`, and the returned value for each `get`.
 
-### Hard: All O`one Data Structure
-**Problem:** Support `inc(key)`, `dec(key)`, `getMaxKey()`, `getMinKey()` all in `O(1)`.
+**Function:** `runLRU(capacity: integer, operations: string[], arguments: integer[][]) -> value[]`
 
-**Example:** `inc("a"), inc("b"), inc("b")` -> max is `"b"`, min is `"a"`.
+**Example:** capacity `2`; operations `["put","put","get","put","get","put","get","get","get"]`; arguments `[[1,1],[2,2],[1],[3,3],[2],[4,4],[1],[3],[4]]` -> `[null,null,1,null,-1,null,-1,3,4]`.
 
-**Idea:** A doubly linked list of buckets ordered by count, each bucket holding a set of keys, plus a map key -> bucket. `inc`/`dec` moves a key to the neighbouring bucket (creating or deleting buckets as needed). Min and max are the list's ends.
+**Constraints:** `1 <= capacity <= 3000`; up to `2 * 10^5` operations; keys and values are integers.
 
-**Complexity:** `O(1)` per operation, Space `O(n)`
+| Input | Expected Output | Coverage note |
+|---|---|---|
+| `{"capacity":1,"operations":["put","get"],"arguments":[[1,10],[1]]}` | `[null,10]` | Capacity one |
+| `{"capacity":2,"operations":["put","put","get","put","get","put","get","get","get"],"arguments":[[1,1],[2,2],[1],[3,3],[2],[4,4],[1],[3],[4]]}` | `[null,null,1,null,-1,null,-1,3,4]` | Access changes eviction order |
+| `{"capacity":2,"operations":["put","put","put","get"],"arguments":[[1,1],[1,2],[2,3],[1]]}` | `[null,null,null,2]` | Updating existing key |
+| `{"capacity":2,"operations":["get","put","get"],"arguments":[[5],[5,7],[5]]}` | `[-1,null,7]` | Missing key then insert |
+| `{"capacity":3,"operations":["put","put","put","get","put","get"],"arguments":[[-1,4],[0,5],[2,6],[-1],[3,7],[0]]}` | `[null,null,null,4,null,-1]` | Negative key and eviction |
 
----
+### 5.3 All O'one Data Structure (Hard)
+
+Design a structure supporting `inc(key)`, `dec(key)`, `getMaxKey()`, and `getMinKey()`. `inc` creates an absent key at count 1 or increments its count. `dec` decrements a present key and removes it at count 0. For `dec`, the key is guaranteed to exist. Return an empty string from a get operation when the structure is empty. Test cases query min/max only when the corresponding key is unique.
+
+**Function:** `runAllOne(operations: string[], arguments: string[][]) -> string[]`
+
+**Example:** operations `["inc","inc","inc","getMaxKey","getMinKey","dec","getMaxKey","getMinKey"]`, arguments `[["a"],["b"],["b"],[],[],["a"],[],[]]` -> `["","","","b","a","","b","b"]`; mutating operations return empty output strings.
+
+**Constraints:** `1 <= operations.length <= 5 * 10^4`; keys are non-empty lowercase strings of length at most 10; `dec` targets an existing key.
+
+| Input | Expected Output | Coverage note |
+|---|---|---|
+| `{"operations":["getMaxKey","getMinKey"],"arguments":[[],[]]}` | `["",""]` | Empty structure |
+| `{"operations":["inc","getMaxKey","getMinKey"],"arguments":[["a"],[],[]]}` | `["","a","a"]` | One key |
+| `{"operations":["inc","inc","inc","getMaxKey","getMinKey"],"arguments":[["a"],["b"],["b"],[],[]]}` | `["","","","b","a"]` | Unique max and min |
+| `{"operations":["inc","inc","dec","getMaxKey","getMinKey"],"arguments":[["a"],["a"],["a"],[],[]]}` | `["","","","a","a"]` | Decrement count |
+| `{"operations":["inc","dec","getMaxKey","getMinKey"],"arguments":[["x"],["x"],[],[]]}` | `["","","",""]` | Key removed, structure empty |
 
 ## 6) Trees
 
-### Easy: Symmetric Tree
-**Problem:** Is a binary tree a mirror of itself?
+Trees are represented as level-order arrays, using `null` for missing children.
 
-**Example:** `[1,2,2,3,4,4,3]` -> `true`
+### 6.1 Symmetric Tree (Easy)
 
-**Idea:** Recursively compare `isMirror(a, b)`: values equal, `a.left` vs `b.right`, and `a.right` vs `b.left`.
+Given the root of a binary tree, return whether it is a mirror of itself around its center.
 
-**Complexity:** Time `O(n)`, Space `O(h)`
+**Function:** `isSymmetric(levelOrder: value[]) -> boolean`
 
-### Medium: Binary Tree Level Order Traversal
-**Problem:** Return node values level by level.
+**Examples:** `[1,2,2,3,4,4,3] -> true`; `[1,2,2,null,3,null,3] -> false`.
 
-**Example:** `[3,9,20,null,null,15,7]` -> `[[3],[9,20],[15,7]]`
+**Constraints:** `1 <= node count <= 1000`; node values are in `[-100,100]`.
 
-**Idea:** BFS with a queue; process exactly `len(queue)` nodes per level.
+| Input | Expected Output | Coverage note |
+|---|---:|---|
+| `{"tree":[1]}` | `true` | One node |
+| `{"tree":[1,2,2,3,4,4,3]}` | `true` | Symmetric tree |
+| `{"tree":[1,2,2,null,3,null,3]}` | `false` | Shape mismatch |
+| `{"tree":[1,2,3]}` | `false` | Different child values |
+| `{"tree":[1,2,2,2,null,2]}` | `false` | Unequal depth |
 
-**Complexity:** Time `O(n)`, Space `O(w)` where `w` is the maximum width
+### 6.2 Binary Tree Level Order Traversal (Medium)
 
-### Hard: Serialize and Deserialize Binary Tree
-**Problem:** Convert a binary tree to a string and back.
+Given a binary tree, return its node values grouped by level from top to bottom, and left to right within each level. An empty tree returns an empty list.
 
-**Example:** `[1,2,3,null,null,4,5]` -> `"1,2,#,#,3,4,#,#,5,#,#"` -> same tree
+**Function:** `levelOrder(levelOrderInput: value[]) -> integer[][]`
 
-**Idea:** Preorder traversal writing a marker (`#`) for null children. Deserialize by consuming tokens recursively in the same order. A level-order encoding also works.
+**Examples:** `[3,9,20,null,null,15,7] -> [[3],[9,20],[15,7]]`; `[1] -> [[1]]`.
 
-**Complexity:** Time `O(n)`, Space `O(n)`
+**Constraints:** `0 <= node count <= 2000`; node values are in `[-1000,1000]`.
 
----
+| Input | Expected Output | Coverage note |
+|---|---|---|
+| `{"tree":[]}` | `[]` | Empty tree |
+| `{"tree":[1]}` | `[[1]]` | One level |
+| `{"tree":[3,9,20,null,null,15,7]}` | `[[3],[9,20],[15,7]]` | Multiple levels |
+| `{"tree":[1,2,3,4,5]}` | `[[1],[2,3],[4,5]]` | Incomplete final level |
+| `{"tree":[-1,-2,-3]}` | `[[-1],[-2,-3]]` | Negative values |
+
+### 6.3 Serialize and Deserialize Binary Tree (Hard)
+
+Implement `serialize` to encode a binary tree and `deserialize` to reconstruct it. For each test, deserialize the serialization of the input tree and return the reconstructed level-order array, removing trailing `null` entries. Your serialized representation may use any format, but it must preserve tree shape and values.
+
+**Function:** `roundTripTree(tree: value[]) -> value[]`
+
+**Examples:** `[1,2,3,null,null,4,5] -> [1,2,3,null,null,4,5]`; `[] -> []`.
+
+**Constraints:** `0 <= node count <= 10^4`; `-1000 <= node.val <= 1000`.
+
+| Input | Expected Output | Coverage note |
+|---|---|---|
+| `{"tree":[]}` | `[]` | Empty tree |
+| `{"tree":[1]}` | `[1]` | Single node |
+| `{"tree":[1,2,3,null,null,4,5]}` | `[1,2,3,null,null,4,5]` | Missing children |
+| `{"tree":[-1,-2,3]}` | `[-1,-2,3]` | Negative values |
+| `{"tree":[1,null,2,null,3]}` | `[1,null,2,null,3]` | Skewed tree |
 
 ## 7) Heaps
 
-### Easy: Last Stone Weight
-**Problem:** Repeatedly smash the two heaviest stones; if weights differ, the difference remains. Return the last stone's weight (or `0`).
+### 7.1 Last Stone Weight (Easy)
 
-**Example:** `[2,7,4,1,8,1]` -> `1`
+Given stone weights, repeatedly choose the two heaviest stones `x <= y`. If equal, both are destroyed. Otherwise replace them with a stone of weight `y-x`. Return the final stone weight, or zero if none remain.
 
-**Idea:** Max-heap. Pop two, push back `a - b` if non-zero.
+**Function:** `lastStoneWeight(stones: integer[]) -> integer`
 
-**Complexity:** Time `O(n log n)`, Space `O(n)`
+**Examples:** `[2,7,4,1,8,1] -> 1`; `[1] -> 1`.
 
-### Medium: K Closest Points to Origin
-**Problem:** Return the `k` points closest to `(0,0)`.
+**Constraints:** `1 <= stones.length <= 30`; `1 <= stones[i] <= 1000`.
 
-**Example:** `points = [[1,3],[-2,2]], k = 1` -> `[[-2,2]]`
+| Input | Expected Output | Coverage note |
+|---|---:|---|
+| `{"stones":[1]}` | `1` | One stone |
+| `{"stones":[2,7,4,1,8,1]}` | `1` | Multiple collisions |
+| `{"stones":[2,2]}` | `0` | Equal pair disappears |
+| `{"stones":[10,4]}` | `6` | Unequal pair |
+| `{"stones":[3,3,3]}` | `3` | Odd number of equal stones |
 
-**Idea:** Max-heap of size `k` keyed by squared distance (no square root needed). Pop the farthest when the size exceeds `k`. (Quickselect gives `O(n)` average.)
+### 7.2 K Closest Points to Origin (Medium)
 
-**Complexity:** Time `O(n log k)`, Space `O(k)`
+Given points with integer coordinates and integer `k`, return the `k` points with the smallest squared Euclidean distance from the origin. Sort returned points by increasing squared distance, then increasing x-coordinate, then increasing y-coordinate.
 
-### Hard: Merge k Sorted Lists
-**Problem:** Merge `k` sorted linked lists into one sorted list.
+**Function:** `kClosest(points: integer[][], k: integer) -> integer[][]`
 
-**Example:** `[[1,4,5],[1,3,4],[2,6]]` -> `[1,1,2,3,4,4,5,6]`
+**Examples:** `[[1,3],[-2,2]], k=1 -> [[-2,2]]`; `[[3,3],[5,-1],[-2,4]], k=2 -> [[3,3],[-2,4]]`.
 
-**Idea:** Min-heap holding the current head of each list. Pop the smallest, append it, and push that node's `next`. (Divide-and-conquer pairwise merging is an alternative.)
+**Constraints:** `1 <= k <= points.length <= 10^4`; `-10^4 <= x,y <= 10^4`; points are distinct.
 
-**Complexity:** Time `O(N log k)`, Space `O(k)`
+| Input | Expected Output | Coverage note |
+|---|---|---|
+| `{"points":[[1,1]],"k":1}` | `[[1,1]]` | Single point |
+| `{"points":[[1,3],[-2,2]],"k":1}` | `[[-2,2]]` | Nearest point |
+| `{"points":[[3,3],[5,-1],[-2,4]],"k":2}` | `[[3,3],[-2,4]]` | Distance ordering |
+| `{"points":[[1,0],[-1,0],[0,1]],"k":3}` | `[[-1,0],[0,1],[1,0]]` | Tie order by x then y |
+| `{"points":[[0,0],[2,0],[0,2]],"k":1}` | `[[0,0]]` | Origin |
+| `{"points":[[-10000,0],[0,9999]],"k":1}` | `[[0,9999]]` | Large coordinates |
 
----
+### 7.3 Merge k Sorted Lists (Hard)
+
+Given `k` sorted linked lists, each represented as an integer array, merge them into one sorted list and return it.
+
+**Function:** `mergeKLists(lists: integer[][]) -> integer[]`
+
+**Examples:** `[[1,4,5],[1,3,4],[2,6]] -> [1,1,2,3,4,4,5,6]`; `[] -> []`.
+
+**Constraints:** `0 <= lists.length <= 10^4`; total number of nodes is `0..10^4`; values are in `[-10^4,10^4]`; each list is sorted non-decreasingly.
+
+| Input | Expected Output | Coverage note |
+|---|---|---|
+| `{"lists":[]}` | `[]` | No lists |
+| `{"lists":[[]]}` | `[]` | One empty list |
+| `{"lists":[[1]]}` | `[1]` | One node |
+| `{"lists":[[1,4,5],[1,3,4],[2,6]]}` | `[1,1,2,3,4,4,5,6]` | Standard merge |
+| `{"lists":[[],[-2,0],[-2,3]]}` | `[-2,-2,0,3]` | Empty list and negatives |
+| `{"lists":[[1,1],[1,1]]}` | `[1,1,1,1]` | Duplicate values |
 
 ## 8) Graphs
 
-### Easy: Find if Path Exists in Graph
-**Problem:** Is there a path from `source` to `destination` in an undirected graph?
+### 8.1 Find if Path Exists in Graph (Easy)
 
-**Example:** `n = 3, edges = [[0,1],[1,2],[2,0]], source = 0, destination = 2` -> `true`
+Given an undirected graph with vertices `0..n-1` and an edge list, determine whether a path exists between `source` and `destination`. A vertex is reachable from itself.
 
-**Idea:** Build an adjacency list; BFS/DFS from `source` with a visited set.
+**Function:** `validPath(n: integer, edges: integer[][], source: integer, destination: integer) -> boolean`
 
-**Complexity:** Time `O(V + E)`, Space `O(V + E)`
+**Examples:** `n=3, edges=[[0,1],[1,2]], source=0, destination=2 -> true`; `n=6, edges=[[0,1],[0,2],[3,5],[5,4],[4,3]], source=0, destination=5 -> false`.
 
-### Medium: Clone Graph
-**Problem:** Deep-copy a connected undirected graph given a reference to a node.
+**Constraints:** `1 <= n <= 2 * 10^5`; up to `2 * 10^5` unique undirected edges; endpoints are valid and distinct.
 
-**Example:** adjacency list `[[2,4],[1,3],[2,4],[1,3]]` -> an identical but separate graph.
+| Input | Expected Output | Coverage note |
+|---|---:|---|
+| `{"n":1,"edges":[],"source":0,"destination":0}` | `true` | Same vertex |
+| `{"n":2,"edges":[],"source":0,"destination":1}` | `false` | Disconnected |
+| `{"n":3,"edges":[[0,1],[1,2]],"source":0,"destination":2}` | `true` | Multi-edge path |
+| `{"n":6,"edges":[[0,1],[0,2],[3,5],[5,4],[4,3]],"source":0,"destination":5}` | `false` | Separate components |
 
-**Idea:** DFS/BFS with a map `original -> clone`. When first visiting a node, create its clone and register it before visiting neighbours, which handles cycles.
+### 8.2 Clone Graph (Medium)
 
-**Complexity:** Time `O(V + E)`, Space `O(V)`
+Given a connected undirected graph represented by its adjacency list, return a deep copy. The clone must have the same node labels and neighbor relationships, and must not reuse any node object from the input. Return the clone's adjacency list in original node-label order; each neighbor list is sorted ascending. An empty graph returns an empty adjacency list.
 
-### Hard: Critical Connections in a Network
-**Problem:** Find all bridges (edges whose removal disconnects the graph).
+**Function:** `cloneGraph(adjacency: integer[][]) -> integer[][]`
 
-**Example:** `n = 4, connections = [[0,1],[1,2],[2,0],[1,3]]` -> `[[1,3]]`
+**Examples:** `[[2,4],[1,3],[2,4],[1,3]] -> [[2,4],[1,3],[2,4],[1,3]]`; `[] -> []`.
 
-**Idea:** Tarjan's algorithm. DFS assigns discovery times `disc[u]` and tracks `low[u]` (earliest reachable discovery time via back edges). A tree edge `(u, v)` is a bridge if `low[v] > disc[u]`. Skip the parent edge.
+**Constraints:** `0 <= node count <= 100`; labels are consecutive integers `1..n`; graph is undirected, connected when non-empty, and has no self-edges.
 
-**Complexity:** Time `O(V + E)`, Space `O(V + E)`
+| Input | Expected Output | Coverage note |
+|---|---|---|
+| `{"adjacency":[]}` | `[]` | Empty graph |
+| `{"adjacency":[[]]}` | `[[]]` | Single isolated node |
+| `{"adjacency":[[2],[1]]}` | `[[2],[1]]` | Two connected nodes |
+| `{"adjacency":[[2,4],[1,3],[2,4],[1,3]]}` | `[[2,4],[1,3],[2,4],[1,3]]` | Cycle with shared neighbors |
+| `{"adjacency":[[2,3],[1,3],[1,2]]}` | `[[2,3],[1,3],[1,2]]` | Triangle |
 
----
+### 8.3 Critical Connections in a Network (Hard)
+
+An undirected connected network has `n` vertices labeled `0..n-1`. A connection is critical if removing it disconnects the network. Return every critical connection as `[u,v]` with `u < v`, sorted lexicographically.
+
+**Function:** `criticalConnections(n: integer, connections: integer[][]) -> integer[][]`
+
+**Examples:** `n=4, connections=[[0,1],[1,2],[2,0],[1,3]] -> [[1,3]]`; `n=2, connections=[[0,1]] -> [[0,1]]`.
+
+**Constraints:** `2 <= n <= 10^5`; `n-1 <= connections.length <= 2 * 10^5`; no duplicate edges; graph is connected.
+
+| Input | Expected Output | Coverage note |
+|---|---|---|
+| `{"n":2,"connections":[[0,1]]}` | `[[0,1]]` | Single bridge |
+| `{"n":4,"connections":[[0,1],[1,2],[2,0],[1,3]]}` | `[[1,3]]` | Bridge attached to cycle |
+| `{"n":5,"connections":[[0,1],[1,2],[2,3],[3,4]]}` | `[[0,1],[1,2],[2,3],[3,4]]` | Every edge is critical |
+| `{"n":4,"connections":[[0,1],[1,2],[2,0],[0,3],[3,2]]}` | `[]` | No bridge |
+| `{"n":5,"connections":[[0,1],[1,2],[2,0],[1,3],[3,4]]}` | `[[1,3],[3,4]]` | Multiple bridges, sorted |
 
 ## 9) Tries
 
-### Easy: Implement Trie (Prefix Tree)
-**Problem:** Implement `insert`, `search`, and `startsWith`.
+### 9.1 Implement Trie (Prefix Tree) (Easy)
 
-**Example:** `insert("apple"), search("apple") -> true, search("app") -> false, startsWith("app") -> true`
+Implement a trie with `insert(word)`, `search(word)`, and `startsWith(prefix)`. `search` is true only when the full word was inserted; `startsWith` is true when at least one inserted word begins with the prefix. Return `null` for inserts and booleans for queries.
 
-**Idea:** Each node has children keyed by character and an `isEnd` flag.
+**Function:** `runTrie(operations: string[], arguments: string[][]) -> value[]`
 
-**Complexity:** `O(L)` per operation, Space `O(total characters)`
+**Example:** operations `["insert","search","search","startsWith","insert","search"]`, arguments `[["apple"],["apple"],["app"],["app"],["app"],["app"]]` -> `[null,true,false,true,null,true]`.
 
-### Medium: Design Add and Search Words Data Structure
-**Problem:** Support `addWord(word)` and `search(word)` where `.` matches any one letter.
+**Constraints:** `1 <= operations.length <= 3 * 10^4`; words and prefixes contain lowercase English letters and have length at most 2000.
 
-**Example:** `addWord("bad"), search("b.d") -> true, search("..d") -> true, search("b..d") -> false`
+| Input | Expected Output | Coverage note |
+|---|---|---|
+| `{"operations":["insert","search"],"arguments":[["a"],["a"]]}` | `[null,true]` | Single-letter word |
+| `{"operations":["insert","search","startsWith"],"arguments":[["apple"],["app"],["app"]]}` | `[null,false,true]` | Prefix is not full word |
+| `{"operations":["insert","insert","search","startsWith"],"arguments":[["app"],["apple"],["app"],["appl"]]}` | `[null,null,true,true]` | Shared prefix |
+| `{"operations":["search","startsWith"],"arguments":[["missing"],["m"]]}` | `[false,false]` | No inserted words |
 
-**Idea:** Trie plus DFS for search. On `.`, try every child; otherwise follow the matching child.
+### 9.2 Design Add and Search Words Data Structure (Medium)
 
-**Complexity:** `addWord` `O(L)`; `search` worst case `O(26^L)` with many wildcards
+Implement `addWord(word)` and `search(word)`. Search patterns contain lowercase letters and `.`; a dot matches any one lowercase letter. Matching must cover the entire stored word.
 
-### Hard: Word Search II
-**Problem:** Given a board of letters and a list of words, return all words that can be formed by paths of adjacent cells (no cell reused within a word).
+**Function:** `runWordDictionary(operations: string[], arguments: string[][]) -> value[]`
 
-**Example:** `board = [["o","a","a","n"],["e","t","a","e"],["i","h","k","r"],["i","f","l","v"]], words = ["oath","pea","eat","rain"]` -> `["eat","oath"]`
+**Examples:** add `"bad"`, `"dad"`, `"mad"`; search `"pad" -> false`, `"bad" -> true`, `".ad" -> true`, `"b.." -> true`.
 
-**Idea:** Build a trie of the words and DFS from each cell, following trie edges so invalid prefixes are pruned immediately. Store the full word at terminal nodes, add it to the result, and clear it to avoid duplicates. Optionally prune empty trie branches.
+**Constraints:** `1 <= operations.length <= 10^4`; words and patterns have length `1..25`; lowercase letters and `.` only.
 
-**Complexity:** Time about `O(m * n * 4 * 3^(L-1))`, Space `O(total word characters)`
+| Input | Expected Output | Coverage note |
+|---|---|---|
+| `{"operations":["addWord","search"],"arguments":[["a"],["a"]]}` | `[null,true]` | Exact one-character word |
+| `{"operations":["addWord","search"],"arguments":[["bad"],["pad"]]}` | `[null,false]` | Word not present |
+| `{"operations":["addWord","addWord","addWord","search","search","search","search"],"arguments":[["bad"],["dad"],["mad"],["pad"],["bad"],[".ad"],["b.."]]}` | `[null,null,null,false,true,true,true]` | Wildcard at different positions |
+| `{"operations":["addWord","search","search"],"arguments":[["a"],["."],[".."]]}` | `[null,true,false]` | Wildcard matches exactly one char |
 
----
+### 9.3 Word Search II (Hard)
+
+Given an `m x n` board of lowercase letters and a list of distinct words, return every word that can be formed by a path of horizontally or vertically adjacent cells. A cell cannot be reused within one word. Return found words sorted lexicographically.
+
+**Function:** `findWords(board: string[][], words: string[]) -> string[]`
+
+**Examples:** board `[["o","a","a","n"],["e","t","a","e"],["i","h","k","r"],["i","f","l","v"]]`, words `["oath","pea","eat","rain"]` -> `["eat","oath"]`; board `[["a","b"],["c","d"]]`, words `["abcb"]` -> `[]`.
+
+**Constraints:** `1 <= m,n <= 12`; `1 <= words.length <= 3 * 10^4`; word length `1..10`; lowercase letters; words are distinct.
+
+| Input | Expected Output | Coverage note |
+|---|---|---|
+| `{"board":[["a"]],"words":["a"]}` | `["a"]` | One-cell board |
+| `{"board":[["a"]],"words":["b"]}` | `[]` | No match |
+| `{"board":[["o","a","a","n"],["e","t","a","e"],["i","h","k","r"],["i","f","l","v"]],"words":["oath","pea","eat","rain"]}` | `["eat","oath"]` | Multiple words, sorted |
+| `{"board":[["a","b"],["c","d"]],"words":["abcb"]}` | `[]` | Would require reusing a cell |
+| `{"board":[["a","b"],["a","a"]],"words":["aa","aba","ba"]}` | `["aa","aba","ba"]` | Shared prefixes and paths |
 
 ## 10) Union-Find
 
-### Easy: Number of Provinces
-**Problem:** Given an `n x n` adjacency matrix `isConnected`, count groups of directly or indirectly connected cities.
+### 10.1 Number of Provinces (Easy)
 
-**Example:** `[[1,1,0],[1,1,0],[0,0,1]]` -> `2`
+Given an `n x n` adjacency matrix `isConnected`, where `isConnected[i][j] == 1` means cities `i` and `j` are directly connected, return the number of connected groups of cities. The matrix is symmetric and every city is connected to itself.
 
-**Idea:** Union connected pairs; each successful union reduces the component count from `n`.
+**Function:** `findCircleNum(isConnected: integer[][]) -> integer`
 
-**Complexity:** Time `O(n^2 * alpha(n))`, Space `O(n)`
+**Examples:** `[[1,1,0],[1,1,0],[0,0,1]] -> 2`; `[[1,0,0],[0,1,0],[0,0,1]] -> 3`.
 
-### Medium: Redundant Connection
-**Problem:** A tree with `n` nodes had one extra undirected edge added. Return the edge that can be removed to restore the tree (the last such edge in the input).
+**Constraints:** `1 <= n <= 200`; matrix dimensions are `n x n`; entries are 0 or 1; matrix is symmetric.
 
-**Example:** `[[1,2],[1,3],[2,3]]` -> `[2,3]`
+| Input | Expected Output | Coverage note |
+|---|---:|---|
+| `{"isConnected":[[1]]}` | `1` | One city |
+| `{"isConnected":[[1,0],[0,1]]}` | `2` | No intercity connections |
+| `{"isConnected":[[1,1],[1,1]]}` | `1` | Connected pair |
+| `{"isConnected":[[1,1,0],[1,1,0],[0,0,1]]}` | `2` | One pair and one singleton |
+| `{"isConnected":[[1,1,0],[1,1,1],[0,1,1]]}` | `1` | Transitive connectivity |
 
-**Idea:** Process edges in order; the first edge whose endpoints already share a root closes a cycle.
+### 10.2 Redundant Connection (Medium)
 
-**Complexity:** Time `O(n * alpha(n))`, Space `O(n)`
+A tree with vertices labeled `1..n` had one extra undirected edge added. Return the last edge in input order that can be removed to leave a tree. The input has exactly one cycle.
 
-### Hard: Number of Islands II
-**Problem:** Starting with a water grid, `positions` turns cells into land one at a time. After each addition, return the number of islands.
+**Function:** `findRedundantConnection(edges: integer[][]) -> integer[2]`
 
-**Example:** `m = 3, n = 3, positions = [[0,0],[0,1],[1,2],[2,1]]` -> `[1,1,2,3]`
+**Examples:** `[[1,2],[1,3],[2,3]] -> [2,3]`; `[[1,2],[2,3],[3,4],[1,4],[1,5]] -> [1,4]`.
 
-**Idea:** Map cell `(r, c)` to `r * n + c`. When adding land (ignore duplicates), increment the count, then union with each land neighbour; each successful union decrements the count. Record the count after each addition.
+**Constraints:** `3 <= edges.length <= 1000`; labels are `1..n`; edges are unique; graph is connected after adding the extra edge.
 
-**Complexity:** Time `O(k * alpha(m * n))` for `k` positions, Space `O(m * n)`
+| Input | Expected Output | Coverage note |
+|---|---|---|
+| `{"edges":[[1,2],[1,3],[2,3]]}` | `[2,3]` | Triangle |
+| `{"edges":[[1,2],[2,3],[3,4],[1,4],[1,5]]}` | `[1,4]` | Cycle and attached node |
+| `{"edges":[[1,2],[2,3],[3,1]]}` | `[3,1]` | Last input edge closes cycle |
+| `{"edges":[[1,2],[2,3],[3,4],[4,5],[5,1]]}` | `[5,1]` | Larger cycle |
+
+### 10.3 Number of Islands II (Hard)
+
+An initially all-water `m x n` grid receives land additions in order. After each position `[r,c]`, return the number of islands, where islands are connected horizontally or vertically. Repeated additions of an already-land cell do not change the count.
+
+**Function:** `numIslands2(m: integer, n: integer, positions: integer[][]) -> integer[]`
+
+**Examples:** `m=3,n=3, positions=[[0,0],[0,1],[1,2],[2,1]] -> [1,1,2,3]`; `m=1,n=1, positions=[[0,0],[0,0]] -> [1,1]`.
+
+**Constraints:** `1 <= m,n <= 10^4`; `1 <= m*n <= 10^5`; `1 <= positions.length <= 10^4`; positions are in bounds.
+
+| Input | Expected Output | Coverage note |
+|---|---|---|
+| `{"m":1,"n":1,"positions":[[0,0]]}` | `[1]` | Single cell |
+| `{"m":1,"n":2,"positions":[[0,0],[0,1]]}` | `[1,1]` | Adjacent additions merge |
+| `{"m":3,"n":3,"positions":[[0,0],[0,1],[1,2],[2,1]]}` | `[1,1,2,3]` | Separate islands |
+| `{"m":1,"n":1,"positions":[[0,0],[0,0]]}` | `[1,1]` | Duplicate position |
+| `{"m":2,"n":2,"positions":[[0,0],[1,1],[0,1],[1,0]]}` | `[1,2,1,1]` | One cell connects components |
+| `{"m":3,"n":3,"positions":[[1,1],[0,1],[1,0],[2,1],[1,2]]}` | `[1,1,1,1,1]` | Land expands around center |
