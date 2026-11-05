@@ -29,8 +29,15 @@ Given a 1-indexed array of integers `numbers`, sorted in non-decreasing order, a
 
 **Function:** `twoSum(numbers: integer[], target: integer) -> integer[2]`
 
-**Example 1** — Input: `{"numbers":[2,7,11,15],"target":9}`; Output: `[1,2]`
-**Example 2** — Input: `{"numbers":[2,3,4],"target":6}`; Output: `[1,3]`
+**Example 1**
+
+- **Input:** `{"numbers":[2,7,11,15],"target":9}`
+- **Output:** `[1,2]`
+
+**Example 2**
+
+- **Input:** `{"numbers":[2,3,4],"target":6}`
+- **Output:** `[1,3]`
 
 **Constraints:** `2 <= numbers.length <= 30000`; `-1000 <= numbers[i] <= 1000`; `numbers` is sorted non-decreasingly; `-1000 <= target <= 1000`; exactly one solution exists; the same element cannot be used twice.
 
@@ -51,8 +58,15 @@ Given an integer array `nums`, return every unique triplet `[a,b,c]` of distinct
 
 **Function:** `threeSum(nums: integer[]) -> integer[][]`
 
-**Example 1** — Input: `{"nums":[-1,0,1,2,-1,-4]}`; Output: `[[-1,-1,2],[-1,0,1]]`
-**Example 2** — Input: `{"nums":[0,1,1]}`; Output: `[]`
+**Example 1**
+
+- **Input:** `{"nums":[-1,0,1,2,-1,-4]}`
+- **Output:** `[[-1,-1,2],[-1,0,1]]`
+
+**Example 2**
+
+- **Input:** `{"nums":[0,1,1]}`
+- **Output:** `[]`
 
 **Constraints:** `3 <= nums.length <= 3000`; `-100000 <= nums[i] <= 100000`.
 
@@ -73,8 +87,15 @@ Given `n` non-negative integers `height`, where each value is the height of a ve
 
 **Function:** `trap(height: integer[]) -> integer`
 
-**Example 1** — Input: `{"height":[0,1,0,2,1,0,1,3,2,1,2,1]}`; Output: `6`
-**Example 2** — Input: `{"height":[4,2,0,3,2,5]}`; Output: `9`
+**Example 1**
+
+- **Input:** `{"height":[0,1,0,2,1,0,1,3,2,1,2,1]}`
+- **Output:** `6`
+
+**Example 2**
+
+- **Input:** `{"height":[4,2,0,3,2,5]}`
+- **Output:** `9`
 
 **Constraints:** `1 <= height.length <= 20000`; `0 <= height[i] <= 100000`.
 
@@ -97,8 +118,15 @@ Given an integer array `nums` and an integer `k`, find a contiguous subarray of 
 
 **Function:** `findMaxAverage(nums: integer[], k: integer) -> number`
 
-**Example 1** — Input: `{"nums":[1,12,-5,-6,50,3],"k":4}`; Output: `12.75`
-**Example 2** — Input: `{"nums":[5],"k":1}`; Output: `5.0`
+**Example 1**
+
+- **Input:** `{"nums":[1,12,-5,-6,50,3],"k":4}`
+- **Output:** `12.75`
+
+**Example 2**
+
+- **Input:** `{"nums":[5],"k":1}`
+- **Output:** `5.0`
 
 **Constraints:** `1 <= k <= nums.length <= 100000`; `-10000 <= nums[i] <= 10000`.
 
@@ -119,8 +147,15 @@ Given a string `s`, return the length of its longest contiguous substring in whi
 
 **Function:** `lengthOfLongestSubstring(s: string) -> integer`
 
-**Example 1** — Input: `{"s":"abcabcbb"}`; Output: `3`
-**Example 2** — Input: `{"s":"bbbbb"}`; Output: `1`
+**Example 1**
+
+- **Input:** `{"s":"abcabcbb"}`
+- **Output:** `3`
+
+**Example 2**
+
+- **Input:** `{"s":"bbbbb"}`
+- **Output:** `1`
 
 **Constraints:** `0 <= s.length <= 50000`; `s` consists of English letters, digits, symbols, and spaces.
 
@@ -141,8 +176,15 @@ Given strings `s` and `t`, return the shortest substring of `s` that contains ev
 
 **Function:** `minWindow(s: string, t: string) -> string`
 
-**Example 1** — Input: `{"s":"ADOBECODEBANC","t":"ABC"}`; Output: `"BANC"`
-**Example 2** — Input: `{"s":"a","t":"a"}`; Output: `"a"`
+**Example 1**
+
+- **Input:** `{"s":"ADOBECODEBANC","t":"ABC"}`
+- **Output:** `"BANC"`
+
+**Example 2**
+
+- **Input:** `{"s":"a","t":"a"}`
+- **Output:** `"a"`
 
 **Constraints:** `0 <= s.length,t.length <= 100000`; `s` and `t` contain uppercase/lowercase English letters.
 
@@ -165,8 +207,15 @@ Given an integer array `nums`, return `true` if any value appears at least twice
 
 **Function:** `containsDuplicate(nums: integer[]) -> boolean`
 
-**Example 1** — Input: `{"nums":[1,2,3,1]}`; Output: `true`
-**Example 2** — Input: `{"nums":[1,2,3,4]}`; Output: `false`
+**Example 1**
+
+- **Input:** `{"nums":[1,2,3,1]}`
+- **Output:** `true`
+
+**Example 2**
+
+- **Input:** `{"nums":[1,2,3,4]}`
+- **Output:** `false`
 
 **Constraints:** `1 <= nums.length <= 100000`; `-10^9 <= nums[i] <= 10^9`.
 
@@ -187,8 +236,15 @@ Given an array of lowercase English strings `strs`, group strings that are anagr
 
 **Function:** `groupAnagrams(strs: string[]) -> string[][]`
 
-**Example 1** — Input: `{"strs":["eat","tea","tan","ate","nat","bat"]}`; Output: `[["eat","tea","ate"],["tan","nat"],["bat"]]`
-**Example 2** — Input: `{"strs":[""]}`; Output: `[[""]]`
+**Example 1**
+
+- **Input:** `{"strs":["eat","tea","tan","ate","nat","bat"]}`
+- **Output:** `[["eat","tea","ate"],["tan","nat"],["bat"]]`
+
+**Example 2**
+
+- **Input:** `{"strs":[""]}`
+- **Output:** `[[""]]`
 
 **Constraints:** `1 <= strs.length <= 10000`; `0 <= strs[i].length <= 100`; `strs[i]` contains lowercase English letters only.
 
@@ -209,8 +265,15 @@ Given a string `s` and an array `words` of equal-length strings, find every star
 
 **Function:** `findSubstring(s: string, words: string[]) -> integer[]`
 
-**Example 1** — Input: `{"s":"barfoothefoobarman","words":["foo","bar"]}`; Output: `[0,9]`
-**Example 2** — Input: `{"s":"wordgoodgoodgoodbestword","words":["word","good","best","word"]}`; Output: `[]`
+**Example 1**
+
+- **Input:** `{"s":"barfoothefoobarman","words":["foo","bar"]}`
+- **Output:** `[0,9]`
+
+**Example 2**
+
+- **Input:** `{"s":"wordgoodgoodgoodbestword","words":["word","good","best","word"]}`
+- **Output:** `[]`
 
 **Constraints:** `1 <= s.length <= 10000`; `1 <= words.length <= 5000`; `1 <= words[i].length <= 30`; all words have equal length; `s` and words contain lowercase English letters.
 
@@ -233,8 +296,15 @@ Given an array of distinct integers `nums` sorted in ascending order and an inte
 
 **Function:** `search(nums: integer[], target: integer) -> integer`
 
-**Example 1** — Input: `{"nums":[-1,0,3,5,9,12],"target":9}`; Output: `4`
-**Example 2** — Input: `{"nums":[-1,0,3,5,9,12],"target":2}`; Output: `-1`
+**Example 1**
+
+- **Input:** `{"nums":[-1,0,3,5,9,12],"target":9}`
+- **Output:** `4`
+
+**Example 2**
+
+- **Input:** `{"nums":[-1,0,3,5,9,12],"target":2}`
+- **Output:** `-1`
 
 **Constraints:** `1 <= nums.length <= 10000`; `-10000 <= nums[i], target <= 10000`; all elements are distinct; `nums` is ascending.
 
@@ -255,8 +325,15 @@ An array of distinct integers was sorted in ascending order and then rotated at 
 
 **Function:** `searchRotated(nums: integer[], target: integer) -> integer`
 
-**Example 1** — Input: `{"nums":[4,5,6,7,0,1,2],"target":0}`; Output: `4`
-**Example 2** — Input: `{"nums":[4,5,6,7,0,1,2],"target":3}`; Output: `-1`
+**Example 1**
+
+- **Input:** `{"nums":[4,5,6,7,0,1,2],"target":0}`
+- **Output:** `4`
+
+**Example 2**
+
+- **Input:** `{"nums":[4,5,6,7,0,1,2],"target":3}`
+- **Output:** `-1`
 
 **Constraints:** `1 <= nums.length <= 5000`; `-10000 <= nums[i], target <= 10000`; values are distinct; the input is a rotation of a strictly ascending array.
 
@@ -277,8 +354,15 @@ Given two arrays `nums1` and `nums2`, each sorted in non-decreasing order, retur
 
 **Function:** `findMedianSortedArrays(nums1: integer[], nums2: integer[]) -> number`
 
-**Example 1** — Input: `{"nums1":[1,3],"nums2":[2]}`; Output: `2.0`
-**Example 2** — Input: `{"nums1":[1,2],"nums2":[3,4]}`; Output: `2.5`
+**Example 1**
+
+- **Input:** `{"nums1":[1,3],"nums2":[2]}`
+- **Output:** `2.0`
+
+**Example 2**
+
+- **Input:** `{"nums1":[1,2],"nums2":[3,4]}`
+- **Output:** `2.5`
 
 **Constraints:** `0 <= nums1.length, nums2.length <= 1000`; `1 <= nums1.length + nums2.length <= 2000`; `-10^6 <= nums1[i], nums2[i] <= 10^6`; both arrays are sorted.
 
@@ -301,8 +385,15 @@ Given an integer array `nums`, answer multiple inclusive range-sum queries. For 
 
 **Function:** `rangeSumQuery(nums: integer[], queries: integer[][]) -> integer[]`
 
-**Example 1** — Input: `{"nums":[-2,0,3,-5,2,-1],"queries":[[0,2],[2,5],[0,5]]}`; Output: `[1,-1,-3]`
-**Example 2** — Input: `{"nums":[5],"queries":[[0,0]]}`; Output: `[5]`
+**Example 1**
+
+- **Input:** `{"nums":[-2,0,3,-5,2,-1],"queries":[[0,2],[2,5],[0,5]]}`
+- **Output:** `[1,-1,-3]`
+
+**Example 2**
+
+- **Input:** `{"nums":[5],"queries":[[0,0]]}`
+- **Output:** `[5]`
 
 **Constraints:** `1 <= nums.length <= 10000`; `-100000 <= nums[i] <= 100000`; `1 <= queries.length <= 10000`; `0 <= left <= right < nums.length`.
 
@@ -323,8 +414,15 @@ Given an integer array `nums` and integer `k`, return the number of non-empty co
 
 **Function:** `subarraySum(nums: integer[], k: integer) -> integer`
 
-**Example 1** — Input: `{"nums":[1,1,1],"k":2}`; Output: `2`
-**Example 2** — Input: `{"nums":[1,2,3],"k":3}`; Output: `2`
+**Example 1**
+
+- **Input:** `{"nums":[1,1,1],"k":2}`
+- **Output:** `2`
+
+**Example 2**
+
+- **Input:** `{"nums":[1,2,3],"k":3}`
+- **Output:** `2`
 
 **Constraints:** `1 <= nums.length <= 20000`; `-1000 <= nums[i] <= 1000`; `-10^7 <= k <= 10^7`.
 
@@ -345,8 +443,15 @@ Given an integer array `nums` and integers `lower` and `upper`, return the numbe
 
 **Function:** `countRangeSum(nums: integer[], lower: integer, upper: integer) -> integer`
 
-**Example 1** — Input: `{"nums":[-2,5,-1],"lower":-2,"upper":2}`; Output: `3`
-**Example 2** — Input: `{"nums":[0],"lower":0,"upper":0}`; Output: `1`
+**Example 1**
+
+- **Input:** `{"nums":[-2,5,-1],"lower":-2,"upper":2}`
+- **Output:** `3`
+
+**Example 2**
+
+- **Input:** `{"nums":[0],"lower":0,"upper":0}`
+- **Output:** `1`
 
 **Constraints:** `1 <= nums.length <= 1000`; `-2^31 <= nums[i] <= 2^31-1`; `-10^5 <= lower <= upper <= 10^5`.
 
@@ -369,8 +474,15 @@ Given the root of a binary tree, return its maximum depth: the number of nodes o
 
 **Function:** `maxDepth(root: TreeNode | null) -> integer`
 
-**Example 1** — Input: `{"root":[3,9,20,null,null,15,7]}`; Output: `3`
-**Example 2** — Input: `{"root":[]}`; Output: `0`
+**Example 1**
+
+- **Input:** `{"root":[3,9,20,null,null,15,7]}`
+- **Output:** `3`
+
+**Example 2**
+
+- **Input:** `{"root":[]}`
+- **Output:** `0`
 
 **Constraints:** The number of nodes is in `[0, 10^4]`; `-100 <= Node.val <= 100`.
 
@@ -391,8 +503,15 @@ Given an `m` by `n` grid of characters `'1'` (land) and `'0'` (water), return th
 
 **Function:** `numIslands(grid: character[][]) -> integer`
 
-**Example 1** — Input: `{"grid":[["1","1","1","1","0"],["1","1","0","1","0"],["1","1","0","0","0"],["0","0","0","0","0"]]}`; Output: `1`
-**Example 2** — Input: `{"grid":[["1","1","0","0","0"],["1","1","0","0","0"],["0","0","1","0","0"],["0","0","0","1","1"]]}`; Output: `3`
+**Example 1**
+
+- **Input:** `{"grid":[["1","1","1","1","0"],["1","1","0","1","0"],["1","1","0","0","0"],["0","0","0","0","0"]]}`
+- **Output:** `1`
+
+**Example 2**
+
+- **Input:** `{"grid":[["1","1","0","0","0"],["1","1","0","0","0"],["0","0","1","0","0"],["0","0","0","1","1"]]}`
+- **Output:** `3`
 
 **Constraints:** `1 <= m,n <= 300`; `grid[i].length == n`; every cell is `'0'` or `'1'`.
 
@@ -413,8 +532,15 @@ Given `beginWord`, `endWord`, and a dictionary `wordList`, return every shortest
 
 **Function:** `findLadders(beginWord: string, endWord: string, wordList: string[]) -> string[][]`
 
-**Example 1** — Input: `{"beginWord":"hit","endWord":"cog","wordList":["hot","dot","dog","lot","log","cog"]}`; Output: `[["hit","hot","dot","dog","cog"],["hit","hot","lot","log","cog"]]`
-**Example 2** — Input: `{"beginWord":"hit","endWord":"cog","wordList":["hot","dot","dog","lot","log"]}`; Output: `[]`
+**Example 1**
+
+- **Input:** `{"beginWord":"hit","endWord":"cog","wordList":["hot","dot","dog","lot","log","cog"]}`
+- **Output:** `[["hit","hot","dot","dog","cog"],["hit","hot","lot","log","cog"]]`
+
+**Example 2**
+
+- **Input:** `{"beginWord":"hit","endWord":"cog","wordList":["hot","dot","dog","lot","log"]}`
+- **Output:** `[]`
 
 **Constraints:** `1 <= beginWord.length <= 5`; `endWord.length == beginWord.length`; `1 <= wordList.length <= 500`; all words have equal length and contain lowercase English letters; `beginWord != endWord`; all dictionary words are unique.
 
@@ -437,8 +563,15 @@ You are climbing a staircase with `n` steps. Each move climbs either one or two 
 
 **Function:** `climbStairs(n: integer) -> integer`
 
-**Example 1** — Input: `{"n":2}`; Output: `2`
-**Example 2** — Input: `{"n":3}`; Output: `3`
+**Example 1**
+
+- **Input:** `{"n":2}`
+- **Output:** `2`
+
+**Example 2**
+
+- **Input:** `{"n":3}`
+- **Output:** `3`
 
 **Constraints:** `1 <= n <= 45`.
 
@@ -459,8 +592,15 @@ Given an array of distinct positive coin denominations `coins` and a non-negativ
 
 **Function:** `coinChange(coins: integer[], amount: integer) -> integer`
 
-**Example 1** — Input: `{"coins":[1,2,5],"amount":11}`; Output: `3`
-**Example 2** — Input: `{"coins":[2],"amount":3}`; Output: `-1`
+**Example 1**
+
+- **Input:** `{"coins":[1,2,5],"amount":11}`
+- **Output:** `3`
+
+**Example 2**
+
+- **Input:** `{"coins":[2],"amount":3}`
+- **Output:** `-1`
 
 **Constraints:** `1 <= coins.length <= 12`; `1 <= coins[i] <= 2^31-1`; coin values are distinct; `0 <= amount <= 10^4`.
 
@@ -481,8 +621,15 @@ Given strings `word1` and `word2`, return the minimum number of operations requi
 
 **Function:** `minDistance(word1: string, word2: string) -> integer`
 
-**Example 1** — Input: `{"word1":"horse","word2":"ros"}`; Output: `3`
-**Example 2** — Input: `{"word1":"intention","word2":"execution"}`; Output: `5`
+**Example 1**
+
+- **Input:** `{"word1":"horse","word2":"ros"}`
+- **Output:** `3`
+
+**Example 2**
+
+- **Input:** `{"word1":"intention","word2":"execution"}`
+- **Output:** `5`
 
 **Constraints:** `0 <= word1.length, word2.length <= 500`; each string contains lowercase English letters only.
 
@@ -504,8 +651,15 @@ There are `g.length` children and `s.length` cookies. Child `i` is satisfied by 
 
 **Function:** `findContentChildren(g: integer[], s: integer[]) -> integer`
 
-**Example 1** — Input: `{"g":[1,2,3],"s":[1,1]}`; Output: `1`
-**Example 2** — Input: `{"g":[1,2],"s":[1,2,3]}`; Output: `2`
+**Example 1**
+
+- **Input:** `{"g":[1,2,3],"s":[1,1]}`
+- **Output:** `1`
+
+**Example 2**
+
+- **Input:** `{"g":[1,2],"s":[1,2,3]}`
+- **Output:** `2`
 
 **Constraints:** `1 <= g.length, s.length <= 30000`; `1 <= g[i], s[i] <= 10^9`.
 
@@ -526,8 +680,15 @@ Given a non-empty array of non-negative integers `nums`, you start at index `0`.
 
 **Function:** `canJump(nums: integer[]) -> boolean`
 
-**Example 1** — Input: `{"nums":[2,3,1,1,4]}`; Output: `true`
-**Example 2** — Input: `{"nums":[3,2,1,0,4]}`; Output: `false`
+**Example 1**
+
+- **Input:** `{"nums":[2,3,1,1,4]}`
+- **Output:** `true`
+
+**Example 2**
+
+- **Input:** `{"nums":[3,2,1,0,4]}`
+- **Output:** `false`
 
 **Constraints:** `1 <= nums.length <= 10000`; `0 <= nums[i] <= 10^5`.
 
@@ -548,8 +709,15 @@ There are `n` children standing in a line. Each child must receive at least one 
 
 **Function:** `candy(ratings: integer[]) -> integer`
 
-**Example 1** — Input: `{"ratings":[1,0,2]}`; Output: `5`
-**Example 2** — Input: `{"ratings":[1,2,2]}`; Output: `4`
+**Example 1**
+
+- **Input:** `{"ratings":[1,0,2]}`
+- **Output:** `5`
+
+**Example 2**
+
+- **Input:** `{"ratings":[1,2,2]}`
+- **Output:** `4`
 
 **Constraints:** `1 <= ratings.length <= 20000`; `0 <= ratings[i] <= 20000`.
 
@@ -572,8 +740,15 @@ Design a stream object initialized with integer `k` and an initial integer array
 
 **Function:** `kthLargestStream(k: integer, nums: integer[], operations: integer[]) -> integer[]`
 
-**Example 1** — Input: `{"k":3,"nums":[4,5,8,2],"operations":[3,5,10,9,4]}`; Output: `[4,5,5,8,8]`
-**Example 2** — Input: `{"k":1,"nums":[-2],"operations":[-3,0,2]}`; Output: `[-2,0,2]`
+**Example 1**
+
+- **Input:** `{"k":3,"nums":[4,5,8,2],"operations":[3,5,10,9,4]}`
+- **Output:** `[4,5,5,8,8]`
+
+**Example 2**
+
+- **Input:** `{"k":1,"nums":[-2],"operations":[-3,0,2]}`
+- **Output:** `[-2,0,2]`
 
 **Constraints:** `1 <= k <= 10^4`; `0 <= nums.length <= 10^4`; `k <= nums.length + operations.length`; values are in `[-10^4,10^4]`.
 
@@ -594,8 +769,15 @@ Given an integer array `nums` and an integer `k`, return the `k` most frequent d
 
 **Function:** `topKFrequent(nums: integer[], k: integer) -> integer[]`
 
-**Example 1** — Input: `{"nums":[1,1,1,2,2,3],"k":2}`; Output: `[1,2]`
-**Example 2** — Input: `{"nums":[4,4,1,1,2,2],"k":2}`; Output: `[1,2]`
+**Example 1**
+
+- **Input:** `{"nums":[1,1,1,2,2,3],"k":2}`
+- **Output:** `[1,2]`
+
+**Example 2**
+
+- **Input:** `{"nums":[4,4,1,1,2,2],"k":2}`
+- **Output:** `[1,2]`
 
 **Constraints:** `1 <= nums.length <= 10^5`; `-10^4 <= nums[i] <= 10^4`; `1 <= k <= number of distinct values`.
 
@@ -616,8 +798,15 @@ Design a data structure that accepts integers one at a time and reports the medi
 
 **Function:** `medianStream(operations: string[], arguments: integer[][]) -> number[]`
 
-**Example 1** — Input: `{"operations":["addNum","addNum","findMedian","addNum","findMedian"],"arguments":[[1],[2],[],[3],[]]}`; Output: `[1.5,2]`
-**Example 2** — Input: `{"operations":["addNum","findMedian","addNum","findMedian"],"arguments":[[-1],[],[-2],[]]}`; Output: `[-1,-1.5]`
+**Example 1**
+
+- **Input:** `{"operations":["addNum","addNum","findMedian","addNum","findMedian"],"arguments":[[1],[2],[],[3],[]]}`
+- **Output:** `[1.5,2]`
+
+**Example 2**
+
+- **Input:** `{"operations":["addNum","findMedian","addNum","findMedian"],"arguments":[[-1],[],[-2],[]]}`
+- **Output:** `[-1,-1.5]`
 
 **Constraints:** `1 <= operations.length <= 5 * 10^4`; each `addNum` value is in `[-10^5,10^5]`; `findMedian` is called only after at least one insertion.
 
@@ -640,8 +829,15 @@ Design a data structure that accepts integers one at a time and reports the medi
 
 **Function:** `nextGreaterElement(nums1: integer[], nums2: integer[]) -> integer[]`
 
-**Example 1** — Input: `{"nums1":[4,1,2],"nums2":[1,3,4,2]}`; Output: `[-1,3,-1]`
-**Example 2** — Input: `{"nums1":[2,4],"nums2":[1,2,3,4]}`; Output: `[3,-1]`
+**Example 1**
+
+- **Input:** `{"nums1":[4,1,2],"nums2":[1,3,4,2]}`
+- **Output:** `[-1,3,-1]`
+
+**Example 2**
+
+- **Input:** `{"nums1":[2,4],"nums2":[1,2,3,4]}`
+- **Output:** `[3,-1]`
 
 **Constraints:** `1 <= nums1.length <= nums2.length <= 1000`; `-10^4 <= nums[i] <= 10^4`; values within each array are distinct; `nums1` is a subset of `nums2`.
 
@@ -662,8 +858,15 @@ Given daily temperatures, return an array where each position is the number of d
 
 **Function:** `dailyTemperatures(temperatures: integer[]) -> integer[]`
 
-**Example 1** — Input: `{"temperatures":[73,74,75,71,69,72,76,73]}`; Output: `[1,1,4,2,1,1,0,0]`
-**Example 2** — Input: `{"temperatures":[30,40,50,60]}`; Output: `[1,1,1,0]`
+**Example 1**
+
+- **Input:** `{"temperatures":[73,74,75,71,69,72,76,73]}`
+- **Output:** `[1,1,4,2,1,1,0,0]`
+
+**Example 2**
+
+- **Input:** `{"temperatures":[30,40,50,60]}`
+- **Output:** `[1,1,1,0]`
 
 **Constraints:** `1 <= temperatures.length <= 10^5`; `30 <= temperatures[i] <= 100`.
 
@@ -684,8 +887,15 @@ Given an array of non-negative bar heights, where each bar has width one, return
 
 **Function:** `largestRectangleArea(heights: integer[]) -> integer`
 
-**Example 1** — Input: `{"heights":[2,1,5,6,2,3]}`; Output: `10`
-**Example 2** — Input: `{"heights":[2,4]}`; Output: `4`
+**Example 1**
+
+- **Input:** `{"heights":[2,1,5,6,2,3]}`
+- **Output:** `10`
+
+**Example 2**
+
+- **Input:** `{"heights":[2,4]}`
+- **Output:** `4`
 
 **Constraints:** `1 <= heights.length <= 10^5`; `0 <= heights[i] <= 10^4`.
 
@@ -708,8 +918,15 @@ A binary watch has four LEDs for hours (`0` through `11`) and six LEDs for minut
 
 **Function:** `readBinaryWatch(turnedOn: integer) -> string[]`
 
-**Example 1** — Input: `{"turnedOn":1}`; Output: `["0:01","0:02","0:04","0:08","0:16","0:32","1:00","2:00","4:00","8:00"]`
-**Example 2** — Input: `{"turnedOn":9}`; Output: `[]`
+**Example 1**
+
+- **Input:** `{"turnedOn":1}`
+- **Output:** `["0:01","0:02","0:04","0:08","0:16","0:32","1:00","2:00","4:00","8:00"]`
+
+**Example 2**
+
+- **Input:** `{"turnedOn":9}`
+- **Output:** `[]`
 
 **Constraints:** `0 <= turnedOn <= 10`.
 
@@ -728,8 +945,15 @@ Given distinct positive integers `candidates` and a positive integer `target`, r
 
 **Function:** `combinationSum(candidates: integer[], target: integer) -> integer[][]`
 
-**Example 1** — Input: `{"candidates":[2,3,6,7],"target":7}`; Output: `[[2,2,3],[7]]`
-**Example 2** — Input: `{"candidates":[2,3,5],"target":8}`; Output: `[[2,2,2,2],[2,3,3],[3,5]]`
+**Example 1**
+
+- **Input:** `{"candidates":[2,3,6,7],"target":7}`
+- **Output:** `[[2,2,3],[7]]`
+
+**Example 2**
+
+- **Input:** `{"candidates":[2,3,5],"target":8}`
+- **Output:** `[[2,2,2,2],[2,3,3],[3,5]]`
 
 **Constraints:** `1 <= candidates.length <= 30`; candidates are distinct positive integers; `1 <= target <= 500`; the number of valid combinations is less than 150.
 
@@ -750,8 +974,15 @@ Place `n` queens on an `n x n` chessboard so that no two queens share a row, col
 
 **Function:** `solveNQueens(n: integer) -> string[][]`
 
-**Example 1** — Input: `{"n":1}`; Output: `[["Q"]]`
-**Example 2** — Input: `{"n":4}`; Output: `[["..Q.","Q...","...Q",".Q.."],[".Q..","...Q","Q...","..Q."]]`
+**Example 1**
+
+- **Input:** `{"n":1}`
+- **Output:** `[["Q"]]`
+
+**Example 2**
+
+- **Input:** `{"n":4}`
+- **Output:** `[["..Q.","Q...","...Q",".Q.."],[".Q..","...Q","Q...","..Q."]]`
 
 **Constraints:** `1 <= n <= 9`.
 
@@ -771,8 +1002,15 @@ There are `n` vertices labeled `0` through `n-1` and an undirected edge list. Re
 
 **Function:** `validPath(n: integer, edges: integer[][], source: integer, destination: integer) -> boolean`
 
-**Example 1** — Input: `{"n":3,"edges":[[0,1],[1,2],[2,0]],"source":0,"destination":2}`; Output: `true`
-**Example 2** — Input: `{"n":6,"edges":[[0,1],[0,2],[3,5],[5,4],[4,3]],"source":0,"destination":5}`; Output: `false`
+**Example 1**
+
+- **Input:** `{"n":3,"edges":[[0,1],[1,2],[2,0]],"source":0,"destination":2}`
+- **Output:** `true`
+
+**Example 2**
+
+- **Input:** `{"n":6,"edges":[[0,1],[0,2],[3,5],[5,4],[4,3]],"source":0,"destination":5}`
+- **Output:** `false`
 
 **Constraints:** `1 <= n <= 2 * 10^5`; `0 <= edges.length <= 2 * 10^5`; edges contain distinct valid endpoints; no duplicate undirected edges.
 
@@ -793,8 +1031,15 @@ Given `n` vertices labeled `0` through `n-1` and an undirected edge list, return
 
 **Function:** `countComponents(n: integer, edges: integer[][]) -> integer`
 
-**Example 1** — Input: `{"n":5,"edges":[[0,1],[1,2],[3,4]]}`; Output: `2`
-**Example 2** — Input: `{"n":5,"edges":[[0,1],[1,2],[2,3],[3,4]]}`; Output: `1`
+**Example 1**
+
+- **Input:** `{"n":5,"edges":[[0,1],[1,2],[3,4]]}`
+- **Output:** `2`
+
+**Example 2**
+
+- **Input:** `{"n":5,"edges":[[0,1],[1,2],[2,3],[3,4]]}`
+- **Output:** `1`
 
 **Constraints:** `1 <= n <= 2 * 10^5`; `0 <= edges.length <= min(2 * 10^5, n*(n-1)/2)`; edges contain distinct valid endpoints with no duplicates.
 
@@ -815,8 +1060,15 @@ A directed graph began as a rooted tree with nodes labeled `1` through `n`, wher
 
 **Function:** `findRedundantDirectedConnection(edges: integer[][]) -> integer[2]`
 
-**Example 1** — Input: `{"edges":[[1,2],[1,3],[2,3]]}`; Output: `[2,3]`
-**Example 2** — Input: `{"edges":[[1,2],[2,3],[3,4],[4,1],[1,5]]}`; Output: `[4,1]`
+**Example 1**
+
+- **Input:** `{"edges":[[1,2],[1,3],[2,3]]}`
+- **Output:** `[2,3]`
+
+**Example 2**
+
+- **Input:** `{"edges":[[1,2],[2,3],[3,4],[4,1],[1,5]]}`
+- **Output:** `[4,1]`
 
 **Constraints:** `3 <= edges.length <= 1000`; `edges[i].length == 2`; labels are in `1..n`, where `n = edges.length`; edges are distinct.
 
@@ -837,8 +1089,15 @@ There are `numCourses` courses labeled `0` through `numCourses-1`. Each prerequi
 
 **Function:** `canFinish(numCourses: integer, prerequisites: integer[][]) -> boolean`
 
-**Example 1** — Input: `{"numCourses":2,"prerequisites":[[1,0]]}`; Output: `true`
-**Example 2** — Input: `{"numCourses":2,"prerequisites":[[1,0],[0,1]]}`; Output: `false`
+**Example 1**
+
+- **Input:** `{"numCourses":2,"prerequisites":[[1,0]]}`
+- **Output:** `true`
+
+**Example 2**
+
+- **Input:** `{"numCourses":2,"prerequisites":[[1,0],[0,1]]}`
+- **Output:** `false`
 
 **Constraints:** `1 <= numCourses <= 2000`; `0 <= prerequisites.length <= 5000`; no duplicate prerequisite pairs.
 
@@ -859,8 +1118,15 @@ Given `numCourses` and prerequisite pairs `[course, prerequisite]`, return an or
 
 **Function:** `findOrder(numCourses: integer, prerequisites: integer[][]) -> integer[]`
 
-**Example 1** — Input: `{"numCourses":2,"prerequisites":[[1,0]]}`; Output: `[0,1]`
-**Example 2** — Input: `{"numCourses":4,"prerequisites":[[1,0],[2,0],[3,1],[3,2]]}`; Output: `[0,1,2,3]`
+**Example 1**
+
+- **Input:** `{"numCourses":2,"prerequisites":[[1,0]]}`
+- **Output:** `[0,1]`
+
+**Example 2**
+
+- **Input:** `{"numCourses":4,"prerequisites":[[1,0],[2,0],[3,1],[3,2]]}`
+- **Output:** `[0,1,2,3]`
 
 **Constraints:** `1 <= numCourses <= 2000`; `0 <= prerequisites.length <= 5000`; no duplicate prerequisite pairs.
 
@@ -881,8 +1147,15 @@ Words are sorted according to an unknown alphabet. Each word contains lowercase 
 
 **Function:** `alienOrder(words: string[]) -> string`
 
-**Example 1** — Input: `{"words":["wrt","wrf","er","ett","rftt"]}`; Output: `"wertf"`
-**Example 2** — Input: `{"words":["z","x"]}`; Output: `"zx"`
+**Example 1**
+
+- **Input:** `{"words":["wrt","wrf","er","ett","rftt"]}`
+- **Output:** `"wertf"`
+
+**Example 2**
+
+- **Input:** `{"words":["z","x"]}`
+- **Output:** `"zx"`
 
 **Constraints:** `1 <= words.length <= 100`; `1 <= words[i].length <= 100`; words contain lowercase English letters.
 
@@ -905,8 +1178,15 @@ Every integer in `nums` appears exactly twice except for one integer, which appe
 
 **Function:** `singleNumber(nums: integer[]) -> integer`
 
-**Example 1** — Input: `{"nums":[2,2,1]}`; Output: `1`
-**Example 2** — Input: `{"nums":[4,1,2,1,2]}`; Output: `4`
+**Example 1**
+
+- **Input:** `{"nums":[2,2,1]}`
+- **Output:** `1`
+
+**Example 2**
+
+- **Input:** `{"nums":[4,1,2,1,2]}`
+- **Output:** `4`
 
 **Constraints:** `1 <= nums.length <= 3 * 10^4`; length is odd; `-3 * 10^4 <= nums[i] <= 3 * 10^4`; exactly one value appears once and all others appear twice.
 
@@ -927,8 +1207,15 @@ Every integer in `nums` appears exactly twice except for two distinct integers, 
 
 **Function:** `singleNumberIII(nums: integer[]) -> integer[2]`
 
-**Example 1** — Input: `{"nums":[1,2,1,3,2,5]}`; Output: `[3,5]`
-**Example 2** — Input: `{"nums":[-1,0]}`; Output: `[-1,0]`
+**Example 1**
+
+- **Input:** `{"nums":[1,2,1,3,2,5]}`
+- **Output:** `[3,5]`
+
+**Example 2**
+
+- **Input:** `{"nums":[-1,0]}`
+- **Output:** `[-1,0]`
 
 **Constraints:** `2 <= nums.length <= 3 * 10^4`; length is even; `-2^31 <= nums[i] < 2^31`; exactly two distinct values occur once and all others occur twice.
 
@@ -949,8 +1236,15 @@ Given a non-empty array of non-negative integers, choose two different indices a
 
 **Function:** `findMaximumXOR(nums: integer[]) -> integer`
 
-**Example 1** — Input: `{"nums":[3,10,5,25,2,8]}`; Output: `28`
-**Example 2** — Input: `{"nums":[0]}`; Output: `0`
+**Example 1**
+
+- **Input:** `{"nums":[3,10,5,25,2,8]}`
+- **Output:** `28`
+
+**Example 2**
+
+- **Input:** `{"nums":[0]}`
+- **Output:** `0`
 
 **Constraints:** `1 <= nums.length <= 2 * 10^5`; `0 <= nums[i] <= 2^31 - 1`. If fewer than two values are present, return `0`.
 

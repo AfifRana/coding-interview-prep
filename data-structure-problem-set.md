@@ -25,7 +25,15 @@ Given a non-decreasing integer array `nums`, remove duplicates in place so each 
 
 **Function:** `removeDuplicates(nums: integer[]) -> integer`
 
-**Examples:** `[1,1,2] -> k = 2, nums prefix = [1,2]`; `[0,0,1,1,1,2,2,3,3,4] -> k = 5, prefix = [0,1,2,3,4]`.
+**Example 1**
+
+- **Input:** [1,1,2]
+- **Output:** k = 2, nums prefix = [1,2]
+
+**Example 2**
+
+- **Input:** [0,0,1,1,1,2,2,3,3,4]
+- **Output:** k = 5, prefix = [0,1,2,3,4]
 
 **Constraints:** `1 <= nums.length <= 3 * 10^4`; `-100 <= nums[i] <= 100`; `nums` is sorted.
 
@@ -44,7 +52,15 @@ Given an integer array `nums`, return an array `answer` where `answer[i]` is the
 
 **Function:** `productExceptSelf(nums: integer[]) -> integer[]`
 
-**Examples:** `[1,2,3,4] -> [24,12,8,6]`; `[-1,1,0,-3,3] -> [0,0,9,0,0]`.
+**Example 1**
+
+- **Input:** [1,2,3,4]
+- **Output:** [24,12,8,6]
+
+**Example 2**
+
+- **Input:** [-1,1,0,-3,3]
+- **Output:** [0,0,9,0,0]
 
 **Constraints:** `2 <= nums.length <= 10^5`; `-30 <= nums[i] <= 30`; products fit 32-bit signed integer.
 
@@ -63,7 +79,15 @@ Given an unsorted integer array `nums`, return the smallest positive integer tha
 
 **Function:** `firstMissingPositive(nums: integer[]) -> integer`
 
-**Examples:** `[1,2,0] -> 3`; `[3,4,-1,1] -> 2`.
+**Example 1**
+
+- **Input:** [1,2,0]
+- **Output:** 3
+
+**Example 2**
+
+- **Input:** [3,4,-1,1]
+- **Output:** 2
 
 **Constraints:** `1 <= nums.length <= 10^5`; `-2^31 <= nums[i] <= 2^31-1`.
 
@@ -85,7 +109,15 @@ Return `true` if `s` is a palindrome after converting uppercase English letters 
 
 **Function:** `isPalindrome(s: string) -> boolean`
 
-**Examples:** `"A man, a plan, a canal: Panama" -> true`; `"race a car" -> false`.
+**Example 1**
+
+- **Input:** "A man, a plan, a canal: Panama"
+- **Output:** true
+
+**Example 2**
+
+- **Input:** "race a car"
+- **Output:** false
 
 **Constraints:** `1 <= s.length <= 2 * 10^5`; `s` contains printable ASCII characters.
 
@@ -104,7 +136,15 @@ Given a string `s`, return its longest contiguous substring that is a palindrome
 
 **Function:** `longestPalindrome(s: string) -> string`
 
-**Examples:** `"babad" -> "bab"`; `"cbbd" -> "bb"`.
+**Example 1**
+
+- **Input:** "babad"
+- **Output:** "bab"
+
+**Example 2**
+
+- **Input:** "cbbd"
+- **Output:** "bb"
 
 **Constraints:** `1 <= s.length <= 1000`; `s` consists of English letters and digits.
 
@@ -123,7 +163,20 @@ Implement full-string matching for text `s` and pattern `p`. `.` matches any sin
 
 **Function:** `isMatch(s: string, p: string) -> boolean`
 
-**Examples:** `{"s":"aa","p":"a"} -> false`; `{"s":"aa","p":"a*"} -> true`; `{"s":"ab","p":".*"} -> true`.
+**Example 1**
+
+- **Input:** {"s":"aa","p":"a"}
+- **Output:** false
+
+**Example 2**
+
+- **Input:** {"s":"aa","p":"a*"}
+- **Output:** true
+
+**Example 3**
+
+- **Input:** {"s":"ab","p":".*"}
+- **Output:** true
 
 **Constraints:** `0 <= s.length <= 20`; `1 <= p.length <= 30`; `s` contains lowercase letters; `p` contains lowercase letters, `.` and `*`; pattern is valid.
 
@@ -147,7 +200,15 @@ Given the array representation of a singly linked list, reverse its node order.
 
 **Function:** `reverseList(values: integer[]) -> integer[]`
 
-**Examples:** `[1,2,3,4,5] -> [5,4,3,2,1]`; `[1,2] -> [2,1]`.
+**Example 1**
+
+- **Input:** [1,2,3,4,5]
+- **Output:** [5,4,3,2,1]
+
+**Example 2**
+
+- **Input:** [1,2]
+- **Output:** [2,1]
 
 **Constraints:** `0 <= values.length <= 5000`; `-5000 <= values[i] <= 5000`.
 
@@ -165,7 +226,15 @@ Two non-empty linked lists represent non-negative integers. Digits are stored in
 
 **Function:** `addTwoNumbers(a: integer[], b: integer[]) -> integer[]`
 
-**Examples:** `[2,4,3] + [5,6,4] -> [7,0,8]`; `[0] + [0] -> [0]`.
+**Example 1**
+
+- **Input:** [2,4,3] + [5,6,4]
+- **Output:** [7,0,8]
+
+**Example 2**
+
+- **Input:** [0] + [0]
+- **Output:** [0]
 
 **Constraints:** `1 <= a.length,b.length <= 100`; each digit is in `0..9`; each list represents a valid number without leading zero.
 
@@ -183,7 +252,15 @@ Given a linked list and positive integer `k`, reverse nodes in consecutive group
 
 **Function:** `reverseKGroup(values: integer[], k: integer) -> integer[]`
 
-**Examples:** `[1,2,3,4,5], k=2 -> [2,1,4,3,5]`; `[1,2,3,4,5], k=3 -> [3,2,1,4,5]`.
+**Example 1**
+
+- **Input:** [1,2,3,4,5], k=2
+- **Output:** [2,1,4,3,5]
+
+**Example 2**
+
+- **Input:** [1,2,3,4,5], k=3
+- **Output:** [3,2,1,4,5]
 
 **Constraints:** `0 <= values.length <= 5000`; `1 <= k <= 5000`; `-1000 <= values[i] <= 1000`.
 
@@ -204,7 +281,20 @@ Given a string containing only `(`, `)`, `{`, `}`, `[` and `]`, determine whethe
 
 **Function:** `isValid(s: string) -> boolean`
 
-**Examples:** `"()" -> true`; `"()[]{}" -> true`; `"(]" -> false`.
+**Example 1**
+
+- **Input:** "()"
+- **Output:** true
+
+**Example 2**
+
+- **Input:** "()[]{}"
+- **Output:** true
+
+**Example 3**
+
+- **Input:** "(]"
+- **Output:** false
 
 **Constraints:** `1 <= s.length <= 10^4`; `s` contains only bracket characters.
 
@@ -224,7 +314,10 @@ Implement a FIFO queue using only stack operations (`push`, `pop`, `top`, `empty
 
 **Function:** `queueWithStacks(operations: string[], arguments: integer[][]) -> value[]`
 
-**Examples:** operations `["push","push","peek","pop","empty"]`, arguments `[[1],[2],[],[],[]]` -> `[null,null,1,1,false]`.
+**Example 1**
+
+- **Input:** operations `["push","push","peek","pop","empty"]`, arguments `[[1],[2],[],[],[]]`
+- **Output:** [null,null,1,1,false]
 
 **Constraints:** `1 <= operations.length <= 100`; values are in `[-100,100]`; operations are valid.
 
@@ -242,7 +335,15 @@ Given non-negative histogram bar heights, where each bar has width one, return t
 
 **Function:** `largestRectangleArea(heights: integer[]) -> integer`
 
-**Examples:** `[2,1,5,6,2,3] -> 10`; `[2,4] -> 4`.
+**Example 1**
+
+- **Input:** [2,1,5,6,2,3]
+- **Output:** 10
+
+**Example 2**
+
+- **Input:** [2,4]
+- **Output:** 4
 
 **Constraints:** `1 <= heights.length <= 10^5`; `0 <= heights[i] <= 10^4`.
 
@@ -263,7 +364,15 @@ Given an integer array `nums` and an integer `target`, return the two distinct i
 
 **Function:** `twoSum(nums: integer[], target: integer) -> integer[2]`
 
-**Examples:** `[2,7,11,15], target=9 -> [0,1]`; `[3,2,4], target=6 -> [1,2]`.
+**Example 1**
+
+- **Input:** [2,7,11,15], target=9
+- **Output:** [0,1]
+
+**Example 2**
+
+- **Input:** [3,2,4], target=6
+- **Output:** [1,2]
 
 **Constraints:** `2 <= nums.length <= 10^4`; `-10^9 <= nums[i], target <= 10^9`; exactly one solution; an element cannot be reused.
 
@@ -282,7 +391,10 @@ Design a least-recently-used cache with positive capacity. `get(key)` returns it
 
 **Function:** `runLRU(capacity: integer, operations: string[], arguments: integer[][]) -> value[]`
 
-**Example:** capacity `2`; operations `["put","put","get","put","get","put","get","get","get"]`; arguments `[[1,1],[2,2],[1],[3,3],[2],[4,4],[1],[3],[4]]` -> `[null,null,1,null,-1,null,-1,3,4]`.
+**Example 1**
+
+- **Input:** capacity `2`; operations `["put","put","get","put","get","put","get","get","get"]`; arguments `[[1,1],[2,2],[1],[3,3],[2],[4,4],[1],[3],[4]]`
+- **Output:** [null,null,1,null,-1,null,-1,3,4]
 
 **Constraints:** `1 <= capacity <= 3000`; up to `2 * 10^5` operations; keys and values are integers.
 
@@ -300,7 +412,10 @@ Design a structure supporting `inc(key)`, `dec(key)`, `getMaxKey()`, and `getMin
 
 **Function:** `runAllOne(operations: string[], arguments: string[][]) -> string[]`
 
-**Example:** operations `["inc","inc","inc","getMaxKey","getMinKey","dec","getMaxKey","getMinKey"]`, arguments `[["a"],["b"],["b"],[],[],["a"],[],[]]` -> `["","","","b","a","","b","b"]`; mutating operations return empty output strings.
+**Example 1**
+
+- **Input:** operations `["inc","inc","inc","getMaxKey","getMinKey","dec","getMaxKey","getMinKey"]`, arguments `[["a"],["b"],["b"],[],[],["a"],[],[]]`
+- **Output:** ["","","","b","a","","b","b"]
 
 **Constraints:** `1 <= operations.length <= 5 * 10^4`; keys are non-empty lowercase strings of length at most 10; `dec` targets an existing key.
 
@@ -322,7 +437,15 @@ Given the root of a binary tree, return whether it is a mirror of itself around 
 
 **Function:** `isSymmetric(levelOrder: value[]) -> boolean`
 
-**Examples:** `[1,2,2,3,4,4,3] -> true`; `[1,2,2,null,3,null,3] -> false`.
+**Example 1**
+
+- **Input:** [1,2,2,3,4,4,3]
+- **Output:** true
+
+**Example 2**
+
+- **Input:** [1,2,2,null,3,null,3]
+- **Output:** false
 
 **Constraints:** `1 <= node count <= 1000`; node values are in `[-100,100]`.
 
@@ -340,7 +463,15 @@ Given a binary tree, return its node values grouped by level from top to bottom,
 
 **Function:** `levelOrder(levelOrderInput: value[]) -> integer[][]`
 
-**Examples:** `[3,9,20,null,null,15,7] -> [[3],[9,20],[15,7]]`; `[1] -> [[1]]`.
+**Example 1**
+
+- **Input:** [3,9,20,null,null,15,7]
+- **Output:** [[3],[9,20],[15,7]]
+
+**Example 2**
+
+- **Input:** [1]
+- **Output:** [[1]]
 
 **Constraints:** `0 <= node count <= 2000`; node values are in `[-1000,1000]`.
 
@@ -358,7 +489,15 @@ Implement `serialize` to encode a binary tree and `deserialize` to reconstruct i
 
 **Function:** `roundTripTree(tree: value[]) -> value[]`
 
-**Examples:** `[1,2,3,null,null,4,5] -> [1,2,3,null,null,4,5]`; `[] -> []`.
+**Example 1**
+
+- **Input:** [1,2,3,null,null,4,5]
+- **Output:** [1,2,3,null,null,4,5]
+
+**Example 2**
+
+- **Input:** []
+- **Output:** []
 
 **Constraints:** `0 <= node count <= 10^4`; `-1000 <= node.val <= 1000`.
 
@@ -378,7 +517,15 @@ Given stone weights, repeatedly choose the two heaviest stones `x <= y`. If equa
 
 **Function:** `lastStoneWeight(stones: integer[]) -> integer`
 
-**Examples:** `[2,7,4,1,8,1] -> 1`; `[1] -> 1`.
+**Example 1**
+
+- **Input:** [2,7,4,1,8,1]
+- **Output:** 1
+
+**Example 2**
+
+- **Input:** [1]
+- **Output:** 1
 
 **Constraints:** `1 <= stones.length <= 30`; `1 <= stones[i] <= 1000`.
 
@@ -396,7 +543,15 @@ Given points with integer coordinates and integer `k`, return the `k` points wit
 
 **Function:** `kClosest(points: integer[][], k: integer) -> integer[][]`
 
-**Examples:** `[[1,3],[-2,2]], k=1 -> [[-2,2]]`; `[[3,3],[5,-1],[-2,4]], k=2 -> [[3,3],[-2,4]]`.
+**Example 1**
+
+- **Input:** [[1,3],[-2,2]], k=1
+- **Output:** [[-2,2]]
+
+**Example 2**
+
+- **Input:** [[3,3],[5,-1],[-2,4]], k=2
+- **Output:** [[3,3],[-2,4]]
 
 **Constraints:** `1 <= k <= points.length <= 10^4`; `-10^4 <= x,y <= 10^4`; points are distinct.
 
@@ -415,7 +570,15 @@ Given `k` sorted linked lists, each represented as an integer array, merge them 
 
 **Function:** `mergeKLists(lists: integer[][]) -> integer[]`
 
-**Examples:** `[[1,4,5],[1,3,4],[2,6]] -> [1,1,2,3,4,4,5,6]`; `[] -> []`.
+**Example 1**
+
+- **Input:** [[1,4,5],[1,3,4],[2,6]]
+- **Output:** [1,1,2,3,4,4,5,6]
+
+**Example 2**
+
+- **Input:** []
+- **Output:** []
 
 **Constraints:** `0 <= lists.length <= 10^4`; total number of nodes is `0..10^4`; values are in `[-10^4,10^4]`; each list is sorted non-decreasingly.
 
@@ -436,7 +599,15 @@ Given an undirected graph with vertices `0..n-1` and an edge list, determine whe
 
 **Function:** `validPath(n: integer, edges: integer[][], source: integer, destination: integer) -> boolean`
 
-**Examples:** `n=3, edges=[[0,1],[1,2]], source=0, destination=2 -> true`; `n=6, edges=[[0,1],[0,2],[3,5],[5,4],[4,3]], source=0, destination=5 -> false`.
+**Example 1**
+
+- **Input:** n=3, edges=[[0,1],[1,2]], source=0, destination=2
+- **Output:** true
+
+**Example 2**
+
+- **Input:** n=6, edges=[[0,1],[0,2],[3,5],[5,4],[4,3]], source=0, destination=5
+- **Output:** false
 
 **Constraints:** `1 <= n <= 2 * 10^5`; up to `2 * 10^5` unique undirected edges; endpoints are valid and distinct.
 
@@ -453,7 +624,15 @@ Given a connected undirected graph represented by its adjacency list, return a d
 
 **Function:** `cloneGraph(adjacency: integer[][]) -> integer[][]`
 
-**Examples:** `[[2,4],[1,3],[2,4],[1,3]] -> [[2,4],[1,3],[2,4],[1,3]]`; `[] -> []`.
+**Example 1**
+
+- **Input:** [[2,4],[1,3],[2,4],[1,3]]
+- **Output:** [[2,4],[1,3],[2,4],[1,3]]
+
+**Example 2**
+
+- **Input:** []
+- **Output:** []
 
 **Constraints:** `0 <= node count <= 100`; labels are consecutive integers `1..n`; graph is undirected, connected when non-empty, and has no self-edges.
 
@@ -471,7 +650,15 @@ An undirected connected network has `n` vertices labeled `0..n-1`. A connection 
 
 **Function:** `criticalConnections(n: integer, connections: integer[][]) -> integer[][]`
 
-**Examples:** `n=4, connections=[[0,1],[1,2],[2,0],[1,3]] -> [[1,3]]`; `n=2, connections=[[0,1]] -> [[0,1]]`.
+**Example 1**
+
+- **Input:** n=4, connections=[[0,1],[1,2],[2,0],[1,3]]
+- **Output:** [[1,3]]
+
+**Example 2**
+
+- **Input:** n=2, connections=[[0,1]]
+- **Output:** [[0,1]]
 
 **Constraints:** `2 <= n <= 10^5`; `n-1 <= connections.length <= 2 * 10^5`; no duplicate edges; graph is connected.
 
@@ -491,7 +678,10 @@ Implement a trie with `insert(word)`, `search(word)`, and `startsWith(prefix)`. 
 
 **Function:** `runTrie(operations: string[], arguments: string[][]) -> value[]`
 
-**Example:** operations `["insert","search","search","startsWith","insert","search"]`, arguments `[["apple"],["apple"],["app"],["app"],["app"],["app"]]` -> `[null,true,false,true,null,true]`.
+**Example 1**
+
+- **Input:** operations `["insert","search","search","startsWith","insert","search"]`, arguments `[["apple"],["apple"],["app"],["app"],["app"],["app"]]`
+- **Output:** [null,true,false,true,null,true]
 
 **Constraints:** `1 <= operations.length <= 3 * 10^4`; words and prefixes contain lowercase English letters and have length at most 2000.
 
@@ -508,7 +698,10 @@ Implement `addWord(word)` and `search(word)`. Search patterns contain lowercase 
 
 **Function:** `runWordDictionary(operations: string[], arguments: string[][]) -> value[]`
 
-**Examples:** add `"bad"`, `"dad"`, `"mad"`; search `"pad" -> false`, `"bad" -> true`, `".ad" -> true`, `"b.." -> true`.
+**Example 1**
+
+- **Input:** add words ["bad", "dad", "mad"] and search ["pad", "bad", ".ad", "b.."]
+- **Output:** [false, true, true, true]
 
 **Constraints:** `1 <= operations.length <= 10^4`; words and patterns have length `1..25`; lowercase letters and `.` only.
 
@@ -525,7 +718,15 @@ Given an `m x n` board of lowercase letters and a list of distinct words, return
 
 **Function:** `findWords(board: string[][], words: string[]) -> string[]`
 
-**Examples:** board `[["o","a","a","n"],["e","t","a","e"],["i","h","k","r"],["i","f","l","v"]]`, words `["oath","pea","eat","rain"]` -> `["eat","oath"]`; board `[["a","b"],["c","d"]]`, words `["abcb"]` -> `[]`.
+**Example 1**
+
+- **Input:** board `[["o","a","a","n"],["e","t","a","e"],["i","h","k","r"],["i","f","l","v"]]`, words `["oath","pea","eat","rain"]`
+- **Output:** ["eat","oath"]
+
+**Example 2**
+
+- **Input:** board `[["a","b"],["c","d"]]`, words `["abcb"]`
+- **Output:** []
 
 **Constraints:** `1 <= m,n <= 12`; `1 <= words.length <= 3 * 10^4`; word length `1..10`; lowercase letters; words are distinct.
 
@@ -545,7 +746,15 @@ Given an `n x n` adjacency matrix `isConnected`, where `isConnected[i][j] == 1` 
 
 **Function:** `findCircleNum(isConnected: integer[][]) -> integer`
 
-**Examples:** `[[1,1,0],[1,1,0],[0,0,1]] -> 2`; `[[1,0,0],[0,1,0],[0,0,1]] -> 3`.
+**Example 1**
+
+- **Input:** [[1,1,0],[1,1,0],[0,0,1]]
+- **Output:** 2
+
+**Example 2**
+
+- **Input:** [[1,0,0],[0,1,0],[0,0,1]]
+- **Output:** 3
 
 **Constraints:** `1 <= n <= 200`; matrix dimensions are `n x n`; entries are 0 or 1; matrix is symmetric.
 
@@ -563,7 +772,15 @@ A tree with vertices labeled `1..n` had one extra undirected edge added. Return 
 
 **Function:** `findRedundantConnection(edges: integer[][]) -> integer[2]`
 
-**Examples:** `[[1,2],[1,3],[2,3]] -> [2,3]`; `[[1,2],[2,3],[3,4],[1,4],[1,5]] -> [1,4]`.
+**Example 1**
+
+- **Input:** [[1,2],[1,3],[2,3]]
+- **Output:** [2,3]
+
+**Example 2**
+
+- **Input:** [[1,2],[2,3],[3,4],[1,4],[1,5]]
+- **Output:** [1,4]
 
 **Constraints:** `3 <= edges.length <= 1000`; labels are `1..n`; edges are unique; graph is connected after adding the extra edge.
 
@@ -580,7 +797,15 @@ An initially all-water `m x n` grid receives land additions in order. After each
 
 **Function:** `numIslands2(m: integer, n: integer, positions: integer[][]) -> integer[]`
 
-**Examples:** `m=3,n=3, positions=[[0,0],[0,1],[1,2],[2,1]] -> [1,1,2,3]`; `m=1,n=1, positions=[[0,0],[0,0]] -> [1,1]`.
+**Example 1**
+
+- **Input:** m=3,n=3, positions=[[0,0],[0,1],[1,2],[2,1]]
+- **Output:** [1,1,2,3]
+
+**Example 2**
+
+- **Input:** m=1,n=1, positions=[[0,0],[0,0]]
+- **Output:** [1,1]
 
 **Constraints:** `1 <= m,n <= 10^4`; `1 <= m*n <= 10^5`; `1 <= positions.length <= 10^4`; positions are in bounds.
 
