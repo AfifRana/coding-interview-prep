@@ -101,6 +101,27 @@ Given an unsorted integer array `nums`, return the smallest positive integer tha
 | `{"nums":[2,2,2,2]}` | `1` | No one present |
 | `{"nums":[-3,-2,0]}` | `1` | No positive values |
 
+### 1.4 Maximum Sum Subarray of Size K (Easy)
+
+Given an integer array `nums` and an integer `k`, return the maximum sum of any contiguous subarray containing exactly `k` elements.
+
+**Function:** `maxWindowSum(nums: integer[], k: integer) -> integer`
+
+**Example**
+
+- **Input:** `{"nums":[2,1,5,1,3,2],"k":3}`
+- **Output:** `9`
+
+**Constraints:** `1 <= k <= nums.length <= 10^5`; `-10^4 <= nums[i] <= 10^4`.
+
+| Input | Expected Output | Coverage note |
+|---|---:|---|
+| `{"nums":[5],"k":1}` | `5` | Single element |
+| `{"nums":[1,2,3],"k":3}` | `6` | Window is whole array |
+| `{"nums":[2,1,5,1,3,2],"k":3}` | `9` | Maximum is an interior window |
+| `{"nums":[-5,-2,-3],"k":2}` | `-5` | All-negative values |
+| `{"nums":[4,4,4,4],"k":2}` | `8` | Equal window sums |
+
 ## 2) Strings
 
 ### 2.1 Valid Palindrome (Easy)
@@ -189,6 +210,48 @@ Implement full-string matching for text `s` and pattern `p`. `.` matches any sin
 | `{"s":"aab","p":"c*a*b"}` | `true` | Multiple zero/repeat choices |
 | `{"s":"mississippi","p":"mis*is*p*."}` | `false` | Near match fails |
 | `{"s":"ab","p":" .*"}` | `false` | Space is a literal character |
+
+### 2.4 Group Anagrams (Medium)
+
+Given an array of lowercase English words, group words that have the same character counts. Preserve input order within each group, and order groups by the first occurrence of any word in the input.
+
+**Function:** `groupAnagrams(words: string[]) -> string[][]`
+
+**Example**
+
+- **Input:** `{"words":["eat","tea","tan","ate","nat","bat"]}`
+- **Output:** `[["eat","tea","ate"],["tan","nat"],["bat"]]`
+
+**Constraints:** `1 <= words.length <= 10^4`; `0 <= words[i].length <= 100`; words contain lowercase English letters only.
+
+| Input | Expected Output | Coverage note |
+|---|---|---|
+| `{"words":["a"]}` | `[["a"]]` | Single word |
+| `{"words":["eat","tea","tan","ate","nat","bat"]}` | `[["eat","tea","ate"],["tan","nat"],["bat"]]` | Several anagram groups |
+| `{"words":["ab","ba","ab"]}` | `[["ab","ba","ab"]]` | Duplicate word |
+| `{"words":["","","a"]}` | `[["",""],["a"]]` | Empty strings |
+| `{"words":["abc","bca","cab"]}` | `[["abc","bca","cab"]]` | Same letters, different order |
+
+### 2.5 First Non-Repeating Character (Easy)
+
+Given a lowercase English string `s`, return the index of its first character that occurs exactly once. Return `-1` if every character occurs more than once.
+
+**Function:** `firstUniqueCharacter(s: string) -> integer`
+
+**Example**
+
+- **Input:** `{"s":"leetcode"}`
+- **Output:** `0`
+
+**Constraints:** `1 <= s.length <= 10^5`; `s` contains lowercase English letters only.
+
+| Input | Expected Output | Coverage note |
+|---|---:|---|
+| `{"s":"a"}` | `0` | Single character |
+| `{"s":"leetcode"}` | `0` | First character is unique |
+| `{"s":"loveleetcode"}` | `2` | Unique character after repeated prefix |
+| `{"s":"aabb"}` | `-1` | No unique character |
+| `{"s":"aabbc"}` | `4` | Unique character at end |
 
 ## 3) Linked Lists
 
@@ -427,6 +490,27 @@ Design a structure supporting `inc(key)`, `dec(key)`, `getMaxKey()`, and `getMin
 | `{"operations":["inc","inc","dec","getMaxKey","getMinKey"],"arguments":[["a"],["a"],["a"],[],[]]}` | `["","","","a","a"]` | Decrement count |
 | `{"operations":["inc","dec","getMaxKey","getMinKey"],"arguments":[["x"],["x"],[],[]]}` | `["","","",""]` | Key removed, structure empty |
 
+### 5.4 Top Search Terms from a Stream (Medium)
+
+Given a stream of search terms and an integer `k`, return the `k` most frequent terms. Order by frequency descending, then term alphabetically ascending. If fewer than `k` distinct terms appear, return all distinct terms.
+
+**Function:** `topSearchTerms(terms: string[], k: integer) -> string[]`
+
+**Example**
+
+- **Input:** `{"terms":["code","search","code","map","search","code"],"k":2}`
+- **Output:** `["code","search"]`
+
+**Constraints:** `1 <= terms.length <= 10^5`; `1 <= k <= 10^4`; terms are non-empty lowercase strings.
+
+| Input | Expected Output | Coverage note |
+|---|---|---|
+| `{"terms":["a"],"k":1}` | `["a"]` | One term |
+| `{"terms":["code","search","code","map","search","code"],"k":2}` | `["code","search"]` | Frequency ranking |
+| `{"terms":["b","a","b","a"],"k":1}` | `["a"]` | Alphabetical tie-break |
+| `{"terms":["x","y"],"k":5}` | `["x","y"]` | Fewer distinct terms than k |
+| `{"terms":["a","a","b","b","c"],"k":3}` | `["a","b","c"]` | Multiple ties |
+
 ## 6) Trees
 
 Trees are represented as level-order arrays, using `null` for missing children.
@@ -483,7 +567,47 @@ Given a binary tree, return its node values grouped by level from top to bottom,
 | `{"tree":[1,2,3,4,5]}` | `[[1],[2,3],[4,5]]` | Incomplete final level |
 | `{"tree":[-1,-2,-3]}` | `[[-1],[-2,-3]]` | Negative values |
 
-### 6.3 Serialize and Deserialize Binary Tree (Hard)
+### 6.3 Maximum Depth of Binary Tree (Easy)
+
+Given a binary tree, return the number of nodes on its longest root-to-leaf path. An empty tree has depth zero.
+
+**Function:** `maxDepth(tree: value[]) -> integer`
+
+**Example**
+
+- **Input:** `{"tree":[3,9,20,null,null,15,7]}`
+- **Output:** `3`
+
+**Constraints:** `0 <= node count <= 10^4`; node values are integers.
+
+| Input | Expected Output | Coverage note |
+|---|---:|---|
+| `{"tree":[]}` | `0` | Empty tree |
+| `{"tree":[1]}` | `1` | Single node |
+| `{"tree":[3,9,20,null,null,15,7]}` | `3` | Balanced depth |
+| `{"tree":[1,2,null,3]}` | `3` | Skewed tree |
+
+### 6.4 Validate Binary Search Tree (Medium)
+
+Return whether a binary tree is a valid BST: every node in a left subtree is strictly smaller than its ancestor, and every node in a right subtree is strictly larger. Duplicate values are not allowed.
+
+**Function:** `isValidBST(tree: value[]) -> boolean`
+
+**Example**
+
+- **Input:** `{"tree":[2,1,3]}`
+- **Output:** `true`
+
+**Constraints:** `0 <= node count <= 10^4`; `-2^31 <= node.val <= 2^31-1`.
+
+| Input | Expected Output | Coverage note |
+|---|---:|---|
+| `{"tree":[]}` | `true` | Empty tree |
+| `{"tree":[2,1,3]}` | `true` | Valid BST |
+| `{"tree":[5,1,4,null,null,3,6]}` | `false` | Descendant violates ancestor bound |
+| `{"tree":[2,2,3]}` | `false` | Duplicate value |
+
+### 6.5 Serialize and Deserialize Binary Tree (Hard)
 
 Implement `serialize` to encode a binary tree and `deserialize` to reconstruct it. For each test, deserialize the serialization of the input tree and return the reconstructed level-order array, removing trailing `null` entries. Your serialized representation may use any format, but it must preserve tree shape and values.
 
@@ -564,7 +688,27 @@ Given points with integer coordinates and integer `k`, return the `k` points wit
 | `{"points":[[0,0],[2,0],[0,2]],"k":1}` | `[[0,0]]` | Origin |
 | `{"points":[[-10000,0],[0,9999]],"k":1}` | `[[0,9999]]` | Large coordinates |
 
-### 7.3 Merge k Sorted Lists (Hard)
+### 7.3 K Largest Elements (Medium)
+
+Given an integer array and `k`, return the `k` largest values in descending order. Values may repeat.
+
+**Function:** `kLargest(nums: integer[], k: integer) -> integer[]`
+
+**Example**
+
+- **Input:** `{"nums":[3,2,1,5,6,4],"k":2}`
+- **Output:** `[6,5]`
+
+**Constraints:** `1 <= k <= nums.length <= 10^5`; `-10^9 <= nums[i] <= 10^9`.
+
+| Input | Expected Output | Coverage note |
+|---|---:|---|
+| `{"nums":[7],"k":1}` | `[7]` | Single value |
+| `{"nums":[3,2,1,5,6,4],"k":2}` | `[6,5]` | Two largest |
+| `{"nums":[5,5,1],"k":2}` | `[5,5]` | Duplicate maximum |
+| `{"nums":[-4,-1,-7],"k":2}` | `[-1,-4]` | Negative values |
+
+### 7.4 Merge k Sorted Lists (Hard)
 
 Given `k` sorted linked lists, each represented as an integer array, merge them into one sorted list and return it.
 
@@ -590,6 +734,29 @@ Given `k` sorted linked lists, each represented as an integer array, merge them 
 | `{"lists":[[1,4,5],[1,3,4],[2,6]]}` | `[1,1,2,3,4,4,5,6]` | Standard merge |
 | `{"lists":[[],[-2,0],[-2,3]]}` | `[-2,-2,0,3]` | Empty list and negatives |
 | `{"lists":[[1,1],[1,1]]}` | `[1,1,1,1]` | Duplicate values |
+
+### 7.5 Find Median from Data Stream (Hard)
+
+Design a data structure that supports adding integers and returning the median of all values added so far. For an even number of values, return the arithmetic mean of the two middle values. Every median query is made after at least one value has been added.
+
+**Function:** `runMedianFinder(operations: string[], arguments: integer[][]) -> value[]`
+
+For each `addNum` operation, return `null`. For each `findMedian` operation, return the current median.
+
+**Example**
+
+- **Input:** operations `["addNum","addNum","findMedian","addNum","findMedian"]`, arguments `[[1],[2],[],[3],[]]`
+- **Output:** `[null,null,1.5,null,2]`
+
+**Constraints:** `1 <= operations.length <= 10^5`; values are in `[-10^5,10^5]`; every query follows at least one insertion.
+
+| Input | Expected Output | Coverage note |
+|---|---|---|
+| `{"operations":["addNum","findMedian"],"arguments":[[5],[]]}` | `[null,5]` | One value |
+| `{"operations":["addNum","addNum","findMedian"],"arguments":[[1],[2],[]]}` | `[null,null,1.5]` | Even number of values |
+| `{"operations":["addNum","addNum","addNum","findMedian"],"arguments":[[1],[2],[3],[]]}` | `[null,null,null,2]` | Odd number of values |
+| `{"operations":["addNum","addNum","addNum","addNum","findMedian"],"arguments":[[5],[-1],[9],[3],[]]}` | `[null,null,null,null,4]` | Insertions out of sorted order |
+| `{"operations":["addNum","addNum","addNum","findMedian"],"arguments":[[-5],[-2],[-9],[]]}` | `[null,null,null,-5]` | Negative values |
 
 ## 8) Graphs
 
@@ -670,6 +837,26 @@ An undirected connected network has `n` vertices labeled `0..n-1`. A connection 
 | `{"n":4,"connections":[[0,1],[1,2],[2,0],[0,3],[3,2]]}` | `[]` | No bridge |
 | `{"n":5,"connections":[[0,1],[1,2],[2,0],[1,3],[3,4]]}` | `[[1,3],[3,4]]` | Multiple bridges, sorted |
 
+### 8.4 Shortest Path in an Unweighted Graph (Medium)
+
+Given an undirected graph with vertices `0..n-1`, return the minimum number of edges from `source` to `destination`, or `-1` if no path exists. A vertex is distance zero from itself.
+
+**Function:** `shortestPathLength(n: integer, edges: integer[][], source: integer, destination: integer) -> integer`
+
+**Example**
+
+- **Input:** `{"n":5,"edges":[[0,1],[1,2],[0,3],[3,4],[4,2]],"source":0,"destination":2}`
+- **Output:** `2`
+
+**Constraints:** `1 <= n <= 10^5`; edges are unique undirected pairs with valid endpoints.
+
+| Input | Expected Output | Coverage note |
+|---|---:|---|
+| `{"n":1,"edges":[],"source":0,"destination":0}` | `0` | Same vertex |
+| `{"n":2,"edges":[],"source":0,"destination":1}` | `-1` | Unreachable |
+| `{"n":5,"edges":[[0,1],[1,2],[0,3],[3,4],[4,2]],"source":0,"destination":2}` | `2` | Choose shortest of two paths |
+| `{"n":4,"edges":[[0,1],[1,2],[2,3]],"source":0,"destination":3}` | `3` | Chain |
+
 ## 9) Tries
 
 ### 9.1 Implement Trie (Prefix Tree) (Easy)
@@ -692,7 +879,28 @@ Implement a trie with `insert(word)`, `search(word)`, and `startsWith(prefix)`. 
 | `{"operations":["insert","insert","search","startsWith"],"arguments":[["app"],["apple"],["app"],["appl"]]}` | `[null,null,true,true]` | Shared prefix |
 | `{"operations":["search","startsWith"],"arguments":[["missing"],["m"]]}` | `[false,false]` | No inserted words |
 
-### 9.2 Design Add and Search Words Data Structure (Medium)
+### 9.2 Autocomplete (Medium)
+
+Given a dictionary of words and a prefix, return all distinct words beginning with that prefix in alphabetical order. Return an empty array when there are no matches.
+
+**Function:** `autocomplete(words: string[], prefix: string) -> string[]`
+
+**Example**
+
+- **Input:** `{"words":["into","integer","interest","apple"],"prefix":"int"}`
+- **Output:** `["integer","interest","into"]`
+
+**Constraints:** `0 <= words.length <= 10^4`; words contain lowercase English letters; `0 <= prefix.length <= 100`.
+
+| Input | Expected Output | Coverage note |
+|---|---|---|
+| `{"words":["cat"],"prefix":"c"}` | `["cat"]` | One match |
+| `{"words":["into","integer","interest","apple"],"prefix":"int"}` | `["integer","interest","into"]` | Several completions |
+| `{"words":["app","apple","apply"],"prefix":"app"}` | `["app","apple","apply"]` | Word is also a prefix |
+| `{"words":["cat","dog"],"prefix":"z"}` | `[]` | No matches |
+| `{"words":["a","a","ab"],"prefix":"a"}` | `["a","ab"]` | Duplicate dictionary entries |
+
+### 9.3 Design Add and Search Words Data Structure (Medium)
 
 Implement `addWord(word)` and `search(word)`. Search patterns contain lowercase letters and `.`; a dot matches any one lowercase letter. Matching must cover the entire stored word.
 
@@ -712,7 +920,7 @@ Implement `addWord(word)` and `search(word)`. Search patterns contain lowercase 
 | `{"operations":["addWord","addWord","addWord","search","search","search","search"],"arguments":[["bad"],["dad"],["mad"],["pad"],["bad"],[".ad"],["b.."]]}` | `[null,null,null,false,true,true,true]` | Wildcard at different positions |
 | `{"operations":["addWord","search","search"],"arguments":[["a"],["."],[".."]]}` | `[null,true,false]` | Wildcard matches exactly one char |
 
-### 9.3 Word Search II (Hard)
+### 9.4 Word Search II (Hard)
 
 Given an `m x n` board of lowercase letters and a list of distinct words, return every word that can be formed by a path of horizontally or vertically adjacent cells. A cell cannot be reused within one word. Return found words sorted lexicographically.
 

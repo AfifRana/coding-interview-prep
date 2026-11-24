@@ -76,6 +76,12 @@ Dates in fixtures use ISO `YYYY-MM-DD`. Each test-case fixture is loaded indepen
   - [Median Salary per Department](#hard-3-median-salary-per-department)
   - [Consecutive Activity Streaks](#hard-4-consecutive-activity-streaks)
   - [Employee Org Chart](#hard-5-employee-org-chart)
+  - [Customers with at Least Five Orders](#hard-6-customers-with-at-least-five-orders)
+  - [Top Customer by Total Spend](#hard-7-top-customer-by-total-spend)
+  - [Salary Rank within Each Department](#hard-8-salary-rank-within-each-department)
+  - [Running Order Revenue](#hard-9-running-order-revenue)
+  - [Order Amount Segments](#hard-10-order-amount-segments)
+  - [Latest Activity per User](#hard-11-latest-activity-per-user)
 
 ---
 
@@ -594,3 +600,197 @@ INSERT INTO employees (id,name,salary,manager_id) VALUES
    INSERT INTO employees (id,name,salary,manager_id) VALUES (10,'A',0,NULL),(20,'B',0,10),(30,'C',0,20),(40,'D',0,30);
    ```
    Expected rows: `(10,'A',1,'A')`, `(20,'B',2,'A > B')`, `(30,'C',3,'A > B > C')`, `(40,'D',4,'A > B > C > D')`.
+
+### Hard 6. Customers with at Least Five Orders
+
+Return each customer ID and the number of their orders for customers with at least five orders. Customers without orders are excluded. Order by customer ID ascending.
+
+**Schema:** `customers(id, name)` and `orders(id, customer_id, order_date, amount)`.
+
+**Example fixture:**
+```sql
+INSERT INTO customers (id,name) VALUES (1,'Ari'),(2,'Bo');
+INSERT INTO orders (id,customer_id,order_date,amount) VALUES
+  (1,1,'2025-01-01',1),(2,1,'2025-01-02',1),(3,1,'2025-01-03',1),
+  (4,1,'2025-01-04',1),(5,1,'2025-01-05',1),(6,2,'2025-01-06',1);
+```
+**Expected result:**
+| customer_id | order_count |
+|---:|---:|
+| 1 | 5 |
+
+**Test cases:**
+1. **No orders:** Expected columns `customer_id, order_count`; rows *(empty)*.
+2. **Threshold is inclusive**
+   ```sql
+   INSERT INTO customers (id,name) VALUES (1,'A');
+   INSERT INTO orders (id,customer_id,order_date,amount) VALUES
+     (1,1,'2025-01-01',1),(2,1,'2025-01-02',1),(3,1,'2025-01-03',1),
+     (4,1,'2025-01-04',1),(5,1,'2025-01-05',1);
+   ```
+   Expected rows: `(1,5)`.
+3. **Below threshold is excluded**
+   ```sql
+   INSERT INTO customers (id,name) VALUES (1,'A');
+   INSERT INTO orders (id,customer_id,order_date,amount) VALUES
+     (1,1,'2025-01-01',1),(2,1,'2025-01-02',1),(3,1,'2025-01-03',1),(4,1,'2025-01-04',1);
+   ```
+   Expected rows: *(empty)*.
+
+### Hard 7. Top Customer by Total Spend
+
+Return the customer with the greatest total order amount as `customer_id` and `total_spend`. Sum all their orders. If customers tie for the greatest spend, return all tied customers in ascending ID order. Customers with no orders are not candidates.
+
+**Schema:** `orders(id, customer_id, order_date, amount)`.
+
+**Example fixture:**
+```sql
+INSERT INTO orders (id,customer_id,order_date,amount) VALUES
+  (1,2,'2025-01-01',30),(2,1,'2025-01-02',20),(3,2,'2025-01-03',25);
+```
+**Expected result:**
+| customer_id | total_spend |
+|---:|---:|
+| 2 | 55 |
+
+**Test cases:**
+1. **No orders:** Expected columns `customer_id, total_spend`; rows *(empty)*.
+2. **Tie for highest spend**
+   ```sql
+   INSERT INTO orders (id,customer_id,order_date,amount) VALUES
+     (1,2,'2025-01-01',10),(2,1,'2025-01-02',10),(3,3,'2025-01-03',5);
+   ```
+   Expected rows: `(1,10)`, `(2,10)`.
+3. **Several orders are summed**
+   ```sql
+   INSERT INTO orders (id,customer_id,order_date,amount) VALUES
+     (1,7,'2025-01-01',4),(2,7,'2025-01-02',6),(3,8,'2025-01-03',9);
+   ```
+   Expected rows: `(7,10)`.
+
+### Hard 8. Salary Rank within Each Department
+
+For each employee with a department, return `employee_id`, `department_id`, `salary`, and `salary_rank`. Rank salaries within each department from highest to lowest using `DENSE_RANK`; equal salaries share a rank and the next distinct salary gets the next consecutive rank. Order by department ID, rank, then employee ID.
+
+**Schema:** `employees(id, salary, department_id)`.
+
+**Example fixture:**
+```sql
+INSERT INTO departments VALUES (1,'A'),(2,'B');
+INSERT INTO employees (id,name,salary,department_id) VALUES
+  (1,'A',100,1),(2,'B',100,1),(3,'C',80,1),(4,'D',90,2);
+```
+**Expected result:**
+| employee_id | department_id | salary | salary_rank |
+|---:|---:|---:|---:|
+| 1 | 1 | 100 | 1 |
+| 2 | 1 | 100 | 1 |
+| 3 | 1 | 80 | 2 |
+| 4 | 2 | 90 | 1 |
+
+**Test cases:**
+1. **No employees:** Expected columns `employee_id, department_id, salary, salary_rank`; rows *(empty)*.
+2. **Ties share rank**
+   ```sql
+   INSERT INTO departments VALUES (1,'A');
+   INSERT INTO employees (id,name,salary,department_id) VALUES (1,'A',50,1),(2,'B',50,1),(3,'C',40,1);
+   ```
+   Expected rows: `(1,1,50,1)`, `(2,1,50,1)`, `(3,1,40,2)`.
+3. **Unassigned employees are excluded**
+   ```sql
+   INSERT INTO employees (id,name,salary,department_id) VALUES (1,'A',50,NULL);
+   ```
+   Expected rows: *(empty)*.
+
+### Hard 9. Running Order Revenue
+
+Return each order's ID, date, amount, and cumulative revenue. Order rows by date ascending, then order ID ascending; the running total includes the current row and all earlier rows in that order.
+
+**Schema:** `orders(id, order_date, amount)`.
+
+**Example fixture:**
+```sql
+INSERT INTO orders (id,order_date,amount) VALUES
+  (2,'2025-01-01',5),(1,'2025-01-01',10),(3,'2025-01-03',7);
+```
+**Expected result:**
+| order_id | order_date | amount | running_revenue |
+|---:|---|---:|---:|
+| 1 | 2025-01-01 | 10 | 10 |
+| 2 | 2025-01-01 | 5 | 15 |
+| 3 | 2025-01-03 | 7 | 22 |
+
+**Test cases:**
+1. **No orders:** Expected columns `order_id, order_date, amount, running_revenue`; rows *(empty)*.
+2. **Single order**
+   ```sql
+   INSERT INTO orders (id,order_date,amount) VALUES (4,'2025-02-01',12);
+   ```
+   Expected rows: `(4,'2025-02-01',12,12)`.
+3. **ID breaks same-date ties**
+   ```sql
+   INSERT INTO orders (id,order_date,amount) VALUES (2,'2025-01-01',5),(1,'2025-01-01',10);
+   ```
+   Expected rows: `(1,'2025-01-01',10,10)`, `(2,'2025-01-01',5,15)`.
+
+### Hard 10. Order Amount Segments
+
+Return `order_id`, `amount`, and `order_size`, labeling each order `small` when amount is below 50, `medium` when amount is at least 50 and below 200, and `large` otherwise. Order by order ID ascending.
+
+**Schema:** `orders(id, order_date, amount)`.
+
+**Example fixture:**
+```sql
+INSERT INTO orders (id,order_date,amount) VALUES
+  (1,'2025-01-01',20),(2,'2025-01-02',100),(3,'2025-01-03',250);
+```
+**Expected result:**
+| order_id | amount | order_size |
+|---:|---:|---|
+| 1 | 20 | small |
+| 2 | 100 | medium |
+| 3 | 250 | large |
+
+**Test cases:**
+1. **No orders:** Expected columns `order_id, amount, order_size`; rows *(empty)*.
+2. **Boundary amounts**
+   ```sql
+   INSERT INTO orders (id,order_date,amount) VALUES
+     (1,'2025-01-01',49),(2,'2025-01-02',50),(3,'2025-01-03',199),(4,'2025-01-04',200);
+   ```
+   Expected rows: `(1,49,'small')`, `(2,50,'medium')`, `(3,199,'medium')`, `(4,200,'large')`.
+3. **Zero is small**
+   ```sql
+   INSERT INTO orders (id,order_date,amount) VALUES (1,'2025-01-01',0);
+   ```
+   Expected rows: `(1,0,'small')`.
+
+### Hard 11. Latest Activity per User
+
+For every user with activity, return their `user_id` and latest `activity_date`. The schema guarantees one row per user per date. Order by user ID ascending.
+
+**Schema:** `user_activity(user_id, activity_date)`.
+
+**Example fixture:**
+```sql
+INSERT INTO user_activity VALUES
+  (1,'2025-01-01'),(1,'2025-01-05'),(2,'2025-01-03');
+```
+**Expected result:**
+| user_id | latest_activity_date |
+|---:|---|
+| 1 | 2025-01-05 |
+| 2 | 2025-01-03 |
+
+**Test cases:**
+1. **No activity:** Expected columns `user_id, latest_activity_date`; rows *(empty)*.
+2. **Single activity per user**
+   ```sql
+   INSERT INTO user_activity VALUES (1,'2025-02-01'),(2,'2025-02-03');
+   ```
+   Expected rows: `(1,'2025-02-01')`, `(2,'2025-02-03')`.
+3. **Latest date wins**
+   ```sql
+   INSERT INTO user_activity VALUES (5,'2025-01-03'),(5,'2025-01-01'),(5,'2025-01-10');
+   ```
+   Expected rows: `(5,'2025-01-10')`.

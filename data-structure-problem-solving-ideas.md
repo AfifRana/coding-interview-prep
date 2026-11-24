@@ -188,12 +188,35 @@ Path compression + union by rank/size.
 
 - **Problem:** top 10 frequent search terms from stream  
   **Choice:** hash map + min-heap size 10
+  **Practice:** [Top Search Terms from a Stream](data-structure-problem-set.md#54-top-search-terms-from-a-stream-medium)
 
 - **Problem:** detect if user graph has connection path  
   **Choice:** BFS/DFS graph traversal
+  **Practice:** [Find if Path Exists in Graph](data-structure-problem-set.md#81-find-if-path-exists-in-graph-easy)
 
 - **Problem:** keep median of incoming numbers  
   **Choice:** two heaps (max-heap left, min-heap right)
+  **Practice:** [Find Median from Data Stream](data-structure-problem-set.md#75-find-median-from-data-stream-hard)
 
 - **Problem:** quickly check if banned prefix appears  
   **Choice:** trie for prefix checks
+  **Practice:** [Autocomplete](data-structure-problem-set.md#92-autocomplete-medium)
+
+## Matching practice problems
+
+| Guide example | Problem set exercise |
+|---|---|
+| Maximum sum subarray of size `k` | [Maximum Sum Subarray of Size K](data-structure-problem-set.md#14-maximum-sum-subarray-of-size-k-easy) |
+| Anagram grouping | [Group Anagrams](data-structure-problem-set.md#24-group-anagrams-medium) |
+| Reverse linked list | [Reverse Linked List](data-structure-problem-set.md#31-reverse-linked-list-easy) |
+| Validate parentheses | [Valid Parentheses](data-structure-problem-set.md#41-valid-parentheses-easy) |
+| Histogram area with a monotonic stack | [Largest Rectangle in Histogram](data-structure-problem-set.md#43-largest-rectangle-in-histogram-hard) |
+| Level-order tree traversal | [Binary Tree Level Order Traversal](data-structure-problem-set.md#62-binary-tree-level-order-traversal-medium) |
+| First non-repeating character | [First Non-Repeating Character](data-structure-problem-set.md#25-first-non-repeating-character-easy) |
+| Maximum tree depth | [Maximum Depth of Binary Tree](data-structure-problem-set.md#63-maximum-depth-of-binary-tree-easy) |
+| Validate a BST | [Validate Binary Search Tree](data-structure-problem-set.md#64-validate-binary-search-tree-medium) |
+| Find `k` largest elements | [K Largest Elements](data-structure-problem-set.md#73-k-largest-elements-medium) |
+| Keep a running median from incoming values | [Find Median from Data Stream](data-structure-problem-set.md#75-find-median-from-data-stream-hard) |
+| Unweighted graph shortest path | [Shortest Path in an Unweighted Graph](data-structure-problem-set.md#84-shortest-path-in-an-unweighted-graph-medium) |
+| Autocomplete by prefix | [Autocomplete](data-structure-problem-set.md#92-autocomplete-medium) |
+| Detect a cycle while adding edges | [Redundant Connection](data-structure-problem-set.md#102-redundant-connection-medium) |

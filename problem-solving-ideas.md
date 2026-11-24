@@ -374,3 +374,23 @@ XOR all elements => unique number remains.
 4. Optimize with suitable pattern.
 5. Validate with edge cases.
 6. State time/space clearly.
+
+## Matching practice problems
+
+| Guide example | Problem set exercise |
+|---|---|
+| Pair sum in a sorted array | [Two Sum II — Input Array Is Sorted](problem-set.md#11-two-sum-ii-input-array-is-sorted-easy) |
+| Longest substring without repeats | [Longest Substring Without Repeating Characters](problem-set.md#22-longest-substring-without-repeating-characters-medium) |
+| Two Sum on unsorted input | [Two Sum (Unsorted Array)](problem-set.md#34-two-sum-unsorted-array-easy) |
+| First value at least a target | [First Value At Least Target](problem-set.md#44-first-value-at-least-target-medium) |
+| Range sum with prefix sums | [Range Sum Query — Immutable](problem-set.md#51-range-sum-query-immutable-easy) |
+| Count islands with DFS | [Number of Islands](problem-set.md#62-number-of-islands-medium) |
+| Shortest transformation path with BFS | [Word Ladder II](problem-set.md#63-word-ladder-ii-hard) |
+| Climbing stairs with dynamic programming | [Climbing Stairs](problem-set.md#71-climbing-stairs-easy) |
+| Track farthest reachable index greedily | [Jump Game](problem-set.md#82-jump-game-medium) |
+| Top `k` frequent elements | [Top K Frequent Elements](problem-set.md#92-top-k-frequent-elements-medium) |
+| Daily temperatures with a monotonic stack | [Daily Temperatures](problem-set.md#102-daily-temperatures-medium) |
+| Generate combinations with backtracking | [Combination Sum](problem-set.md#112-combination-sum-medium) |
+| Detect connectivity with Union-Find | [Find if Path Exists in Graph](problem-set.md#121-find-if-path-exists-in-graph-easy) |
+| Order courses topologically | [Course Schedule II](problem-set.md#132-course-schedule-ii-medium) |
+| Find the unique value with XOR | [Single Number](problem-set.md#141-single-number-easy) |

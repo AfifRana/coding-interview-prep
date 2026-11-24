@@ -288,6 +288,34 @@ Given a string `s` and an array `words` of equal-length strings, find every star
 | `{"s":"catdogcat","words":["cat","dog"]}` | `[0,3]` | Both word orders |
 | `{"s":"foobarbaz","words":["foo","bar"]}` | `[0]` | Match at beginning, trailing text |
 
+### 3.4 Two Sum (Unsorted Array) (Easy)
+
+Given an unsorted integer array `nums` and an integer `target`, return the indices of two distinct elements whose values sum to `target`. Exactly one solution exists. Return the indices in increasing order.
+
+**Function:** `twoSum(nums: integer[], target: integer) -> integer[2]`
+
+**Example 1**
+
+- **Input:** `{"nums":[2,7,11,15],"target":9}`
+- **Output:** `[0,1]`
+
+**Example 2**
+
+- **Input:** `{"nums":[3,2,4],"target":6}`
+- **Output:** `[1,2]`
+
+**Constraints:** `2 <= nums.length <= 10^4`; `-10^9 <= nums[i], target <= 10^9`; exactly one solution exists; the same index cannot be used twice.
+
+| Input | Expected Output | Coverage note |
+|---|---|---|
+| `{"nums":[2,7],"target":9}` | `[0,1]` | Minimum length |
+| `{"nums":[2,7,11,15],"target":9}` | `[0,1]` | Complement found later |
+| `{"nums":[3,2,4],"target":6}` | `[1,2]` | Unsorted order |
+| `{"nums":[3,3],"target":6}` | `[0,1]` | Duplicate values, separate indices |
+| `{"nums":[-3,4,3,90],"target":0}` | `[0,2]` | Negative complement |
+| `{"nums":[0,4,3,0],"target":0}` | `[0,3]` | Zeroes at separate indices |
+| `{"nums":[-1000000000,1000000000],"target":0}` | `[0,1]` | Value boundaries |
+
 ## 4) Binary Search
 
 ### 4.1 Binary Search (Easy)
@@ -376,6 +404,35 @@ Given two arrays `nums1` and `nums2`, each sorted in non-decreasing order, retur
 | `{"nums1":[-5,-3],"nums2":[-4,-2,-1]}` | `-3.0` | Negative values |
 | `{"nums1":[1,2,3,4,5],"nums2":[6,7,8,9]}` | `5.0` | Unequal lengths |
 | `{"nums1":[1,100],"nums2":[2,3,4,5,6]}` | `4.0` | Skewed distributions |
+
+### 4.4 First Value At Least Target (Medium)
+
+Given a sorted non-decreasing integer array `nums` and an integer `target`, return the smallest index `i` for which `nums[i] >= target`. If every element is less than `target`, return `-1`. When the target occurs more than once, return the first matching index.
+
+**Function:** `lowerBound(nums: integer[], target: integer) -> integer`
+
+**Example 1**
+
+- **Input:** `{"nums":[1,3,3,5,8],"target":4}`
+- **Output:** `3`
+
+**Example 2**
+
+- **Input:** `{"nums":[1,3,3,5,8],"target":3}`
+- **Output:** `1`
+
+**Constraints:** `0 <= nums.length <= 10^5`; `-10^9 <= nums[i], target <= 10^9`; `nums` is sorted in non-decreasing order.
+
+| Input | Expected Output | Coverage note |
+|---|---:|---|
+| `{"nums":[],"target":2}` | `-1` | Empty array |
+| `{"nums":[5],"target":4}` | `0` | Single value qualifies |
+| `{"nums":[5],"target":6}` | `-1` | Target above all values |
+| `{"nums":[1,3,3,5,8],"target":4}` | `3` | First value greater than target |
+| `{"nums":[1,3,3,5,8],"target":3}` | `1` | Duplicate target, first occurrence |
+| `{"nums":[1,2,2,2],"target":2}` | `1` | Repeated values |
+| `{"nums":[-5,-2,0,9],"target":-3}` | `1` | Negative values |
+| `{"nums":[-5,-2,0,9],"target":10}` | `-1` | No qualifying element |
 
 ## 5) Prefix Sum
 

@@ -14,10 +14,11 @@ Return only required columns and rows.
 
 ### Example
 ```sql
-SELECT employee_id, name
-FROM employees
-WHERE department = 'Engineering'
-ORDER BY employee_id;
+SELECT e.id AS employee_id, e.name AS employee_name
+FROM employees e
+JOIN departments d ON d.id = e.department_id
+WHERE d.name = 'Engineering'
+ORDER BY e.id;
 ```
 
 ### Pitfalls
@@ -39,6 +40,7 @@ FROM orders
 GROUP BY customer_id
 HAVING COUNT(*) >= 5;
 ```
+Practice: [Customers with at Least Five Orders](sql-problem-set.md#hard-6-customers-with-at-least-five-orders).
 
 ### Pitfalls
 - Filtering aggregated results in `WHERE` instead of `HAVING`.
@@ -77,9 +79,10 @@ Use query results inside another query.
 ### Example
 Find products priced above average:
 ```sql
-SELECT product_id, product_name, price
+SELECT id AS product_id, name AS product_name, price
 FROM products
-WHERE price > (SELECT AVG(price) FROM products);
+WHERE price > (SELECT AVG(price) FROM products)
+ORDER BY id;
 ```
 
 ### Pitfalls
@@ -96,15 +99,17 @@ Split complex query into readable steps.
 Top customer by total spend:
 ```sql
 WITH customer_spend AS (
-  SELECT customer_id, SUM(amount) AS total_spend
+  SELECT customer_id, SUM(amount) AS total_spend,
+         RANK() OVER (ORDER BY SUM(amount) DESC) AS spend_rank
   FROM orders
   GROUP BY customer_id
 )
 SELECT customer_id, total_spend
 FROM customer_spend
-ORDER BY total_spend DESC
-LIMIT 1;
+WHERE spend_rank = 1
+ORDER BY customer_id;
 ```
+Practice: [Top Customer by Total Spend](sql-problem-set.md#hard-7-top-customer-by-total-spend).
 
 ### Pitfalls
 - Overusing CTEs for tiny tasks can reduce clarity.
@@ -118,18 +123,25 @@ Compute analytics without collapsing rows.
 
 ### Example: Rank salary within department
 ```sql
-SELECT employee_id, department, salary,
-       DENSE_RANK() OVER (PARTITION BY department ORDER BY salary DESC) AS dept_rank
-FROM employees;
+SELECT id AS employee_id, department_id, salary,
+       DENSE_RANK() OVER (PARTITION BY department_id ORDER BY salary DESC) AS dept_rank
+FROM employees
+WHERE department_id IS NOT NULL
+ORDER BY department_id, dept_rank, employee_id;
 ```
+Practice: [Salary Rank within Each Department](sql-problem-set.md#hard-8-salary-rank-within-each-department).
 
 ### Example: Running total by date
 ```sql
-SELECT order_date,
-       amount,
-       SUM(amount) OVER (ORDER BY order_date) AS running_revenue
-FROM daily_sales;
+SELECT id AS order_id, order_date, amount,
+       SUM(amount) OVER (
+         ORDER BY order_date, id
+         ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
+       ) AS running_revenue
+FROM orders
+ORDER BY order_date, id;
 ```
+Practice: [Running Order Revenue](sql-problem-set.md#hard-9-running-order-revenue).
 
 ### Pitfalls
 - Confusing `ROW_NUMBER`, `RANK`, `DENSE_RANK` behavior with ties.
@@ -164,15 +176,17 @@ Create derived categories.
 ### Example
 Segment orders by amount:
 ```sql
-SELECT order_id,
+SELECT id AS order_id,
        amount,
        CASE
          WHEN amount < 50 THEN 'small'
          WHEN amount < 200 THEN 'medium'
          ELSE 'large'
        END AS order_size
-FROM orders;
+FROM orders
+ORDER BY id;
 ```
+Practice: [Order Amount Segments](sql-problem-set.md#hard-10-order-amount-segments).
 
 ---
 
@@ -192,14 +206,16 @@ HAVING COUNT(*) > 1;
 ### Example: Keep latest record per user
 ```sql
 WITH ranked AS (
-  SELECT *,
-         ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY updated_at DESC) AS rn
-  FROM user_events
+  SELECT user_id, activity_date,
+         ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY activity_date DESC) AS rn
+  FROM user_activity
 )
-SELECT *
+SELECT user_id, activity_date AS latest_activity_date
 FROM ranked
-WHERE rn = 1;
+WHERE rn = 1
+ORDER BY user_id;
 ```
+Practice: [Latest Activity per User](sql-problem-set.md#hard-11-latest-activity-per-user).
 
 ---
 
@@ -243,3 +259,22 @@ Use `date - row_number` grouping trick after ordering dates.
 4. Build query step-by-step (CTE if needed).
 5. Validate edge cases (nulls, ties, duplicates, no matches).
 6. Explain complexity and performance trade-offs.
+
+## Matching practice problems
+
+| Guide example | Problem set exercise |
+|---|---|
+| Filter employees by department | [Employees in a Department](sql-problem-set.md#easy-1-employees-in-a-department) |
+| Aggregate orders and filter with `HAVING` | [Customers with at Least Five Orders](sql-problem-set.md#hard-6-customers-with-at-least-five-orders) |
+| Include customers with zero orders | [Order Count per Customer](sql-problem-set.md#easy-2-order-count-per-customer) |
+| Compare product prices with the average | [Products Above Average Price](sql-problem-set.md#easy-4-products-above-average-price) |
+| Find the top-spending customer | [Top Customer by Total Spend](sql-problem-set.md#hard-7-top-customer-by-total-spend) |
+| Rank salary within departments | [Salary Rank within Each Department](sql-problem-set.md#hard-8-salary-rank-within-each-department) |
+| Compute a running revenue total | [Running Order Revenue](sql-problem-set.md#hard-9-running-order-revenue) |
+| Group revenue by month | [Monthly Revenue for Twelve Calendar Months](sql-problem-set.md#medium-3-monthly-revenue-for-twelve-calendar-months) |
+| Segment orders with `CASE` | [Order Amount Segments](sql-problem-set.md#hard-10-order-amount-segments) |
+| Detect duplicate email addresses | [Duplicate Email Addresses](sql-problem-set.md#medium-5-duplicate-email-addresses) |
+| Keep the latest activity per user | [Latest Activity per User](sql-problem-set.md#hard-11-latest-activity-per-user) |
+| Find the second-highest distinct salary | [Second Highest Distinct Salary](sql-problem-set.md#medium-1-second-highest-distinct-salary) |
+| Find customers without orders | [Customers Without Orders](sql-problem-set.md#medium-2-customers-without-orders) |
+| Group consecutive dates into streaks | [Consecutive Activity Streaks](sql-problem-set.md#hard-4-consecutive-activity-streaks) |
