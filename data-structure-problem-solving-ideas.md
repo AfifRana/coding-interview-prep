@@ -12,7 +12,7 @@ Each section includes practical intuition and examples.
 - Sliding window / two pointers.
 
 ### Example use case
-Find max sum subarray of size `k` using sliding window on array.
+[Find the maximum sum subarray of size `k`](data-structure-problem-set.md#14-maximum-sum-subarray-of-size-k-easy) using a sliding window on an array.
 
 ### Trade-offs
 - Pros: O(1) random access, cache-friendly.
@@ -26,7 +26,7 @@ Find max sum subarray of size `k` using sliding window on array.
 - Parsing, matching, substring checks.
 
 ### Example use case
-Check if two strings are anagrams with char frequency count.
+Check if two strings are anagrams with a character frequency count: [Group Anagrams](data-structure-problem-set.md#24-group-anagrams-medium).
 
 ### Patterns
 - Two pointers (palindrome)
@@ -41,7 +41,7 @@ Check if two strings are anagrams with char frequency count.
 - Frequent insert/delete with node reference.
 
 ### Example use case
-Reverse linked list in-place.
+Reverse a linked list in place: [Reverse Linked List](data-structure-problem-set.md#31-reverse-linked-list-easy).
 
 ### Core tricks
 - Dummy head for edge cases.
@@ -59,7 +59,7 @@ Reverse linked list in-place.
 - LIFO logic: nested structures, undo, expression parsing.
 
 ### Example use case
-Validate parentheses string.
+Validate a parentheses string: [Valid Parentheses](data-structure-problem-set.md#41-valid-parentheses-easy).
 
 ### Advanced usage
 - Monotonic stack for next greater element / histogram area.
@@ -73,7 +73,7 @@ Validate parentheses string.
 - Deque for sliding window max/min.
 
 ### Example use case
-Level-order traversal of binary tree with queue.
+Traverse a binary tree level by level with a queue: [Binary Tree Level Order Traversal](data-structure-problem-set.md#62-binary-tree-level-order-traversal-medium).
 
 ---
 
@@ -83,7 +83,7 @@ Level-order traversal of binary tree with queue.
 - Fast lookup, counting, deduplication.
 
 ### Example use case
-Find first non-repeating character with frequency map.
+Find the first non-repeating character with a frequency map: [First Non-Repeating Character](data-structure-problem-set.md#25-first-non-repeating-character-easy).
 
 ### Interview hint
 If you see "find quickly", "exists", "count", think hash map/set first.
@@ -96,7 +96,7 @@ If you see "find quickly", "exists", "count", think hash map/set first.
 - Hierarchical relationships.
 
 ### Example use case
-Compute max depth using DFS recursion.
+Compute maximum depth with recursive DFS: [Maximum Depth of Binary Tree](data-structure-problem-set.md#63-maximum-depth-of-binary-tree-easy).
 
 ### Traversal toolkit
 - DFS: preorder/inorder/postorder
@@ -110,7 +110,7 @@ Compute max depth using DFS recursion.
 - Ordered data, predecessor/successor.
 
 ### Example use case
-Validate BST using min/max constraints.
+Validate a BST using minimum and maximum bounds: [Validate Binary Search Tree](data-structure-problem-set.md#64-validate-binary-search-tree-medium).
 
 ### Caveat
 Unbalanced BST can degrade to linked-list-like performance.
@@ -124,7 +124,7 @@ Unbalanced BST can degrade to linked-list-like performance.
 - Top-k problems, scheduling.
 
 ### Example use case
-Find k largest elements using min-heap of size k.
+Find the `k` largest elements with a min-heap of size `k`: [K Largest Elements](data-structure-problem-set.md#73-k-largest-elements-medium).
 
 ---
 
@@ -134,7 +134,7 @@ Find k largest elements using min-heap of size k.
 - Network/relationship modeling.
 
 ### Example use case
-Shortest path in unweighted graph via BFS.
+Find the shortest path in an unweighted graph with BFS: [Shortest Path in an Unweighted Graph](data-structure-problem-set.md#84-shortest-path-in-an-unweighted-graph-medium).
 
 ### Representation
 - Adjacency list preferred for sparse graphs.
@@ -152,7 +152,7 @@ Shortest path in unweighted graph via BFS.
 - Prefix queries and dictionary search.
 
 ### Example use case
-Autocomplete: all words starting with "int".
+Find all words starting with `"int"`: [Autocomplete](data-structure-problem-set.md#92-autocomplete-medium).
 
 ### Trade-off
 Fast prefix operations, higher memory usage.
@@ -165,7 +165,7 @@ Fast prefix operations, higher memory usage.
 - Dynamic connectivity with merge/find operations.
 
 ### Example use case
-Detect cycle while adding undirected edges.
+Detect a cycle while adding undirected edges: [Redundant Connection](data-structure-problem-set.md#102-redundant-connection-medium).
 
 ### Optimization
 Path compression + union by rank/size.
@@ -186,21 +186,13 @@ Path compression + union by rank/size.
 
 ## Mini examples (decision based)
 
-- **Problem:** top 10 frequent search terms from stream  
-  **Choice:** hash map + min-heap size 10
-  **Practice:** [Top Search Terms from a Stream](data-structure-problem-set.md#54-top-search-terms-from-a-stream-medium)
+- **Problem:** [top 10 frequent search terms from a stream](data-structure-problem-set.md#54-top-search-terms-from-a-stream-medium); **Choice:** hash map + min-heap size 10
 
-- **Problem:** detect if user graph has connection path  
-  **Choice:** BFS/DFS graph traversal
-  **Practice:** [Find if Path Exists in Graph](data-structure-problem-set.md#81-find-if-path-exists-in-graph-easy)
+- **Problem:** [check whether a path exists in a graph](data-structure-problem-set.md#81-find-if-path-exists-in-graph-easy); **Choice:** BFS/DFS graph traversal
 
-- **Problem:** keep median of incoming numbers  
-  **Choice:** two heaps (max-heap left, min-heap right)
-  **Practice:** [Find Median from Data Stream](data-structure-problem-set.md#75-find-median-from-data-stream-hard)
+- **Problem:** [maintain the median of incoming numbers](data-structure-problem-set.md#75-find-median-from-data-stream-hard); **Choice:** two heaps (max-heap left, min-heap right)
 
-- **Problem:** quickly check if banned prefix appears  
-  **Choice:** trie for prefix checks
-  **Practice:** [Autocomplete](data-structure-problem-set.md#92-autocomplete-medium)
+- **Problem:** [find words matching a prefix](data-structure-problem-set.md#92-autocomplete-medium); **Choice:** trie for prefix checks
 
 ## Matching practice problems
 
