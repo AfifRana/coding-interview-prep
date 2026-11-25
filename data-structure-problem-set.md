@@ -336,6 +336,28 @@ Given a linked list and positive integer `k`, reverse nodes in consecutive group
 | `{"values":[1,2,3,4,5],"k":3}` | `[3,2,1,4,5]` | Incomplete group unchanged |
 | `{"values":[1,2,3],"k":4}` | `[1,2,3]` | k exceeds length |
 
+### 3.4 Linked List Cycle (Easy)
+
+The linked list is represented by `values` in head-to-tail order. If `pos` is `-1`, the tail points to `null`; otherwise, the tail points to the node at index `pos`. Return whether the list contains a cycle.
+
+**Function:** `hasCycle(values: integer[], pos: integer) -> boolean`
+
+**Example**
+
+- **Input:** `{"values":[3,2,0,-4],"pos":1}`
+- **Output:** `true`
+
+**Constraints:** `0 <= values.length <= 10^4`; `pos` is `-1` or a valid index; node values may repeat.
+
+| Input | Expected Output | Coverage note |
+|---|---:|---|
+| `{"values":[],"pos":-1}` | `false` | Empty list |
+| `{"values":[1],"pos":-1}` | `false` | Single node, no cycle |
+| `{"values":[1],"pos":0}` | `true` | Self-cycle |
+| `{"values":[3,2,0,-4],"pos":1}` | `true` | Tail links into list |
+| `{"values":[1,2,3],"pos":-1}` | `false` | Multiple nodes, no cycle |
+| `{"values":[1,1,1],"pos":0}` | `true` | Repeated values do not imply identity |
+
 ## 4) Stacks / Queues
 
 ### 4.1 Valid Parentheses (Easy)
@@ -856,6 +878,28 @@ Given an undirected graph with vertices `0..n-1`, return the minimum number of e
 | `{"n":2,"edges":[],"source":0,"destination":1}` | `-1` | Unreachable |
 | `{"n":5,"edges":[[0,1],[1,2],[0,3],[3,4],[4,2]],"source":0,"destination":2}` | `2` | Choose shortest of two paths |
 | `{"n":4,"edges":[[0,1],[1,2],[2,3]],"source":0,"destination":3}` | `3` | Chain |
+
+### 8.5 Dijkstra's Shortest Paths (Medium)
+
+Given a directed graph with vertices `0..n-1`, non-negative weighted edges `[from,to,weight]`, and a source vertex, return the shortest distance from the source to every vertex. Return `-1` for an unreachable vertex.
+
+**Function:** `shortestDistances(n: integer, edges: integer[][], source: integer) -> integer[]`
+
+**Example**
+
+- **Input:** `{"n":5,"edges":[[0,1,4],[0,2,1],[2,1,2],[1,3,1],[2,3,5]],"source":0}`
+- **Output:** `[0,3,1,4,-1]`
+
+**Constraints:** `1 <= n <= 10^5`; `0 <= edges.length <= 2 * 10^5`; `0 <= weight <= 10^9`; endpoints and source are valid. Use 64-bit integer arithmetic; a shortest distance may exceed 32-bit range.
+
+| Input | Expected Output | Coverage note |
+|---|---:|---|
+| `{"n":1,"edges":[],"source":0}` | `[0]` | Source only |
+| `{"n":3,"edges":[],"source":1}` | `[-1,0,-1]` | Isolated source |
+| `{"n":4,"edges":[[0,1,2],[1,2,3],[0,2,10]],"source":0}` | `[0,2,5,-1]` | Longer direct edge is not shortest |
+| `{"n":5,"edges":[[0,1,4],[0,2,1],[2,1,2],[1,3,1],[2,3,5]],"source":0}` | `[0,3,1,4,-1]` | Multiple routes and unreachable node |
+| `{"n":3,"edges":[[0,1,0],[1,2,0]],"source":0}` | `[0,0,0]` | Zero-weight edges |
+| `{"n":4,"edges":[[0,1,5],[0,2,2],[2,1,1],[1,3,1]],"source":3}` | `[-1,-1,-1,0]` | Directed edges cannot be traversed backward |
 
 ## 9) Tries
 

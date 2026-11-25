@@ -9,6 +9,8 @@ For each pattern, you get:
 4. **Complexity notes**
 5. **Common mistakes**
 
+These are common foundations, not an exhaustive catalog; interview problems often combine patterns or require adapting them to the constraints.
+
 ## 1) Two Pointers
 
 ### When to use
@@ -180,13 +182,10 @@ Grid with land/water. For each unvisited land cell:
 ### Why it works
 Queue expands layer by layer; first time reaching node gives shortest steps.
 
-### Example: Word ladder distance
+### Example: All shortest word ladders
 **Practice:** [Word Ladder II](problem-set.md#63-word-ladder-ii-hard)
 
-Each valid word transformation is an edge.
-- Start word in queue level 0
-- Expand all one-letter transformations
-- First hit end word => shortest number of transforms
+Treat each valid one-letter transformation as an edge. BFS finds the shortest distance; to return every shortest sequence, record all parent words that reach a word at the same BFS depth, then backtrack from the end word.
 
 ### Complexity
 - Time: `O(V+E)`
@@ -391,6 +390,175 @@ XOR all elements => unique number remains.
 
 ### Common mistakes
 - Operator precedence errors (`&`, `|`, `^`, shifts).
+
+---
+
+## 16) Intervals
+
+### When to use
+- Inputs describe ranges, meetings, or start/end times.
+- You need to merge overlaps, detect conflicts, or allocate resources.
+
+### Why it works
+Sorting by start point makes the next interval the only possible candidate to overlap the current merged interval.
+
+### Example: Merge overlapping intervals
+**Practice:** [Merge Intervals](problem-set.md#151-merge-intervals-medium)
+
+Sort intervals by start; sweep left to right, extending the last output interval when the next start is at or before its end. Otherwise start a new output interval.
+
+### Complexity
+- Time: `O(n log n)` for sorting
+- Space: `O(n)` for the output
+
+### Common mistakes
+- Assuming input is already sorted.
+- Misinterpreting whether touching endpoints count as overlap.
+
+---
+
+## 17) Fast and Slow Pointers
+
+### When to use
+- Linked-list cycle detection or finding a midpoint.
+- The sequence can be followed by repeatedly applying a next-step function.
+
+### Why it works
+Move one pointer by one step and another by two. If a cycle exists, the faster pointer eventually laps the slower one.
+
+### Example: Detect a linked-list cycle
+**Practice:** [Linked List Cycle](data-structure-problem-set.md#34-linked-list-cycle-easy)
+
+Advance `slow` once and `fast` twice while both can move. If they meet, there is a cycle; if `fast` reaches the end, there is not.
+
+### Complexity
+- Time: `O(n)`
+- Space: `O(1)`
+
+### Common mistakes
+- Comparing node values instead of node identity.
+- Dereferencing `fast.next` without checking that `fast` is non-null.
+
+---
+
+## 18) Divide and Conquer
+
+### When to use
+- A problem can be split into smaller independent ranges, solved recursively, then combined.
+- Sorting-based counting or balanced recursion is useful.
+
+### Why it works
+Each level processes the input in linear time while the number of levels is logarithmic when the split is balanced.
+
+### Example: Count range sums with merge sort
+**Practice:** [Count of Range Sum](problem-set.md#53-count-of-range-sum-hard)
+
+Build prefix sums. Recursively count valid ranges in each half, then use sorted halves to count cross-boundary pairs before merging them.
+
+### Complexity
+- Time: `O(n log n)`
+- Space: `O(n)`
+
+### Common mistakes
+- Counting only within each half and missing cross-boundary pairs.
+- Failing to restore sorted order during the merge.
+
+---
+
+## 19) Sorting and Selection
+
+### When to use
+- Sorting simplifies ordering, grouping, or interval processing.
+- You need only the `k`th element or top `k`, not a fully sorted result.
+
+### Why it works
+Sorting gives a predictable `O(n log n)` order. Selection partitions around a pivot and can find one rank without fully sorting.
+
+### Example: Find the `k`th largest value
+**Practice:** [Kth Largest Element in an Array](problem-set.md#94-kth-largest-element-in-an-array-medium)
+
+Quickselect places a pivot in its final sorted position, then continues only in the partition containing the desired rank. A heap is a useful alternative when `k` is small.
+
+### Complexity
+- Sorting: `O(n log n)` time.
+- Quickselect: average `O(n)`, worst-case `O(n^2)`; randomized pivots reduce the chance of worst-case behavior.
+- Heap of size `k`: `O(n log k)` time.
+
+### Common mistakes
+- Forgetting duplicates count as separate ranks.
+- Assuming Quickselect always has linear worst-case time.
+
+---
+
+## 20) Weighted Shortest Paths
+
+### When to use
+- Find shortest paths in a graph with non-negative edge weights.
+- Use BFS only when every edge has the same cost.
+
+### Why it works
+Dijkstra's algorithm repeatedly finalizes the closest unvisited vertex using a min-priority queue.
+
+### Example: Shortest distances from a source
+**Practice:** [Dijkstra's Shortest Paths](data-structure-problem-set.md#85-dijkstras-shortest-paths-medium)
+
+Initialize the source distance to zero. Pop the smallest tentative distance and relax its outgoing edges. Ignore outdated queue entries.
+
+### Complexity
+- Time: `O((V + E) log V)` with an adjacency list and binary heap.
+- Space: `O(V + E)`.
+
+### Common mistakes
+- Applying Dijkstra when edges may be negative; use Bellman-Ford or another suitable method instead.
+- Marking a vertex final when it is inserted, rather than when its smallest distance is removed from the priority queue.
+
+---
+
+## 21) Dynamic Range Queries
+
+### When to use
+- The array changes between range-sum or range-aggregate queries.
+- A static prefix-sum array is no longer sufficient after updates.
+
+### Why it works
+Fenwick trees and segment trees store partial aggregates so updates and range queries touch only logarithmically many nodes.
+
+### Example: Point update and range sum
+**Practice:** [Range Sum Query — Mutable](problem-set.md#54-range-sum-query-mutable-medium)
+
+Use a Fenwick tree for point updates and prefix sums; obtain an inclusive range sum by subtracting the prefix before its left endpoint from the prefix through its right endpoint.
+
+### Complexity
+- Build: `O(n)` with a linear Fenwick-tree build, or `O(n log n)` by repeated updates.
+- Point update and range sum: `O(log n)`.
+- Space: `O(n)`.
+
+### Common mistakes
+- Mixing inclusive and exclusive endpoints.
+- Using a structure that does not support the required update/query operations.
+
+---
+
+## 22) Monotonic Queue
+
+### When to use
+- Find a maximum or minimum for every fixed-size sliding window.
+
+### Why it works
+Keep indices in a deque with values in decreasing (for maxima) or increasing (for minima) order. Values that cannot be a future answer are removed from the back; expired indices leave from the front.
+
+### Example: Sliding-window maximum
+**Practice:** [Sliding Window Maximum](problem-set.md#24-sliding-window-maximum-hard)
+
+The front index is the maximum for the current window. Each index enters and leaves the deque at most once.
+
+### Complexity
+- Time: `O(n)`
+- Space: `O(k)`
+
+### Common mistakes
+- Storing values instead of indices, so expired entries cannot be identified.
+- Forgetting to remove indices that fall left of the current window.
 
 ---
 

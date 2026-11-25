@@ -1,6 +1,7 @@
 # SQL Problem Solving Ideas
 
 This guide explains SQL interview thinking with practical patterns, examples, and common pitfalls.
+It covers common interview patterns, not every SQL dialect or database-specific feature.
 
 ---
 
@@ -20,6 +21,7 @@ JOIN departments d ON d.id = e.department_id
 WHERE d.name = 'Engineering'
 ORDER BY e.id;
 ```
+Practice: [Employees in a Department](sql-problem-set.md#easy-1-employees-in-a-department).
 
 ### Pitfalls
 - Using `SELECT *` unnecessarily.
@@ -35,10 +37,12 @@ Summarize data by category.
 ### Example
 Count orders per customer, only customers with at least 5 orders:
 ```sql
-SELECT customer_id, COUNT(*) AS order_count
-FROM orders
-GROUP BY customer_id
-HAVING COUNT(*) >= 5;
+SELECT c.id AS customer_id, COUNT(o.id) AS order_count
+FROM customers c
+JOIN orders o ON o.customer_id = c.id
+GROUP BY c.id
+HAVING COUNT(o.id) >= 5
+ORDER BY c.id;
 ```
 Practice: [Customers with at Least Five Orders](sql-problem-set.md#hard-6-customers-with-at-least-five-orders).
 
@@ -59,15 +63,17 @@ Combine data from multiple tables.
 ### Example
 Customers and their order count (including zero):
 ```sql
-SELECT c.customer_id, c.name, COUNT(o.order_id) AS total_orders
+SELECT c.id AS customer_id, c.name AS customer_name, COUNT(o.id) AS order_count
 FROM customers c
-LEFT JOIN orders o ON c.customer_id = o.customer_id
-GROUP BY c.customer_id, c.name;
+LEFT JOIN orders o ON c.id = o.customer_id
+GROUP BY c.id, c.name
+ORDER BY c.id;
 ```
+Practice: [Order Count per Customer](sql-problem-set.md#easy-2-order-count-per-customer).
 
 ### Pitfalls
 - Join key mistakes causing row explosion.
-- `COUNT(*)` with left join may count non-null left rows unexpectedly; use `COUNT(o.order_id)`.
+- `COUNT(*)` with a left join counts the preserved left row even without a match; count the non-NULL right-side key instead, such as `COUNT(o.id)`.
 
 ---
 
@@ -84,6 +90,7 @@ FROM products
 WHERE price > (SELECT AVG(price) FROM products)
 ORDER BY id;
 ```
+Practice: [Products Above Average Price](sql-problem-set.md#easy-4-products-above-average-price).
 
 ### Pitfalls
 - Correlated subqueries can be slow if not optimized.
@@ -102,6 +109,7 @@ WITH customer_spend AS (
   SELECT customer_id, SUM(amount) AS total_spend,
          RANK() OVER (ORDER BY SUM(amount) DESC) AS spend_rank
   FROM orders
+  WHERE customer_id IS NOT NULL
   GROUP BY customer_id
 )
 SELECT customer_id, total_spend
@@ -156,12 +164,16 @@ Analyze trends over time.
 ### Example
 Monthly revenue:
 ```sql
-SELECT DATE_TRUNC('month', order_date) AS month,
+SELECT strftime('%Y-%m', order_date) AS month,
        SUM(amount) AS revenue
 FROM orders
-GROUP BY 1
-ORDER BY 1;
+WHERE order_date >= date('2025-03-15', 'start of month', '-11 months')
+  AND order_date < date('2025-03-15', 'start of month', '+1 month')
+GROUP BY strftime('%Y-%m', order_date)
+ORDER BY month;
 ```
+This example uses SQLite syntax and a fixed reference date; other SQL dialects have different date functions.
+Practice: [Monthly Revenue for Twelve Calendar Months](sql-problem-set.md#medium-3-monthly-revenue-for-twelve-calendar-months).
 
 ### Pitfalls
 - Timezone/date boundary misunderstandings.
@@ -197,11 +209,14 @@ Identify/remove duplicate records.
 
 ### Example: Detect duplicates by email
 ```sql
-SELECT email, COUNT(*) AS cnt
-FROM users
+SELECT email, COUNT(*) AS customer_count
+FROM customers
+WHERE email IS NOT NULL
 GROUP BY email
-HAVING COUNT(*) > 1;
+HAVING COUNT(*) > 1
+ORDER BY email COLLATE BINARY;
 ```
+Practice: [Duplicate Email Addresses](sql-problem-set.md#medium-5-duplicate-email-addresses).
 
 ### Example: Keep latest record per user
 ```sql
@@ -227,19 +242,94 @@ SELECT MAX(salary) AS second_highest
 FROM employees
 WHERE salary < (SELECT MAX(salary) FROM employees);
 ```
+Practice: [Second Highest Distinct Salary](sql-problem-set.md#medium-1-second-highest-distinct-salary).
 
 ### B) Customers with no orders
 ```sql
-SELECT c.customer_id, c.name
+SELECT c.id AS customer_id, c.name AS customer_name
 FROM customers c
-LEFT JOIN orders o ON c.customer_id = o.customer_id
-WHERE o.order_id IS NULL;
+LEFT JOIN orders o ON c.id = o.customer_id
+WHERE o.id IS NULL
+ORDER BY c.id;
 ```
+Practice: [Customers Without Orders](sql-problem-set.md#medium-2-customers-without-orders).
 
 ### C) Gaps and islands (consecutive dates)
-Use `date - row_number` grouping trick after ordering dates.
+For SQLite dates, assign each user's activity dates a row number and group rows by `date(activity_date, printf('-%d days', rn))`. Consecutive dates share the same shifted date.
+```sql
+WITH numbered AS (
+  SELECT user_id, activity_date,
+         ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY activity_date) AS rn
+  FROM user_activity
+),
+grouped AS (
+  SELECT user_id, activity_date,
+         date(activity_date, printf('-%d days', rn)) AS group_day
+  FROM numbered
+)
+SELECT user_id, MIN(activity_date) AS streak_start,
+       MAX(activity_date) AS streak_end, COUNT(*) AS streak_days
+FROM grouped
+GROUP BY user_id, group_day
+ORDER BY user_id, streak_start;
+```
+Practice: [Consecutive Activity Streaks](sql-problem-set.md#hard-4-consecutive-activity-streaks).
 
 ---
+
+## 11) NULL Semantics
+
+Comparisons with `NULL` evaluate to unknown, so `column = NULL` and `column <> NULL` do not match rows. Use `IS NULL` / `IS NOT NULL`. `COUNT(*)` counts rows, while `COUNT(column)` skips NULL values.
+
+For anti-joins, prefer `NOT EXISTS` when the subquery can contain NULLs; `NOT IN` can return no rows if its input includes NULL.
+
+```sql
+SELECT c.id AS customer_id, c.name AS customer_name
+FROM customers c
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM orders o
+  WHERE o.customer_id = c.id
+)
+ORDER BY c.id;
+```
+Practice: [Customers Without Orders](sql-problem-set.md#medium-2-customers-without-orders).
+
+## 12) Set Operations
+
+`UNION` removes duplicates; `UNION ALL` keeps them. `INTERSECT` returns rows present in both query results, and `EXCEPT` returns rows from the first result that are absent from the second. Both sides must return the same number of type-compatible columns.
+
+```sql
+SELECT customer_id FROM orders
+WHERE customer_id IS NOT NULL AND amount >= 100
+INTERSECT
+SELECT customer_id FROM orders
+WHERE customer_id IS NOT NULL AND order_date >= '2025-01-01';
+```
+
+In SQLite, `EXCEPT` is supported; other databases may use a different equivalent such as `MINUS`.
+Practice: [Customers with Orders in Both Periods](sql-problem-set.md#medium-6-customers-with-orders-in-both-periods).
+
+## 13) Recursive CTEs
+
+Use recursive CTEs to traverse hierarchies such as employee-manager relationships. The anchor query selects the root; the recursive query joins each discovered row to its children.
+
+```sql
+WITH RECURSIVE org AS (
+  SELECT id, name, manager_id, 1 AS level, name AS path
+  FROM employees
+  WHERE manager_id IS NULL
+  UNION ALL
+  SELECT e.id, e.name, e.manager_id, org.level + 1,
+         org.path || ' > ' || e.name
+  FROM employees e
+  JOIN org ON e.manager_id = org.id
+)
+SELECT id AS employee_id, name AS employee_name, level, path
+FROM org
+ORDER BY path COLLATE BINARY;
+```
+Practice: [Employee Org Chart](sql-problem-set.md#hard-5-employee-org-chart).
 
 ## Performance mindset (important)
 
@@ -248,6 +338,7 @@ Use `date - row_number` grouping trick after ordering dates.
 3. Ensure join keys are indexed (or logically optimized).
 4. Avoid unnecessary nested subqueries.
 5. Use window functions where they simplify logic and reduce self-joins.
+6. Inspect query plans with `EXPLAIN` or the database's equivalent; add indexes based on the actual filters, joins, and ordering.
 
 ---
 
@@ -259,22 +350,3 @@ Use `date - row_number` grouping trick after ordering dates.
 4. Build query step-by-step (CTE if needed).
 5. Validate edge cases (nulls, ties, duplicates, no matches).
 6. Explain complexity and performance trade-offs.
-
-## Matching practice problems
-
-| Guide example | Problem set exercise |
-|---|---|
-| Filter employees by department | [Employees in a Department](sql-problem-set.md#easy-1-employees-in-a-department) |
-| Aggregate orders and filter with `HAVING` | [Customers with at Least Five Orders](sql-problem-set.md#hard-6-customers-with-at-least-five-orders) |
-| Include customers with zero orders | [Order Count per Customer](sql-problem-set.md#easy-2-order-count-per-customer) |
-| Compare product prices with the average | [Products Above Average Price](sql-problem-set.md#easy-4-products-above-average-price) |
-| Find the top-spending customer | [Top Customer by Total Spend](sql-problem-set.md#hard-7-top-customer-by-total-spend) |
-| Rank salary within departments | [Salary Rank within Each Department](sql-problem-set.md#hard-8-salary-rank-within-each-department) |
-| Compute a running revenue total | [Running Order Revenue](sql-problem-set.md#hard-9-running-order-revenue) |
-| Group revenue by month | [Monthly Revenue for Twelve Calendar Months](sql-problem-set.md#medium-3-monthly-revenue-for-twelve-calendar-months) |
-| Segment orders with `CASE` | [Order Amount Segments](sql-problem-set.md#hard-10-order-amount-segments) |
-| Detect duplicate email addresses | [Duplicate Email Addresses](sql-problem-set.md#medium-5-duplicate-email-addresses) |
-| Keep the latest activity per user | [Latest Activity per User](sql-problem-set.md#hard-11-latest-activity-per-user) |
-| Find the second-highest distinct salary | [Second Highest Distinct Salary](sql-problem-set.md#medium-1-second-highest-distinct-salary) |
-| Find customers without orders | [Customers Without Orders](sql-problem-set.md#medium-2-customers-without-orders) |
-| Group consecutive dates into streaks | [Consecutive Activity Streaks](sql-problem-set.md#hard-4-consecutive-activity-streaks) |

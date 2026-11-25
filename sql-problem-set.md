@@ -70,6 +70,7 @@ Dates in fixtures use ISO `YYYY-MM-DD`. Each test-case fixture is loaded indepen
   - [Monthly Revenue for Twelve Calendar Months](#medium-3-monthly-revenue-for-twelve-calendar-months)
   - [Top Three Products per Category](#medium-4-top-three-products-per-category)
   - [Duplicate Email Addresses](#medium-5-duplicate-email-addresses)
+  - [Customers with Orders in Both Periods](#medium-6-customers-with-orders-in-both-periods)
 - [Hard](#hard)
   - [Rolling Seven-Day Active Users](#hard-1-rolling-seven-day-active-users)
   - [Monthly Retention Cohorts](#hard-2-monthly-retention-cohorts)
@@ -410,6 +411,56 @@ INSERT INTO customers (id,name,email) VALUES
 4. **Comparison is case-sensitive**
    ```sql
    INSERT INTO customers (id,name,email) VALUES (1,'A','A@x'),(2,'B','a@x');
+   ```
+   Expected rows: *(empty)*.
+
+### Medium 6. Customers with Orders in Both Periods
+
+Return each non-NULL customer ID that has at least one order on or before `2025-01-15` and at least one order after that date. Ignore orders with a NULL customer ID. Return each customer once, ordered by ID ascending.
+
+**Schema:** `orders(id, customer_id, order_date, amount)`.
+
+**Example fixture:**
+```sql
+INSERT INTO orders (id,customer_id,order_date,amount) VALUES
+  (1,1,'2025-01-10',10),(2,1,'2025-01-20',20),
+  (3,2,'2025-01-10',5),(4,3,'2025-01-20',5);
+```
+**Expected result:**
+| customer_id |
+|---:|
+| 1 |
+
+**Test cases:**
+1. **No orders:** Expected column `customer_id`; rows *(empty)*.
+2. **Customer has orders in both periods**
+   ```sql
+   INSERT INTO orders (id,customer_id,order_date,amount) VALUES
+     (1,7,'2025-01-01',1),(2,7,'2025-01-16',1);
+   ```
+   Expected rows: `(7)`.
+3. **Order on cutoff belongs to the first period**
+   ```sql
+   INSERT INTO orders (id,customer_id,order_date,amount) VALUES
+     (1,2,'2025-01-15',1),(2,2,'2025-01-16',1);
+   ```
+   Expected rows: `(2)`.
+4. **Only one period does not qualify**
+   ```sql
+   INSERT INTO orders (id,customer_id,order_date,amount) VALUES
+     (1,1,'2025-01-01',1),(2,2,'2025-01-20',1);
+   ```
+   Expected rows: *(empty)*.
+5. **Multiple orders still return one customer**
+   ```sql
+   INSERT INTO orders (id,customer_id,order_date,amount) VALUES
+     (1,3,'2025-01-01',1),(2,3,'2025-01-02',1),(3,3,'2025-01-20',1);
+   ```
+   Expected rows: `(3)`.
+6. **NULL customer IDs are ignored**
+   ```sql
+   INSERT INTO orders (id,customer_id,order_date,amount) VALUES
+     (1,NULL,'2025-01-01',1),(2,NULL,'2025-01-20',1);
    ```
    Expected rows: *(empty)*.
 

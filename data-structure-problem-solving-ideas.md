@@ -2,6 +2,7 @@
 
 This guide explains **how to choose the right data structure** and apply it with confidence.
 Each section includes practical intuition and examples.
+It covers common foundations rather than every possible interview problem; real problems often combine several structures and algorithmic patterns.
 
 ---
 
@@ -45,7 +46,7 @@ Reverse a linked list in place: [Reverse Linked List](data-structure-problem-set
 
 ### Core tricks
 - Dummy head for edge cases.
-- Fast/slow pointers for middle/cycle.
+- Fast/slow pointers for middle/cycle: [Linked List Cycle](data-structure-problem-set.md#34-linked-list-cycle-easy).
 
 ### Trade-offs
 - Pros: flexible insertion/deletion.
@@ -74,6 +75,8 @@ Validate a parentheses string: [Valid Parentheses](data-structure-problem-set.md
 
 ### Example use case
 Traverse a binary tree level by level with a queue: [Binary Tree Level Order Traversal](data-structure-problem-set.md#62-binary-tree-level-order-traversal-medium).
+
+For a fixed-size sliding window, use a deque to keep candidate maxima: [Sliding Window Maximum](problem-set.md#24-sliding-window-maximum-hard).
 
 ---
 
@@ -126,6 +129,8 @@ Unbalanced BST can degrade to linked-list-like performance.
 ### Example use case
 Find the `k` largest elements with a min-heap of size `k`: [K Largest Elements](data-structure-problem-set.md#73-k-largest-elements-medium).
 
+Two heaps can maintain a running median: [Find Median from Data Stream](data-structure-problem-set.md#75-find-median-from-data-stream-hard).
+
 ---
 
 ## 10) Graph
@@ -135,6 +140,8 @@ Find the `k` largest elements with a min-heap of size `k`: [K Largest Elements](
 
 ### Example use case
 Find the shortest path in an unweighted graph with BFS: [Shortest Path in an Unweighted Graph](data-structure-problem-set.md#84-shortest-path-in-an-unweighted-graph-medium).
+
+For non-negative weighted edges, use Dijkstra's algorithm: [Dijkstra's Shortest Paths](data-structure-problem-set.md#85-dijkstras-shortest-paths-medium).
 
 ### Representation
 - Adjacency list preferred for sparse graphs.
@@ -177,10 +184,11 @@ Path compression + union by rank/size.
 1. Need fast existence/count? → **Hash map/set**
 2. Need ordering with repeated min/max? → **Heap**
 3. Need shortest path (unweighted)? → **BFS + Queue**
-4. Need hierarchical traversal? → **Tree DFS/BFS**
-5. Need prefix search? → **Trie**
-6. Need dynamic groups/connectivity? → **Union-Find**
-7. Need contiguous segment logic? → **Array + Sliding Window**
+4. Need shortest path with non-negative weights? → **Dijkstra + Min-Heap**
+5. Need hierarchical traversal? → **Tree DFS/BFS**
+6. Need prefix search? → **Trie**
+7. Need dynamic groups/connectivity? → **Union-Find**
+8. Need contiguous segment logic? → **Array + Sliding Window / Deque**
 
 ---
 
@@ -193,22 +201,3 @@ Path compression + union by rank/size.
 - **Problem:** [maintain the median of incoming numbers](data-structure-problem-set.md#75-find-median-from-data-stream-hard); **Choice:** two heaps (max-heap left, min-heap right)
 
 - **Problem:** [find words matching a prefix](data-structure-problem-set.md#92-autocomplete-medium); **Choice:** trie for prefix checks
-
-## Matching practice problems
-
-| Guide example | Problem set exercise |
-|---|---|
-| Maximum sum subarray of size `k` | [Maximum Sum Subarray of Size K](data-structure-problem-set.md#14-maximum-sum-subarray-of-size-k-easy) |
-| Anagram grouping | [Group Anagrams](data-structure-problem-set.md#24-group-anagrams-medium) |
-| Reverse linked list | [Reverse Linked List](data-structure-problem-set.md#31-reverse-linked-list-easy) |
-| Validate parentheses | [Valid Parentheses](data-structure-problem-set.md#41-valid-parentheses-easy) |
-| Histogram area with a monotonic stack | [Largest Rectangle in Histogram](data-structure-problem-set.md#43-largest-rectangle-in-histogram-hard) |
-| Level-order tree traversal | [Binary Tree Level Order Traversal](data-structure-problem-set.md#62-binary-tree-level-order-traversal-medium) |
-| First non-repeating character | [First Non-Repeating Character](data-structure-problem-set.md#25-first-non-repeating-character-easy) |
-| Maximum tree depth | [Maximum Depth of Binary Tree](data-structure-problem-set.md#63-maximum-depth-of-binary-tree-easy) |
-| Validate a BST | [Validate Binary Search Tree](data-structure-problem-set.md#64-validate-binary-search-tree-medium) |
-| Find `k` largest elements | [K Largest Elements](data-structure-problem-set.md#73-k-largest-elements-medium) |
-| Keep a running median from incoming values | [Find Median from Data Stream](data-structure-problem-set.md#75-find-median-from-data-stream-hard) |
-| Unweighted graph shortest path | [Shortest Path in an Unweighted Graph](data-structure-problem-set.md#84-shortest-path-in-an-unweighted-graph-medium) |
-| Autocomplete by prefix | [Autocomplete](data-structure-problem-set.md#92-autocomplete-medium) |
-| Detect a cycle while adding edges | [Redundant Connection](data-structure-problem-set.md#102-redundant-connection-medium) |

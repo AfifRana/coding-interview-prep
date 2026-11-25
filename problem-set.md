@@ -18,6 +18,7 @@ For each prompt, implement the named function. The examples and test tables spec
 12. [Union-Find](#12-union-find)
 13. [Topological Sort](#13-topological-sort)
 14. [Bit Manipulation](#14-bit-manipulation)
+15. [Intervals](#15-intervals)
 
 ---
 
@@ -198,6 +199,28 @@ Given strings `s` and `t`, return the shortest substring of `s` that contains ev
 | `{"s":"xyz","t":""}` | `""` | Empty target |
 | `{"s":"","t":"a"}` | `""` | Empty source |
 | `{"s":"bbaa","t":"ab"}` | `"ba"` | Required chars in either order |
+
+### 2.4 Sliding Window Maximum (Hard)
+
+Given an integer array `nums` and an integer `k`, return the maximum value in each contiguous window of length `k`, from left to right.
+
+**Function:** `maxSlidingWindow(nums: integer[], k: integer) -> integer[]`
+
+**Example**
+
+- **Input:** `{"nums":[1,3,-1,-3,5,3,6,7],"k":3}`
+- **Output:** `[3,3,5,5,6,7]`
+
+**Constraints:** `1 <= nums.length <= 10^5`; `1 <= k <= nums.length`; `-10^4 <= nums[i] <= 10^4`.
+
+| Input | Expected Output | Coverage note |
+|---|---|---|
+| `{"nums":[1],"k":1}` | `[1]` | Window is one element |
+| `{"nums":[1,3,-1,-3,5,3,6,7],"k":3}` | `[3,3,5,5,6,7]` | Standard overlapping windows |
+| `{"nums":[9,8,7,6],"k":2}` | `[9,8,7]` | Decreasing input |
+| `{"nums":[1,2,3,4],"k":2}` | `[2,3,4]` | Increasing input |
+| `{"nums":[4,4,4,4],"k":3}` | `[4,4]` | Duplicate maximum |
+| `{"nums":[-7,-3,-5,-2],"k":2}` | `[-3,-3,-2]` | All-negative values |
 
 ## 3) Hash Map
 
@@ -522,6 +545,27 @@ Given an integer array `nums` and integers `lower` and `upper`, return the numbe
 | `{"nums":[0,0,0],"lower":0,"upper":0}` | `6` | All subarrays qualify |
 | `{"nums":[2,-2,2],"lower":-1,"upper":1}` | `2` | Prefix cancellation |
 | `{"nums":[-3,4,-2,1],"lower":-3,"upper":0}` | `5` | Inclusive bounds and mixed signs |
+
+### 5.4 Range Sum Query — Mutable (Medium)
+
+Design a data structure that supports updating one array value and querying the sum of an inclusive index range. Each update replaces the value at its index. Return `null` for each update and the range sum for each query.
+
+**Function:** `rangeSumMutable(nums: integer[], operations: string[], arguments: integer[][]) -> value[]`
+
+**Example**
+
+- **Input:** `{"nums":[1,3,5],"operations":["sumRange","update","sumRange"],"arguments":[[0,2],[1,2],[0,2]]}`
+- **Output:** `[9,null,8]`
+
+**Constraints:** `1 <= nums.length <= 3 * 10^4`; up to `3 * 10^4` operations; `-1000 <= nums[i] <= 1000`; operation indices are valid.
+
+| Input | Expected Output | Coverage note |
+|---|---|---|
+| `{"nums":[1],"operations":["sumRange","update","sumRange"],"arguments":[[0,0],[0,-2],[0,0]]}` | `[1,null,-2]` | Single element update |
+| `{"nums":[1,3,5],"operations":["sumRange","update","sumRange"],"arguments":[[0,2],[1,2],[0,2]]}` | `[9,null,8]` | Update affects later sum |
+| `{"nums":[-2,0,3,-5],"operations":["sumRange","sumRange"],"arguments":[[0,3],[1,2]]}` | `[-4,3]` | Negative values |
+| `{"nums":[2,2,2],"operations":["update","sumRange"],"arguments":[[1,2],[1,2]]}` | `[null,4]` | Updated subrange |
+| `{"nums":[5,1,7],"operations":["update","update","sumRange"],"arguments":[[0,0],[0,-1],[0,1]]}` | `[null,null,0]` | Repeated updates |
 
 ## 6) DFS/BFS
 
@@ -877,6 +921,27 @@ Design a data structure that accepts integers one at a time and reports the medi
 | `{"operations":["addNum","addNum","addNum","findMedian"],"arguments":[[100000],[-100000],[0],[]]}` | `[0]` | Wide values |
 | `{"operations":["addNum","findMedian","addNum","findMedian","addNum","findMedian"],"arguments":[[2],[],[1],[],[3],[]]}` | `[2,1.5,2]` | Repeated queries as stream grows |
 | `{"operations":["addNum","addNum","addNum","addNum","findMedian"],"arguments":[[1],[10],[2],[9],[]]}` | `[5.5]` | Median across unsorted arrivals |
+
+### 9.4 Kth Largest Element in an Array (Medium)
+
+Given an integer array `nums` and an integer `k`, return the `k`th largest value when values are ordered from largest to smallest. Duplicate values count as separate positions.
+
+**Function:** `findKthLargest(nums: integer[], k: integer) -> integer`
+
+**Example**
+
+- **Input:** `{"nums":[3,2,1,5,6,4],"k":2}`
+- **Output:** `5`
+
+**Constraints:** `1 <= k <= nums.length <= 10^5`; `-10^4 <= nums[i] <= 10^4`.
+
+| Input | Expected Output | Coverage note |
+|---|---:|---|
+| `{"nums":[1],"k":1}` | `1` | Single value |
+| `{"nums":[3,2,1,5,6,4],"k":2}` | `5` | Second largest |
+| `{"nums":[3,2,3,1,2,4,5,5,6],"k":4}` | `4` | Duplicates count |
+| `{"nums":[-1,-2,-3,-4],"k":1}` | `-1` | Negative values |
+| `{"nums":[7,7,7],"k":2}` | `7` | Equal values |
 
 ## 10) Monotonic Stack
 
@@ -1315,3 +1380,27 @@ Given a non-empty array of non-negative integers, choose two different indices a
 | `{"nums":[5,5,5,5]}` | `0` | All values equal |
 | `{"nums":[0,1,2,3,4]}` | `7` | Small consecutive values |
 | `{"nums":[2147483647,0]}` | `2147483647` | Maximum allowed value |
+
+## 15) Intervals
+
+### 15.1 Merge Intervals (Medium)
+
+Given an array of intervals where each interval is `[start, end]`, merge all overlapping intervals and return the resulting intervals sorted by start, then end. Intervals that only touch at an endpoint overlap.
+
+**Function:** `mergeIntervals(intervals: integer[][]) -> integer[][]`
+
+**Example**
+
+- **Input:** `{"intervals":[[1,3],[2,6],[8,10],[15,18]]}`
+- **Output:** `[[1,6],[8,10],[15,18]]`
+
+**Constraints:** `1 <= intervals.length <= 10^4`; `0 <= start <= end <= 10^4`.
+
+| Input | Expected Output | Coverage note |
+|---|---|---|
+| `{"intervals":[[1,3]]}` | `[[1,3]]` | One interval |
+| `{"intervals":[[1,3],[2,6],[8,10],[15,18]]}` | `[[1,6],[8,10],[15,18]]` | Overlap and disjoint intervals |
+| `{"intervals":[[1,4],[4,5]]}` | `[[1,5]]` | Touching endpoints merge |
+| `{"intervals":[[1,4],[2,3]]}` | `[[1,4]]` | Contained interval |
+| `{"intervals":[[5,7],[1,2],[2,4]]}` | `[[1,4],[5,7]]` | Unsorted input and touching |
+| `{"intervals":[[2,2],[2,2]]}` | `[[2,2]]` | Identical point intervals |
