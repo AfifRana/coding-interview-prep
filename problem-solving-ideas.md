@@ -9,30 +9,6 @@ For each pattern, you get:
 4. **Complexity notes**
 5. **Common mistakes**
 
-## Example-to-exercise map
-
-Use this index to jump from a guide example to a matching practice problem.
-
-| Guide example | Problem-set exercise |
-|---|---|
-| Pair sum in a sorted array | [Two Sum II — Input Array Is Sorted](problem-set.md#11-two-sum-ii-input-array-is-sorted-easy) |
-| Longest substring without repeats | [Longest Substring Without Repeating Characters](problem-set.md#22-longest-substring-without-repeating-characters-medium) |
-| Two Sum on unsorted input | [Two Sum (Unsorted Array)](problem-set.md#34-two-sum-unsorted-array-easy) |
-| First value at least a target | [First Value At Least Target](problem-set.md#44-first-value-at-least-target-medium) |
-| Range sum with prefix sums | [Range Sum Query — Immutable](problem-set.md#51-range-sum-query-immutable-easy) |
-| Count islands with DFS | [Number of Islands](problem-set.md#62-number-of-islands-medium) |
-| Shortest word transformations with BFS | [Word Ladder II](problem-set.md#63-word-ladder-ii-hard) |
-| Climbing stairs with dynamic programming | [Climbing Stairs](problem-set.md#71-climbing-stairs-easy) |
-| Track farthest reachable index greedily | [Jump Game](problem-set.md#82-jump-game-medium) |
-| Top `k` frequent elements | [Top K Frequent Elements](problem-set.md#92-top-k-frequent-elements-medium) |
-| Daily temperatures with a monotonic stack | [Daily Temperatures](problem-set.md#102-daily-temperatures-medium) |
-| Generate combinations with backtracking | [Combination Sum](problem-set.md#112-combination-sum-medium) |
-| Detect a cycle with Union-Find | [Redundant Connection](data-structure-problem-set.md#102-redundant-connection-medium) |
-| Order courses topologically | [Course Schedule II](problem-set.md#132-course-schedule-ii-medium) |
-| Find the unique value with XOR | [Single Number](problem-set.md#141-single-number-easy) |
-
----
-
 ## 1) Two Pointers
 
 ### When to use
@@ -44,6 +20,8 @@ Use this index to jump from a guide example to a matching practice problem.
 Two indices move with rules that reduce search space from `O(n^2)` to `O(n)` in many pair problems.
 
 ### Example: Pair sum in sorted array
+**Practice:** [Two Sum II — Input Array Is Sorted](problem-set.md#11-two-sum-ii-input-array-is-sorted-easy)
+
 **Problem:** Given sorted `nums = [1,2,4,6,10]`, find if a pair sums to `8`.
 
 - `left=0` (1), `right=4` (10) → sum=11 (too big) → move `right--`
@@ -70,6 +48,8 @@ Two indices move with rules that reduce search space from `O(n^2)` to `O(n)` in 
 Instead of recomputing from scratch for each subarray, you expand and shrink one moving window.
 
 ### Example: Longest substring without repeating characters
+**Practice:** [Longest Substring Without Repeating Characters](problem-set.md#22-longest-substring-without-repeating-characters-medium)
+
 `"abcabcbb"`
 
 - Start window `[a]` length 1
@@ -97,6 +77,8 @@ Instead of recomputing from scratch for each subarray, you expand and shrink one
 Average `O(1)` insert/lookup removes nested loops.
 
 ### Example: Two Sum (unsorted)
+**Practice:** [Two Sum (Unsorted Array)](problem-set.md#34-two-sum-unsorted-array-easy)
+
 `nums=[2,7,11,15], target=9`
 - seen={}
 - num=2 → need 7 not in seen → seen[2]=0
@@ -122,6 +104,8 @@ Average `O(1)` insert/lookup removes nested loops.
 Halves search range each step.
 
 ### Example: Find first value >= target
+**Practice:** [First Value At Least Target](problem-set.md#44-first-value-at-least-target-medium)
+
 `arr=[1,3,3,5,8], target=4`
 - mid=2 (3) < 4 → left=3
 - mid=3 (5) >=4 → candidate=3, right=2
@@ -147,6 +131,8 @@ Halves search range each step.
 Transforms repeated range computation into constant-time arithmetic.
 
 ### Example: Range sum
+**Practice:** [Range Sum Query — Immutable](problem-set.md#51-range-sum-query-immutable-easy)
+
 `nums=[3,1,4,1,5]`
 Prefix: `[0,3,4,8,9,14]`
 Sum from index 1..3 = `prefix[4]-prefix[1] = 9-3 = 6`
@@ -170,6 +156,8 @@ Sum from index 1..3 = `prefix[4]-prefix[1] = 9-3 = 6`
 Go deep along one path, then backtrack systematically.
 
 ### Example: Count islands
+**Practice:** [Number of Islands](problem-set.md#62-number-of-islands-medium)
+
 Grid with land/water. For each unvisited land cell:
 - DFS mark all connected land
 - increment island count once per DFS start
@@ -193,6 +181,8 @@ Grid with land/water. For each unvisited land cell:
 Queue expands layer by layer; first time reaching node gives shortest steps.
 
 ### Example: Word ladder distance
+**Practice:** [Word Ladder II](problem-set.md#63-word-ladder-ii-hard)
+
 Each valid word transformation is an edge.
 - Start word in queue level 0
 - Expand all one-letter transformations
@@ -217,6 +207,8 @@ Each valid word transformation is an edge.
 Store solved subproblems to avoid recomputation.
 
 ### Example: Climbing stairs
+**Practice:** [Climbing Stairs](problem-set.md#71-climbing-stairs-easy)
+
 `dp[i] = dp[i-1] + dp[i-2]`
 - `dp[1]=1, dp[2]=2`
 - `dp[3]=3, dp[4]=5, dp[5]=8`
@@ -240,6 +232,8 @@ Store solved subproblems to avoid recomputation.
 Certain structures (interval scheduling, Huffman-like choices, jump reachability) support safe local decisions.
 
 ### Example: Jump Game
+**Practice:** [Jump Game](problem-set.md#82-jump-game-medium)
+
 Track farthest reachable index.
 - If current index > farthest, fail.
 - Update `farthest = max(farthest, i + nums[i])`
@@ -264,6 +258,8 @@ Track farthest reachable index.
 Maintains partial order with efficient push/pop.
 
 ### Example: Top K frequent elements
+**Practice:** [Top K Frequent Elements](problem-set.md#92-top-k-frequent-elements-medium)
+
 - Count frequencies via map.
 - Push into min-heap of size `k` by frequency.
 - If size > k, pop smallest.
@@ -287,6 +283,8 @@ Maintains partial order with efficient push/pop.
 Stack preserves monotonic order so each element is pushed/popped at most once.
 
 ### Example: Daily Temperatures
+**Practice:** [Daily Temperatures](problem-set.md#102-daily-temperatures-medium)
+
 Maintain decreasing stack of indices.
 When current temp is higher, pop until order restored and compute day differences.
 
@@ -309,6 +307,8 @@ When current temp is higher, pop until order restored and compute day difference
 Build partial candidate, recurse, and undo choice.
 
 ### Example: Combination Sum
+**Practice:** [Combination Sum](problem-set.md#112-combination-sum-medium)
+
 - Choose number, recurse with reduced target
 - Backtrack and try next number
 - Record paths when target reaches 0
@@ -331,6 +331,8 @@ Build partial candidate, recurse, and undo choice.
 Efficiently merges groups and checks representative parent.
 
 ### Example: Detect cycle
+**Practice:** [Redundant Connection](data-structure-problem-set.md#102-redundant-connection-medium)
+
 For each edge `(u,v)`:
 - If `find(u)==find(v)` cycle exists
 - Else `union(u,v)`
@@ -352,6 +354,8 @@ Nearly constant amortized (`α(n)`) with path compression + union by rank.
 Nodes with indegree 0 can be safely processed first.
 
 ### Example: Course schedule order
+**Practice:** [Course Schedule II](problem-set.md#132-course-schedule-ii-medium)
+
 - Build graph prerequisites.
 - Queue indegree-0 courses.
 - Pop, append to order, reduce neighbors indegree.
@@ -375,6 +379,8 @@ Nodes with indegree 0 can be safely processed first.
 Bit operations are constant-time and memory efficient.
 
 ### Example: Single number
+**Practice:** [Single Number](problem-set.md#141-single-number-easy)
+
 All numbers appear twice except one.
 `a XOR a = 0`, `a XOR 0 = a`
 XOR all elements => unique number remains.
