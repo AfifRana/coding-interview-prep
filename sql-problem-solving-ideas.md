@@ -153,6 +153,7 @@ Practice: [Running Order Revenue](sql-problem-set.md#hard-9-running-order-revenu
 
 ### Pitfalls
 - Confusing `ROW_NUMBER`, `RANK`, `DENSE_RANK` behavior with ties.
+- Integer division can truncate medians; promote a value to a decimal type before averaging middle rows.
 
 ---
 
@@ -313,6 +314,7 @@ Practice: [Customers with Orders in Both Periods](sql-problem-set.md#medium-6-cu
 ## 13) Recursive CTEs
 
 Use recursive CTEs to traverse hierarchies such as employee-manager relationships. The anchor query selects the root; the recursive query joins each discovered row to its children.
+For input that may contain cycles, track visited node IDs and stop recursion when the next ID is already on the path; recursive syntax and cycle helpers vary by database.
 
 ```sql
 WITH RECURSIVE org AS (

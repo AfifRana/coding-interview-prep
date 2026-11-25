@@ -1,6 +1,6 @@
 # Data Structure Problem Set
 
-Implement each function from its statement and constraints. The listed examples and test cases specify input/output behavior; values after an in-place operation are ignored unless explicitly requested.
+Implement each function from its statement and constraints. Each problem is an independent exercise; identical function names in other problem sets may have different input representations. The listed examples and test cases specify input/output behavior; values after an in-place operation are ignored unless explicitly requested. Compare integer, string, and boolean outputs exactly; compare floating-point outputs with absolute error at most `1e-9`.
 
 ## Table of Contents
 
@@ -121,6 +121,27 @@ Given an integer array `nums` and an integer `k`, return the maximum sum of any 
 | `{"nums":[2,1,5,1,3,2],"k":3}` | `9` | Maximum is an interior window |
 | `{"nums":[-5,-2,-3],"k":2}` | `-5` | All-negative values |
 | `{"nums":[4,4,4,4],"k":2}` | `8` | Equal window sums |
+
+### 1.5 Fenwick Tree for Mutable Range Sums (Medium)
+
+Implement a Fenwick tree initialized from a non-empty integer array. Support `add(index, delta)`, which adds `delta` to one value, and `sumRange(left, right)`, which returns the inclusive range sum. Return `null` for each `add` and the sum for each query.
+
+**Function:** `runFenwickTree(nums: integer[], operations: string[], arguments: integer[][]) -> value[]`
+
+**Example**
+
+- **Input:** `{"nums":[1,3,5],"operations":["sumRange","add","sumRange"],"arguments":[[0,2],[1,2],[0,2]]}`
+- **Output:** `[9,null,11]`
+
+**Constraints:** `1 <= nums.length <= 10^5`; `1 <= operations.length <= 10^5`; `-10^4 <= nums[i], delta <= 10^4`; all indices and operations are valid; range sums fit signed 32-bit integers.
+
+| Input | Expected Output | Coverage note |
+|---|---|---|
+| `{"nums":[5],"operations":["sumRange","add","sumRange"],"arguments":[[0,0],[0,-2],[0,0]]}` | `[5,null,3]` | Single element update |
+| `{"nums":[1,3,5],"operations":["sumRange","add","sumRange"],"arguments":[[0,2],[1,2],[0,2]]}` | `[9,null,11]` | Point update changes full sum |
+| `{"nums":[-2,0,3,-5],"operations":["sumRange","sumRange"],"arguments":[[0,3],[1,2]]}` | `[-4,3]` | Negative values |
+| `{"nums":[2,2,2],"operations":["add","sumRange"],"arguments":[[1,-4],[1,2]]}` | `[null,0]` | Negative delta in subrange |
+| `{"nums":[5,1,7],"operations":["add","add","sumRange"],"arguments":[[0,2],[0,-3],[0,1]]}` | `[null,null,5]` | Repeated updates |
 
 ## 2) Strings
 
@@ -441,13 +462,32 @@ Given non-negative histogram bar heights, where each bar has width one, return t
 | `{"heights":[1,2,3,4]}` | `6` | Increasing heights |
 | `{"heights":[4,3,2,1]}` | `6` | Decreasing heights |
 
+### 4.4 Design Circular Queue (Medium)
+
+Design a circular queue with fixed capacity `k`. Support `enqueue(value)`, `dequeue()`, `front()`, `rear()`, `isEmpty()`, and `isFull()`. Enqueue and dequeue return booleans; `front` and `rear` return `-1` when empty; the predicates return booleans.
+
+**Function:** `runCircularQueue(k: integer, operations: string[], arguments: integer[][]) -> value[]`
+
+**Example**
+
+- **Input:** `{"k":3,"operations":["enqueue","enqueue","enqueue","enqueue","rear","isFull","dequeue","enqueue","rear"],"arguments":[[1],[2],[3],[4],[],[],[],[4],[]]}`
+- **Output:** `[true,true,true,false,3,true,true,true,4]`
+
+**Constraints:** `1 <= k <= 1000`; `1 <= operations.length <= 10^4`; values are integers; operation names and arguments are valid.
+
+| Input | Expected Output | Coverage note |
+|---|---|---|
+| `{"k":1,"operations":["isEmpty","enqueue","isFull","front","rear","dequeue","isEmpty"],"arguments":[[],[5],[],[],[],[],[]]}` | `[true,true,true,5,5,true,true]` | Capacity one |
+| `{"k":2,"operations":["enqueue","enqueue","enqueue","rear","dequeue","enqueue","rear"],"arguments":[[1],[2],[3],[],[],[3],[]]}` | `[true,true,false,2,true,true,3]` | Wrap around after dequeue |
+| `{"k":2,"operations":["front","rear","dequeue"],"arguments":[[],[],[]]}` | `[-1,-1,false]` | Empty queue operations |
+
 ## 5) Hash Tables
 
 ### 5.1 Two Sum (Easy)
 
 Given an integer array `nums` and an integer `target`, return the two distinct indices whose values sum to `target`. Exactly one solution exists. Return the indices in increasing order.
 
-**Function:** `twoSum(nums: integer[], target: integer) -> integer[2]`
+**Function:** `twoSumWithHashMap(nums: integer[], target: integer) -> integer[2]`
 
 **Example 1**
 
@@ -491,7 +531,7 @@ Design a least-recently-used cache with positive capacity. `get(key)` returns it
 | `{"capacity":2,"operations":["get","put","get"],"arguments":[[5],[5,7],[5]]}` | `[-1,null,7]` | Missing key then insert |
 | `{"capacity":3,"operations":["put","put","put","get","put","get"],"arguments":[[-1,4],[0,5],[2,6],[-1],[3,7],[0]]}` | `[null,null,null,4,null,-1]` | Negative key and eviction |
 
-### 5.3 All O'one Data Structure (Hard)
+### 5.3 All O(1) Data Structure (Hard)
 
 Design a structure supporting `inc(key)`, `dec(key)`, `getMaxKey()`, and `getMinKey()`. `inc` creates an absent key at count 1 or increments its count. `dec` decrements a present key and removes it at count 0. For `dec`, the key is guaranteed to exist. Return an empty string from a get operation when the structure is empty. Test cases query min/max only when the corresponding key is unique.
 
@@ -535,7 +575,7 @@ Given a stream of search terms and an integer `k`, return the `k` most frequent 
 
 ## 6) Trees
 
-Trees are represented as level-order arrays, using `null` for missing children.
+Trees are represented as level-order arrays. After the root, entries correspond to each queued non-null node's left and right child, with `null` for a missing child. Trailing `null` entries may be omitted. Inputs are valid encodings; values that would be unreachable because their parent is `null` are not permitted.
 
 ### 6.1 Symmetric Tree (Easy)
 
@@ -593,7 +633,7 @@ Given a binary tree, return its node values grouped by level from top to bottom,
 
 Given a binary tree, return the number of nodes on its longest root-to-leaf path. An empty tree has depth zero.
 
-**Function:** `maxDepth(tree: value[]) -> integer`
+**Function:** `maxDepthLevelOrder(tree: value[]) -> integer`
 
 **Example**
 
@@ -685,7 +725,7 @@ Given stone weights, repeatedly choose the two heaviest stones `x <= y`. If equa
 
 ### 7.2 K Closest Points to Origin (Medium)
 
-Given points with integer coordinates and integer `k`, return the `k` points with the smallest squared Euclidean distance from the origin. Sort returned points by increasing squared distance, then increasing x-coordinate, then increasing y-coordinate.
+Given points with integer coordinates and integer `k`, return the `k` points with the smallest squared Euclidean distance from the origin. Sort returned points by increasing squared distance, then increasing x-coordinate, then increasing y-coordinate. Do not modify the input array; return the selected coordinate pairs as output values.
 
 **Function:** `kClosest(points: integer[][], k: integer) -> integer[][]`
 
@@ -900,6 +940,28 @@ Given a directed graph with vertices `0..n-1`, non-negative weighted edges `[fro
 | `{"n":5,"edges":[[0,1,4],[0,2,1],[2,1,2],[1,3,1],[2,3,5]],"source":0}` | `[0,3,1,4,-1]` | Multiple routes and unreachable node |
 | `{"n":3,"edges":[[0,1,0],[1,2,0]],"source":0}` | `[0,0,0]` | Zero-weight edges |
 | `{"n":4,"edges":[[0,1,5],[0,2,2],[2,1,1],[1,3,1]],"source":3}` | `[-1,-1,-1,0]` | Directed edges cannot be traversed backward |
+
+### 8.6 Bellman-Ford Shortest Paths (Medium)
+
+Given a directed graph with vertices `0..n-1`, weighted edges `[from,to,weight]`, and a source vertex, return the shortest distance from the source to every vertex. Edges may have negative weights, but no negative-weight cycle is reachable from the source. Return `-1` for unreachable vertices.
+
+**Function:** `bellmanFordDistances(n: integer, edges: integer[][], source: integer) -> integer[]`
+
+**Example**
+
+- **Input:** `{"n":5,"edges":[[0,1,4],[0,2,5],[1,2,-2],[2,3,3]],"source":0}`
+- **Output:** `[0,4,2,5,-1]`
+
+**Constraints:** `1 <= n <= 2000`; `0 <= edges.length <= 10^4`; `-10^6 <= weight <= 10^6`; endpoints and source are valid; no reachable negative-weight cycle. Use 64-bit integer arithmetic for distances.
+
+| Input | Expected Output | Coverage note |
+|---|---|---|
+| `{"n":1,"edges":[],"source":0}` | `[0]` | Source only |
+| `{"n":3,"edges":[],"source":1}` | `[-1,0,-1]` | Unreachable vertices |
+| `{"n":4,"edges":[[0,1,2],[1,2,-5],[0,2,1],[2,3,2]],"source":0}` | `[0,2,-3,-1]` | Negative edge improves route |
+| `{"n":5,"edges":[[0,1,4],[0,2,5],[1,2,-2],[2,3,3]],"source":0}` | `[0,4,2,5,-1]` | Multiple edges and unreachable node |
+| `{"n":3,"edges":[[0,1,0],[1,2,0]],"source":0}` | `[0,0,0]` | Zero-weight edges |
+| `{"n":3,"edges":[[0,1,-1],[1,2,2]],"source":2}` | `[-1,-1,0]` | Directed edges are not reversed |
 
 ## 9) Tries
 

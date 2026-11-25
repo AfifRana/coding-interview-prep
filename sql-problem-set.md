@@ -4,9 +4,9 @@ Write a SQL query for each prompt using the shared schema and exact output contr
 
 ## How to use
 
-Each exercise is a query-writing problem, not a request to reproduce a provided solution. Create the shared schema below, load one fixture at a time into a fresh database, and write a query that returns exactly the requested columns and rows. Unless stated otherwise, compare values exactly and order by the columns specified in the problem. The displayed fixtures and expected results are executable tests; they are not the only valid database contents.
+Each exercise is a query-writing problem, not a request to reproduce a provided solution. Use SQLite-compatible SQL with the shared schema below, load one fixture at a time into a fresh database, and write a query that returns exactly the requested columns and rows. Integer, text, and NULL results are compared exactly; numeric results that may be fractional are accepted when their absolute difference is at most `1e-9`. Order rows by the columns specified in the problem. The displayed fixtures and expected results are executable tests; they are not the only valid database contents.
 
-The schema uses SQLite-compatible types and syntax for fixtures. Problem statements describe behavior rather than requiring a particular SQL dialect. Tables are empty at the start of each fixture.
+Tables are empty at the start of each fixture. For practice in another database, translate SQLite-specific date, string, collation, and recursive-query syntax to that dialect.
 
 ## Shared schema
 
@@ -345,7 +345,7 @@ INSERT INTO orders (id,order_date,amount) VALUES
 
 ### Medium 4. Top Three Products per Category
 
-For each category, calculate each product's total sold revenue as `quantity * product price` across order items. Return up to three products with positive or zero recorded sales for each category, excluding products with no order-item rows. Return `category`, `product_id`, `product_name`, and `revenue`. Rank by revenue descending, breaking ties by product ID ascending. Order final rows by category ascending, then rank ascending.
+For each category, calculate each product's total sold revenue as `quantity * product price` across order items. Assume product prices and order-item quantities are non-negative. Return up to three products with positive or zero recorded sales for each category, excluding products with no order-item rows. Return `category`, `product_id`, `product_name`, and `revenue`. Rank by revenue descending, breaking ties by product ID ascending. Order final rows by category ascending, then rank ascending.
 
 **Schema:** `products(id, name, category, price)`, `order_items(order_id, product_id, quantity)`.
 
@@ -542,7 +542,7 @@ INSERT INTO user_activity VALUES
 
 ### Hard 3. Median Salary per Department
 
-For each department that has at least one employee, return `department_id` and the median salary. For an odd number of employees, use the middle salary after sorting. For an even number, use the arithmetic mean of the two middle salaries. Return the median as a numeric value and order by department ID ascending. All salaries are non-NULL.
+For each department that has at least one employee, return `department_id` and the median salary. For an odd number of employees, use the middle salary after sorting. For an even number, use the arithmetic mean of the two middle salaries. Return the median as a numeric value and order by department ID ascending. All salaries are non-NULL. Ensure the calculation uses non-integer division (for example, cast a middle salary to `REAL`) so fractional medians are preserved.
 
 **Schema:** `departments(id, name)` and `employees(id, salary, department_id)`.
 
@@ -618,7 +618,7 @@ INSERT INTO user_activity VALUES
 
 ### Hard 5. Employee Org Chart
 
-The employee table represents one acyclic management tree with exactly one CEO (`manager_id IS NULL`), and every employee is reachable from that CEO. Return `employee_id`, `employee_name`, `level`, and `path`. The CEO has level 1; each report's level is one more than its manager's. The path joins names from CEO to employee using ` > `. Names do not contain that separator. Order rows by `path` using binary ordering.
+The employee table represents one acyclic management tree with exactly one CEO (`manager_id IS NULL`), and every employee is reachable from that CEO. Return `employee_id`, `employee_name`, `level`, and `path`. The CEO has level 1; each report's level is one more than its manager's. The path joins names from CEO to employee using ` > `. Names do not contain that separator. Order rows by `path COLLATE BINARY` (SQLite binary collation).
 
 **Schema:** `employees(id, name, manager_id)`.
 

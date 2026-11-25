@@ -15,6 +15,8 @@ It covers common foundations rather than every possible interview problem; real 
 ### Example use case
 [Find the maximum sum subarray of size `k`](data-structure-problem-set.md#14-maximum-sum-subarray-of-size-k-easy) using a sliding window on an array.
 
+For arrays that change between range-sum queries, use a Fenwick tree or segment tree. Implement a Fenwick tree in [Fenwick Tree for Mutable Range Sums](data-structure-problem-set.md#15-fenwick-tree-for-mutable-range-sums-medium), or practice the broader algorithm contract in [Range Sum Query — Mutable](problem-set.md#54-range-sum-query-mutable-medium).
+
 ### Trade-offs
 - Pros: O(1) random access, cache-friendly.
 - Cons: costly middle insert/delete (`O(n)`).
@@ -76,7 +78,9 @@ Validate a parentheses string: [Valid Parentheses](data-structure-problem-set.md
 ### Example use case
 Traverse a binary tree level by level with a queue: [Binary Tree Level Order Traversal](data-structure-problem-set.md#62-binary-tree-level-order-traversal-medium).
 
-For a fixed-size sliding window, use a deque to keep candidate maxima: [Sliding Window Maximum](problem-set.md#24-sliding-window-maximum-hard).
+Related algorithm-set practice: use a deque to keep candidate maxima for [Sliding Window Maximum](problem-set.md#24-sliding-window-maximum-hard).
+
+For a fixed-capacity FIFO queue with wraparound storage, see [Design Circular Queue](data-structure-problem-set.md#44-design-circular-queue-medium).
 
 ---
 
@@ -111,6 +115,8 @@ Compute maximum depth with recursive DFS: [Maximum Depth of Binary Tree](data-st
 
 ### Best for
 - Ordered data, predecessor/successor.
+
+Balanced search trees (such as AVL or red-black trees) support ordered lookup, insertion, and deletion in `O(log n)`; an unbalanced BST can degrade to `O(n)`.
 
 ### Example use case
 Validate a BST using minimum and maximum bounds: [Validate Binary Search Tree](data-structure-problem-set.md#64-validate-binary-search-tree-medium).

@@ -220,6 +220,13 @@ Store solved subproblems to avoid recomputation.
 - Wrong state definition.
 - Incorrect base cases.
 
+### Memoization and partition DP
+Memoization stores the result of a recursive state the first time it is computed; bottom-up DP fills states in dependency order. For string segmentation, define `dp[i]` as whether the prefix ending at `i` can be formed, then try dictionary words ending at each position.
+
+**Practice:** [Word Break](problem-set.md#74-word-break-medium)
+
+Partition DP uses the same idea when each transition chooses a split point or final segment. State precisely what the prefix or subrange represents, and account for all legal split points.
+
 ---
 
 ## 9) Greedy
@@ -512,6 +519,10 @@ Initialize the source distance to zero. Pop the smallest tentative distance and 
 - Applying Dijkstra when edges may be negative; use Bellman-Ford or another suitable method instead.
 - Marking a vertex final when it is inserted, rather than when its smallest distance is removed from the priority queue.
 
+For negative edge weights without a reachable negative cycle, use Bellman-Ford: relax every edge up to `V-1` times, stopping early if no distance changes. Its time complexity is `O(VE)`.
+
+**Practice:** [Bellman-Ford Shortest Paths](data-structure-problem-set.md#86-bellman-ford-shortest-paths-medium)
+
 ---
 
 ## 21) Dynamic Range Queries
@@ -559,6 +570,29 @@ The front index is the maximum for the current window. Each index enters and lea
 ### Common mistakes
 - Storing values instead of indices, so expired entries cannot be identified.
 - Forgetting to remove indices that fall left of the current window.
+
+---
+
+## 23) String Matching (KMP)
+
+### When to use
+- Find a pattern in text when repeated prefixes can cause naive matching to re-check many characters.
+
+### Why it works
+The prefix-function (failure table) records the longest proper prefix that is also a suffix. On a mismatch, it lets the search reuse already matched information without moving the text index backward.
+
+### Example: Find the first pattern occurrence
+**Practice:** [Find the First Occurrence of a Pattern](problem-set.md#161-find-the-first-occurrence-of-a-pattern-medium)
+
+Build the prefix table for the pattern, then scan the text once while following table links on mismatches.
+
+### Complexity
+- Time: `O(n + m)` for text length `n` and pattern length `m`.
+- Space: `O(m)`.
+
+### Common mistakes
+- Including the full pattern when computing a proper prefix.
+- Resetting the matched-prefix length to zero instead of using the failure table.
 
 ---
 
