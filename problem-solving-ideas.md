@@ -500,28 +500,52 @@ Quickselect places a pivot in its final sorted position, then continues only in 
 ## 20) Weighted Shortest Paths
 
 ### When to use
-- Find shortest paths in a graph with non-negative edge weights.
-- Use BFS only when every edge has the same cost.
+- **BFS:** all edges have the same cost (usually one).
+- **Dijkstra:** weights are non-negative.
+- **Bellman–Ford:** weights may be negative; you also need to detect a reachable negative-weight cycle.
 
-### Why it works
-Dijkstra's algorithm repeatedly finalizes the closest unvisited vertex using a min-priority queue.
+### Core idea: relaxation
+For an edge `u -> v` with weight `w`, a path to `v` through `u` has cost `dist[u] + w`. If that is smaller than the current `dist[v]`, replace `dist[v]` with it. This update is called **relaxing** the edge.
 
-### Example: Shortest distances from a source
+### Example: Dijkstra with non-negative weights
 **Practice:** [Dijkstra's Shortest Paths](data-structure-problem-set.md#85-dijkstras-shortest-paths-medium)
 
-Initialize the source distance to zero. Pop the smallest tentative distance and relax its outgoing edges. Ignore outdated queue entries.
+Initialize `dist[source] = 0` and all other distances to infinity. Repeatedly remove the vertex with the smallest tentative distance from a min-heap and relax its outgoing edges. Ignore stale heap entries when a better distance has since been found.
 
-### Complexity
-- Time: `O((V + E) log V)` with an adjacency list and binary heap.
-- Space: `O(V + E)`.
+Non-negative weights matter: once a vertex is removed with the smallest tentative distance, no later path can make it cheaper. Negative edges break that guarantee.
+
+**Complexity:** `O((V + E) log V)` time and `O(V + E)` space with an adjacency list and binary heap.
+
+### Example: Bellman–Ford with a negative edge
+**Practice:** [Bellman-Ford Shortest Paths](data-structure-problem-set.md#86-bellman-ford-shortest-paths-medium)
+
+Use the exercise graph with source `0`:
+
+```text
+0 -> 1 (4)
+0 -> 2 (5)
+1 -> 2 (-2)
+2 -> 3 (3)
+```
+
+Start with distances `[0, ∞, ∞, ∞, ∞]`. On the first pass, relaxing the edges updates them to `[0, 4, 2, 5, ∞]`: the route to vertex `2` through vertex `1` costs `4 + (-2) = 2`, improving on the direct cost `5`. The next pass makes no changes, so the algorithm can stop early. Unreachable vertex `4` stays at infinity and is returned as `-1`.
+
+Bellman–Ford relaxes every edge up to `V-1` times because a shortest simple path can contain at most `V-1` edges. If a reachable edge can still be relaxed after those passes, a reachable negative-weight cycle exists; distances on such paths have no finite minimum. Unreachable negative cycles do not affect distances from the source.
+
+**Complexity:** `O(VE)` time and `O(V)` extra distance space, in addition to the graph.
+
+### Choosing and implementing the algorithm
+- Use BFS for equal-cost edges; it visits vertices in increasing distance layers.
+- Use Dijkstra for non-negative weights; use a min-heap to process the next closest vertex.
+- Use Bellman–Ford when negative edges are allowed or negative-cycle detection is required.
+- A DAG with negative edges can also be solved in `O(V + E)` by relaxing vertices in topological order.
 
 ### Common mistakes
-- Applying Dijkstra when edges may be negative; use Bellman-Ford or another suitable method instead.
-- Marking a vertex final when it is inserted, rather than when its smallest distance is removed from the priority queue.
-
-For negative edge weights without a reachable negative cycle, use Bellman-Ford: relax every edge up to `V-1` times, stopping early if no distance changes. Its time complexity is `O(VE)`.
-
-**Practice:** [Bellman-Ford Shortest Paths](data-structure-problem-set.md#86-bellman-ford-shortest-paths-medium)
+- Running Dijkstra on a graph with negative edges.
+- Failing to skip relaxations from unreachable vertices; infinity plus a negative value must not create a fake path.
+- Updating a distance from an unreachable vertex or using an unsafe finite sentinel that can overflow.
+- Forgetting that Bellman–Ford's result depends only on reachable vertices when checking for negative cycles.
+- Treating `-1` as infinity internally when `-1` could be a valid distance; use a separate unreachable state or a safely bounded sentinel.
 
 ---
 
