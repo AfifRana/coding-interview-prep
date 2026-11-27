@@ -768,6 +768,52 @@ Given a string `s` and a dictionary `wordDict`, return `true` if `s` can be spli
 | `{"s":"cars","wordDict":["car","ca","rs"]}` | `true` | Alternate segmentations |
 | `{"s":"a","wordDict":["a"]}` | `true` | One-character match |
 
+### 7.5 0/1 Knapsack (Medium)
+
+Given `weights` and `values` for `n` items and a capacity `capacity`, choose a subset of items whose total weight is at most the capacity and whose total value is as large as possible. Each item may be chosen at most once.
+
+**Function:** `knapsack01(weights: integer[], values: integer[], capacity: integer) -> integer`
+
+**Example**
+
+- **Input:** `{"weights":[2,3,4,5],"values":[3,4,5,6],"capacity":5}`
+- **Output:** `7`
+
+**Constraints:** `0 <= weights.length == values.length <= 200`; `1 <= weights[i] <= 10^4`; `0 <= values[i] <= 10^4`; `0 <= capacity <= 10^4`.
+
+| Input | Expected Output | Coverage note |
+|---|---:|---|
+| `{"weights":[],"values":[],"capacity":5}` | `0` | No items |
+| `{"weights":[2],"values":[3],"capacity":1}` | `0` | No item fits |
+| `{"weights":[2],"values":[3],"capacity":2}` | `3` | One item fits exactly |
+| `{"weights":[2,3,4,5],"values":[3,4,5,6],"capacity":5}` | `7` | Combine two items |
+| `{"weights":[1,2,3],"values":[6,10,12],"capacity":5}` | `22` | Best subset is not a single item |
+| `{"weights":[1,1],"values":[5,5],"capacity":1}` | `5` | Each item can only be used once |
+| `{"weights":[3,4],"values":[0,0],"capacity":10}` | `0` | Zero-value items |
+
+### 7.6 Longest Increasing Subsequence (Medium)
+
+Given an integer array `nums`, return the length of its longest strictly increasing subsequence. A subsequence keeps the relative order of selected elements but need not be contiguous. The empty array has length zero.
+
+**Function:** `lengthOfLIS(nums: integer[]) -> integer`
+
+**Example**
+
+- **Input:** `{"nums":[10,9,2,5,3,7,101,18]}`
+- **Output:** `4`
+
+**Constraints:** `0 <= nums.length <= 2500`; `-10^4 <= nums[i] <= 10^4`.
+
+| Input | Expected Output | Coverage note |
+|---|---:|---|
+| `{"nums":[]}` | `0` | Empty input |
+| `{"nums":[7]}` | `1` | One value |
+| `{"nums":[10,9,2,5,3,7,101,18]}` | `4` | Standard case |
+| `{"nums":[0,1,0,3,2,3]}` | `4` | Choose an increasing subsequence |
+| `{"nums":[7,7,7,7]}` | `1` | Strictly increasing excludes equals |
+| `{"nums":[4,3,2,1]}` | `1` | Decreasing sequence |
+| `{"nums":[-3,-2,-1,0]}` | `4` | Negative values |
+
 ## 8) Greedy
 
 ### 8.1 Assign Cookies (Easy)

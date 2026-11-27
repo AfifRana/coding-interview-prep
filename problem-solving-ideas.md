@@ -203,29 +203,55 @@ Treat each valid one-letter transformation as an edge. BFS finds the shortest di
 - “min/max/count ways” type questions.
 
 ### Why it works
-Store solved subproblems to avoid recomputation.
+Define each smaller subproblem once, then reuse its answer. A valid DP state must contain enough information to determine the remaining choices and the answer for the current subproblem.
 
-### Example: Climbing stairs
+### A practical DP design process
+1. **Choose the state.** Write in plain language what `dp[...]` means. Use one index for a prefix or position; add dimensions for independent information such as a second string index, remaining capacity, or whether an action is available.
+2. **Write the transition.** Enumerate the legal previous states or choices that can lead to this state. For optimization, take `min` or `max`; for counting, combine counts; for feasibility, use a boolean transition.
+3. **Set base cases.** Include empty prefixes, zero capacity, and boundary positions explicitly.
+4. **Choose an evaluation order.** A state must be computed after every state it depends on. Recursive memoization follows dependencies on demand; tabulation evaluates them in dependency order.
+5. **Check the answer and complexity.** Identify which state contains the requested result. Time is generally number of states times work per transition; space is the number of stored states.
+6. **Optimize only after correctness.** If a state uses only the previous row or a bounded set of earlier values, rolling storage may reduce space. Confirm the transition does not still need overwritten values.
+
+### One-dimensional state: Climbing Stairs
 **Practice:** [Climbing Stairs](problem-set.md#71-climbing-stairs-easy)
 
-`dp[i] = dp[i-1] + dp[i-2]`
-- `dp[1]=1, dp[2]=2`
-- `dp[3]=3, dp[4]=5, dp[5]=8`
+Let `dp[i]` be the number of ways to reach step `i`. The final move comes from `i-1` or `i-2`, so `dp[i] = dp[i-1] + dp[i-2]`, with `dp[0] = 1`. Only the previous two values are needed, allowing `O(1)` extra space.
 
-### Complexity
-- Time: often `O(n)` to `O(n^2)`
-- Space: optimized from table to rolling vars when possible
+### Two-dimensional state: Edit Distance
+**Practice:** [Edit Distance](problem-set.md#73-edit-distance-hard)
 
-### Common mistakes
-- Wrong state definition.
-- Incorrect base cases.
+Let `dp[i][j]` be the minimum edits to convert the first `i` characters of `word1` into the first `j` characters of `word2`. If the last characters match, use `dp[i-1][j-1]`; otherwise take one plus the minimum of insert, delete, and replace transitions. Empty-prefix base cases are `dp[i][0] = i` and `dp[0][j] = j`.
 
-### Memoization and partition DP
-Memoization stores the result of a recursive state the first time it is computed; bottom-up DP fills states in dependency order. For string segmentation, define `dp[i]` as whether the prefix ending at `i` can be formed, then try dictionary words ending at each position.
+The full table uses `O(mn)` time and space. Since each row depends only on the previous row and the current row's left cell, rolling rows reduce auxiliary space to `O(min(m,n))` if the strings are oriented accordingly.
 
+### Memoization versus tabulation
+Memoization is top-down recursion plus a cache: it evaluates only states reached from the target, but uses call-stack space and can hit recursion limits. Tabulation is bottom-up: it makes evaluation order explicit, avoids recursive calls, and can make rolling-array optimization straightforward. Choose based on reachable states, dependency shape, recursion depth, and language constraints; both should implement the same recurrence.
+
+### Knapsack: each item once versus reusable choices
+**Practice:** [0/1 Knapsack](problem-set.md#75-01-knapsack-medium)
+
+Let `dp[c]` be the best value achievable with capacity at most `c`. For an item with weight `w` and value `v`, update capacities in descending order:
+`dp[c] = max(dp[c], dp[c-w] + v)`.
+Descending order ensures the current item is not reused in the same iteration. For unbounded knapsack, where reuse is allowed, capacities are generally processed in ascending order instead.
+
+### Subsequences: Longest Increasing Subsequence
+**Practice:** [Longest Increasing Subsequence](problem-set.md#76-longest-increasing-subsequence-medium)
+
+For the quadratic DP, let `dp[i]` be the length of the longest strictly increasing subsequence ending at index `i`. Start at one and consider every earlier `j` with `nums[j] < nums[i]`, updating `dp[i] = max(dp[i], dp[j] + 1)`. This is `O(n^2)` time and `O(n)` space. A tails-array method improves time to `O(n log n)`; its entries are minimum tail values, not the actual subsequence itself.
+
+### Partition DP: Word Break
 **Practice:** [Word Break](problem-set.md#74-word-break-medium)
 
-Partition DP uses the same idea when each transition chooses a split point or final segment. State precisely what the prefix or subrange represents, and account for all legal split points.
+Let `dp[i]` mean the prefix `s[0:i]` can be segmented. Set `dp[0] = true`; for each end position `i`, check earlier cut positions `j` where `dp[j]` is true and `s[j:i]` is in the dictionary. This makes the boundary choice explicit and avoids treating a greedy longest-word choice as always safe.
+
+### Common mistakes
+- A state omits information needed to decide the future, or encodes more information than necessary.
+- Base cases do not match the state definition (especially empty prefixes and zero capacity).
+- A transition misses a legal choice or counts the same choice more than once.
+- Loop order accidentally permits reusing a 0/1 item, or forbids reuse in an unbounded problem.
+- A space optimization overwrites values that a later transition still needs.
+- Assuming a locally best choice is valid without proving the greedy property.
 
 ---
 
